@@ -410,6 +410,210 @@
         box-shadow: none;
       }
 
+      .stakeholder-gantt {
+        border-radius: 26px;
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        padding: 2.2rem 2rem;
+        background: rgba(15, 23, 42, 0.14);
+        display: grid;
+        gap: 1.6rem;
+      }
+
+      body.theme-minimal .stakeholder-gantt {
+        background: rgba(241, 245, 249, 0.95);
+      }
+
+      .gantt-header {
+        display: grid;
+        grid-template-columns: 220px repeat(
+            var(--timeline-columns, 8),
+            minmax(110px, 1fr)
+          );
+        font-family: var(--font-display);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.9rem;
+        color: inherit;
+      }
+
+      .gantt-corner,
+      .gantt-head-cell {
+        padding: 0.9rem 1rem;
+        border-right: 1px solid rgba(148, 163, 184, 0.35);
+        background: rgba(15, 23, 42, 0.16);
+      }
+
+      .gantt-head-cell:last-child {
+        border-right: none;
+      }
+
+      body.theme-minimal .gantt-corner,
+      body.theme-minimal .gantt-head-cell {
+        background: rgba(148, 163, 184, 0.2);
+      }
+
+      .gantt-head-cell {
+        text-align: center;
+        opacity: 0.85;
+      }
+
+      .gantt-body {
+        display: grid;
+        gap: 0.6rem;
+      }
+
+      .gantt-row {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        background: rgba(15, 23, 42, 0.12);
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid rgba(148, 163, 184, 0.22);
+      }
+
+      body.theme-minimal .gantt-row {
+        background: rgba(226, 232, 240, 0.7);
+      }
+
+      .gantt-lane-title {
+        padding: 1.3rem 1.4rem;
+        font-weight: 600;
+        font-size: 1rem;
+        border-right: 1px solid rgba(148, 163, 184, 0.28);
+        display: flex;
+        align-items: center;
+      }
+
+      .gantt-track {
+        position: relative;
+        padding: 1.3rem 3rem 1.3rem 1.6rem;
+        display: grid;
+        grid-template-columns: repeat(
+            var(--timeline-columns, 8),
+            minmax(110px, 1fr)
+          );
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .gantt-guides {
+        position: absolute;
+        inset: 1.1rem 2.6rem 1.1rem 1.6rem;
+        display: grid;
+        grid-template-columns: repeat(
+            var(--timeline-columns, 8),
+            minmax(110px, 1fr)
+          );
+        gap: 1rem;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .gantt-guides span {
+        border-right: 1px dashed rgba(148, 163, 184, 0.4);
+      }
+
+      .gantt-guides span:last-child {
+        border-right: none;
+      }
+
+      .gantt-task {
+        grid-column: var(--start, 1) / var(--end, 2);
+        display: grid;
+        gap: 0.45rem;
+        padding: 0.95rem 1.2rem;
+        border-radius: 999px 16px 16px 999px;
+        background: linear-gradient(
+          135deg,
+          var(--task-color, rgba(79, 70, 229, 0.9)),
+          rgba(79, 70, 229, 0.72)
+        );
+        color: #f8fafc;
+        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.35);
+        position: relative;
+        z-index: 1;
+        font-size: 0.94rem;
+      }
+
+      .gantt-task::after {
+        content: "";
+        position: absolute;
+        right: -16px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-left: 16px solid var(--task-color, rgba(79, 70, 229, 0.9));
+        border-top: 11px solid transparent;
+        border-bottom: 11px solid transparent;
+      }
+
+      body.theme-minimal .gantt-task {
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.22);
+      }
+
+      .gantt-task-title {
+        font-family: var(--font-display);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.9rem;
+      }
+
+      .gantt-task-body {
+        margin: 0;
+        font-size: 0.92rem;
+        opacity: 0.9;
+      }
+
+      .gantt-task-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        opacity: 0.85;
+      }
+
+      .gantt-task-links span {
+        padding: 0.3rem 0.6rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        background: rgba(255, 255, 255, 0.12);
+        color: inherit;
+      }
+
+      body.theme-minimal .gantt-task-links span {
+        border-color: rgba(15, 23, 42, 0.25);
+        background: rgba(255, 255, 255, 0.65);
+        color: var(--text-dark);
+      }
+
+      .gantt-legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem 1.6rem;
+        font-size: 0.9rem;
+        opacity: 0.8;
+      }
+
+      .gantt-legend span {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .gantt-notes {
+        font-size: 0.92rem;
+        opacity: 0.78;
+        display: grid;
+        gap: 0.4rem;
+      }
+
+      .gantt-notes strong {
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.82rem;
+      }
+
       @media (max-width: 720px) {
         section.slide {
           padding: 2.6rem 1.8rem;
@@ -944,14 +1148,302 @@
           >
         </div>
         <footer class="next-link">
-          <span data-ai-field="roadmap_to_wrap_transition"
-            >全体まとめスライドへ繋ぐ一文</span
+          <span data-ai-field="roadmap_to_gantt_transition"
+            >ステークホルダー・ガントへの接続文</span
+          >
+        </footer>
+      </section>
+
+      <section class="slide" data-slide-id="stakeholder-gantt">
+        <header class="slide-meta">Slide 09 · ステークホルダー・ガント</header>
+        <span class="section-label">STAKEHOLDER ALIGNMENT</span>
+        <h2>
+          <span data-ai-field="stakeholder_gantt_title"
+            >ステークホルダー別タスクと連携状況</span
+          >
+        </h2>
+        <p class="lead">
+          <span data-ai-field="stakeholder_gantt_lead"
+            >各ステークホルダーのアクションと依存関係を時系列で俯瞰できるよう記入してください。</span
+          >
+        </p>
+        <div class="stakeholder-gantt" style="--timeline-columns: 8">
+          <div class="gantt-header">
+            <div class="gantt-corner">
+              <span data-ai-field="stakeholder_corner_label">ステークホルダー</span>
+            </div>
+            <div class="gantt-head-cell">
+              <span data-ai-field="stakeholder_timeline_col_1">FY25 Q1</span>
+            </div>
+            <div class="gantt-head-cell">
+              <span data-ai-field="stakeholder_timeline_col_2">FY25 Q2</span>
+            </div>
+            <div class="gantt-head-cell">
+              <span data-ai-field="stakeholder_timeline_col_3">FY25 Q3</span>
+            </div>
+            <div class="gantt-head-cell">
+              <span data-ai-field="stakeholder_timeline_col_4">FY25 Q4</span>
+            </div>
+            <div class="gantt-head-cell">
+              <span data-ai-field="stakeholder_timeline_col_5">FY26 Q1</span>
+            </div>
+            <div class="gantt-head-cell">
+              <span data-ai-field="stakeholder_timeline_col_6">FY26 Q2</span>
+            </div>
+            <div class="gantt-head-cell">
+              <span data-ai-field="stakeholder_timeline_col_7">FY26 Q3</span>
+            </div>
+            <div class="gantt-head-cell">
+              <span data-ai-field="stakeholder_timeline_col_8">FY26 Q4</span>
+            </div>
+          </div>
+          <div class="gantt-body">
+            <div class="gantt-row">
+              <div class="gantt-lane-title">
+                <span data-ai-field="stakeholder_lane_1_title">経営層</span>
+              </div>
+              <div class="gantt-track">
+                <div class="gantt-guides">
+                  <span></span><span></span><span></span><span></span
+                  ><span></span><span></span><span></span><span></span>
+                </div>
+                <div
+                  class="gantt-task"
+                  style="--start: 1; --end: 3; --task-color: rgba(79, 70, 229, 0.88);"
+                >
+                  <span
+                    class="gantt-task-title"
+                    data-ai-field="stakeholder_lane_1_task_1_title"
+                    >承認プロセス設計</span
+                  >
+                  <p
+                    class="gantt-task-body"
+                    data-ai-field="stakeholder_lane_1_task_1_body"
+                  >
+                    意思決定に必要な要素・資料・ゲート基準を整理
+                  </p>
+                  <div class="gantt-task-links">
+                    <span data-ai-field="stakeholder_lane_1_task_1_links"
+                      >連携: PMO / 財務</span
+                    >
+                  </div>
+                </div>
+                <div
+                  class="gantt-task"
+                  style="--start: 3; --end: 6; --task-color: rgba(16, 185, 129, 0.86);"
+                >
+                  <span
+                    class="gantt-task-title"
+                    data-ai-field="stakeholder_lane_1_task_2_title"
+                    >投資判断レビュー</span
+                  >
+                  <p
+                    class="gantt-task-body"
+                    data-ai-field="stakeholder_lane_1_task_2_body"
+                  >
+                    KPI進捗とリスクシナリオを踏まえた意思決定会を実施
+                  </p>
+                  <div class="gantt-task-links">
+                    <span data-ai-field="stakeholder_lane_1_task_2_links"
+                      >連携: 事業部 / 法務</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="gantt-row">
+              <div class="gantt-lane-title">
+                <span data-ai-field="stakeholder_lane_2_title">PMO / 実行チーム</span>
+              </div>
+              <div class="gantt-track">
+                <div class="gantt-guides">
+                  <span></span><span></span><span></span><span></span
+                  ><span></span><span></span><span></span><span></span>
+                </div>
+                <div
+                  class="gantt-task"
+                  style="--start: 1; --end: 4; --task-color: rgba(59, 130, 246, 0.88);"
+                >
+                  <span
+                    class="gantt-task-title"
+                    data-ai-field="stakeholder_lane_2_task_1_title"
+                    >要件定義〜PoC</span
+                  >
+                  <p
+                    class="gantt-task-body"
+                    data-ai-field="stakeholder_lane_2_task_1_body"
+                  >
+                    各部門ヒアリング・ユースケース検証・改善サイクルを構築
+                  </p>
+                  <div class="gantt-task-links">
+                    <span data-ai-field="stakeholder_lane_2_task_1_links"
+                      >連携: 利用部門 / ベンダー</span
+                    >
+                  </div>
+                </div>
+                <div
+                  class="gantt-task"
+                  style="--start: 4; --end: 7; --task-color: rgba(249, 115, 22, 0.88);"
+                >
+                  <span
+                    class="gantt-task-title"
+                    data-ai-field="stakeholder_lane_2_task_2_title"
+                    >本番移行準備</span
+                  >
+                  <p
+                    class="gantt-task-body"
+                    data-ai-field="stakeholder_lane_2_task_2_body"
+                  >
+                    運用設計と教育、リスク対応策を整備しローンチへ備える
+                  </p>
+                  <div class="gantt-task-links">
+                    <span data-ai-field="stakeholder_lane_2_task_2_links"
+                      >連携: セキュリティ / 経理</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="gantt-row">
+              <div class="gantt-lane-title">
+                <span data-ai-field="stakeholder_lane_3_title">外部パートナー</span>
+              </div>
+              <div class="gantt-track">
+                <div class="gantt-guides">
+                  <span></span><span></span><span></span><span></span
+                  ><span></span><span></span><span></span><span></span>
+                </div>
+                <div
+                  class="gantt-task"
+                  style="--start: 2; --end: 4; --task-color: rgba(236, 72, 153, 0.88);"
+                >
+                  <span
+                    class="gantt-task-title"
+                    data-ai-field="stakeholder_lane_3_task_1_title"
+                    >契約・SLA調整</span
+                  >
+                  <p
+                    class="gantt-task-body"
+                    data-ai-field="stakeholder_lane_3_task_1_body"
+                  >
+                    提供範囲・品質基準・サポート体制を合意形成
+                  </p>
+                  <div class="gantt-task-links">
+                    <span data-ai-field="stakeholder_lane_3_task_1_links"
+                      >連携: 法務 / 調達</span
+                    >
+                  </div>
+                </div>
+                <div
+                  class="gantt-task"
+                  style="--start: 4; --end: 7; --task-color: rgba(94, 234, 212, 0.85);"
+                >
+                  <span
+                    class="gantt-task-title"
+                    data-ai-field="stakeholder_lane_3_task_2_title"
+                    >導入サポート</span
+                  >
+                  <p
+                    class="gantt-task-body"
+                    data-ai-field="stakeholder_lane_3_task_2_body"
+                  >
+                    トレーニングや定着支援、改善提案を実施
+                  </p>
+                  <div class="gantt-task-links">
+                    <span data-ai-field="stakeholder_lane_3_task_2_links"
+                      >連携: PMO / 人事</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="gantt-row">
+              <div class="gantt-lane-title">
+                <span data-ai-field="stakeholder_lane_4_title">規制・ガバナンス</span>
+              </div>
+              <div class="gantt-track">
+                <div class="gantt-guides">
+                  <span></span><span></span><span></span><span></span
+                  ><span></span><span></span><span></span><span></span>
+                </div>
+                <div
+                  class="gantt-task"
+                  style="--start: 1; --end: 3; --task-color: rgba(168, 85, 247, 0.88);"
+                >
+                  <span
+                    class="gantt-task-title"
+                    data-ai-field="stakeholder_lane_4_task_1_title"
+                    >規制要件整理</span
+                  >
+                  <p
+                    class="gantt-task-body"
+                    data-ai-field="stakeholder_lane_4_task_1_body"
+                  >
+                    法規制・社内基準を洗い出しプロジェクト制約を把握
+                  </p>
+                  <div class="gantt-task-links">
+                    <span data-ai-field="stakeholder_lane_4_task_1_links"
+                      >連携: 法務 / セキュリティ</span
+                    >
+                  </div>
+                </div>
+                <div
+                  class="gantt-task"
+                  style="--start: 3; --end: 6; --task-color: rgba(251, 191, 36, 0.88);"
+                >
+                  <span
+                    class="gantt-task-title"
+                    data-ai-field="stakeholder_lane_4_task_2_title"
+                    >監査・教育対応</span
+                  >
+                  <p
+                    class="gantt-task-body"
+                    data-ai-field="stakeholder_lane_4_task_2_body"
+                  >
+                    審査手続きと教育プログラムを整備し適合状況を管理
+                  </p>
+                  <div class="gantt-task-links">
+                    <span data-ai-field="stakeholder_lane_4_task_2_links"
+                      >連携: PMO / 人事</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="gantt-notes">
+            <strong>描画指示メモ</strong>
+            <span data-ai-field="stakeholder_gantt_arrow_note"
+              >矢印・コネクタで依存関係を示す際の指示を記述</span
+            >
+            <span data-ai-field="stakeholder_gantt_highlight_note"
+              >色分けや図形の凡例（進行中／遅延など）を記載</span
+            >
+          </div>
+          <div class="gantt-legend">
+            <span
+              ><span class="legend-marker"></span
+              ><span data-ai-field="stakeholder_gantt_marker_note_1"
+                >青系＝企画/承認、緑系＝実行フェーズ 等の凡例指示</span
+              ></span
+            >
+            <span
+              ><span class="legend-marker"></span
+              ><span data-ai-field="stakeholder_gantt_marker_note_2"
+                >重要タスクのアイコンやコメント記載ルール</span
+              ></span
+            >
+          </div>
+        </div>
+        <footer class="next-link">
+          <span data-ai-field="stakeholder_gantt_to_wrap_transition"
+            >全体まとめスライドへの導出文</span
           >
         </footer>
       </section>
 
       <section class="slide" data-slide-id="overall-wrap">
-        <header class="slide-meta">Slide 09 · 全体まとめ</header>
+        <header class="slide-meta">Slide 10 · 全体まとめ</header>
         <span class="section-label">FINAL TAKEAWAY</span>
         <h2><span data-ai-field="wrap_title">全体のまとめ</span></h2>
         <p class="lead">
