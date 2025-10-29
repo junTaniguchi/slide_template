@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>スライドテンプレート（華美／シンプル両対応）</title>
+    <meta
+      name="description"
+      content="生成AIがコンテンツを流し込むためのHTMLスライドテンプレート。華美な演出用と社内共有向けシンプル版を切り替え可能。"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      :root {
+        --font-sans: "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif;
+        --font-display: "Poppins", "Hiragino Sans", "Noto Sans JP", sans-serif;
+        --accent-1: #6b5bff;
+        --accent-2: #ff7f50;
+        --accent-3: #00c9a7;
+        --bg-dark: #0f172a;
+        --bg-light: #f8fafc;
+        --text-dark: #0b1120;
+        --text-muted: #475569;
+        --surface: rgba(255, 255, 255, 0.92);
+        --surface-border: rgba(148, 163, 184, 0.35);
+        --shadow-strong: 0 25px 60px rgba(15, 23, 42, 0.35);
+        --shadow-soft: 0 12px 30px rgba(15, 23, 42, 0.16);
+        --transition: 220ms ease;
+      }
+
+      /* Theme switcher */
+      body {
+        margin: 0;
+        font-family: var(--font-sans);
+        color: var(--text-dark);
+        background: var(--bg-light);
+        transition: background var(--transition), color var(--transition);
+        line-height: 1.6;
+      }
+
+      body.theme-vibrant {
+        background: radial-gradient(circle at 0% 0%, rgba(107, 91, 255, 0.45), transparent 50%),
+          radial-gradient(circle at 80% 10%, rgba(0, 201, 167, 0.35), transparent 55%),
+          var(--bg-dark);
+        color: rgba(241, 245, 249, 0.92);
+      }
+
+      body.theme-minimal {
+        background: var(--bg-light);
+        color: var(--text-dark);
+      }
+
+      /* Slide container */
+      main {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6rem 3rem;
+        position: relative;
+      }
+
+      section.slide {
+        width: min(1080px, 100%);
+        background: var(--surface);
+        border: 1px solid var(--surface-border);
+        border-radius: 28px;
+        padding: 3.5rem 3rem;
+        box-shadow: var(--shadow-soft);
+        backdrop-filter: blur(12px);
+        position: relative;
+        display: none;
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity var(--transition), transform var(--transition);
+      }
+
+      section.slide.is-active {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      body.theme-vibrant section.slide {
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.7), rgba(31, 41, 55, 0.8));
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        box-shadow: var(--shadow-strong);
+      }
+
+      body.theme-minimal section.slide {
+        background: #fff;
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        box-shadow: var(--shadow-soft);
+      }
+
+      header.slide-meta {
+        position: absolute;
+        top: 1.4rem;
+        right: 1.6rem;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        opacity: 0.7;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: var(--font-display);
+        margin: 0 0 1rem;
+        line-height: 1.2;
+      }
+
+      h1 {
+        font-size: clamp(2.4rem, 4vw, 3.6rem);
+      }
+
+      h2 {
+        font-size: clamp(1.8rem, 3vw, 2.6rem);
+      }
+
+      h3 {
+        font-size: clamp(1.4rem, 2.6vw, 2rem);
+      }
+
+      p.lead {
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin-bottom: 1.6rem;
+        color: inherit;
+      }
+
+      body.theme-minimal p.lead {
+        color: var(--text-muted);
+      }
+
+      ul.agenda,
+      ul.key-points {
+        margin: 0;
+        padding-left: 1.2rem;
+        display: grid;
+        gap: 0.6rem;
+      }
+
+      .timeline {
+        display: grid;
+        gap: 0.8rem;
+        border-left: 3px solid rgba(107, 91, 255, 0.3);
+        padding-left: 1.4rem;
+        margin: 0;
+      }
+
+      .timeline li {
+        list-style: none;
+        position: relative;
+        padding-left: 0.6rem;
+      }
+
+      .timeline li::before {
+        content: "";
+        position: absolute;
+        left: -1.85rem;
+        top: 0.35rem;
+        width: 0.85rem;
+        height: 0.85rem;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+        box-shadow: 0 0 15px rgba(107, 91, 255, 0.4);
+      }
+
+      body.theme-minimal .timeline {
+        border-left-color: rgba(15, 23, 42, 0.12);
+      }
+
+      body.theme-minimal .timeline li::before {
+        background: #1d4ed8;
+        box-shadow: none;
+      }
+
+      .split {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.8rem;
+        align-items: start;
+      }
+
+      .chart-card,
+      .viz-card,
+      .punch-card {
+        padding: 1.8rem;
+        border-radius: 20px;
+        border: 1px dashed rgba(148, 163, 184, 0.45);
+        background: rgba(148, 163, 184, 0.06);
+        min-height: 200px;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: 0.95rem;
+      }
+
+      body.theme-minimal .chart-card,
+      body.theme-minimal .viz-card,
+      body.theme-minimal .punch-card {
+        background: rgba(148, 163, 184, 0.08);
+      }
+
+      .chart-card strong {
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 0.82rem;
+        color: inherit;
+      }
+
+      .callout {
+        border-left: 4px solid var(--accent-3);
+        padding-left: 1.4rem;
+        font-size: 1rem;
+        color: inherit;
+        background: rgba(0, 201, 167, 0.12);
+        border-radius: 16px;
+        padding: 1.4rem;
+      }
+
+      body.theme-minimal .callout {
+        background: rgba(224, 231, 255, 0.45);
+        border-left-color: #1d4ed8;
+      }
+
+      .section-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.95rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: inherit;
+        opacity: 0.72;
+      }
+
+      .section-label::before {
+        content: "";
+        width: 34px;
+        height: 2px;
+        background: currentColor;
+        opacity: 0.6;
+      }
+
+      .transition-slide {
+        text-align: center;
+        padding: 4.5rem 3rem;
+      }
+
+      .transition-slide h2 {
+        margin-bottom: 0.6rem;
+      }
+
+      .transition-slide p.lead {
+        margin: 0 auto;
+        max-width: 620px;
+      }
+
+      footer.next-link {
+        margin-top: 2rem;
+        font-size: 0.92rem;
+        color: inherit;
+        opacity: 0.68;
+      }
+
+      .summary-grid {
+        display: grid;
+        gap: 1.2rem;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      .summary-card {
+        border-radius: 20px;
+        padding: 1.6rem;
+        background: rgba(148, 163, 184, 0.08);
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        display: grid;
+        gap: 0.6rem;
+      }
+
+      .summary-card h3 {
+        margin: 0;
+        font-size: 1.1rem;
+      }
+
+      body.theme-minimal .summary-card {
+        background: rgba(241, 245, 249, 0.95);
+        border-color: rgba(148, 163, 184, 0.25);
+      }
+
+      .roadmap-board {
+        position: relative;
+        border-radius: 26px;
+        overflow: hidden;
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        background: rgba(15, 23, 42, 0.12);
+        display: grid;
+        gap: 0;
+      }
+
+      body.theme-minimal .roadmap-board {
+        background: rgba(241, 245, 249, 0.85);
+      }
+
+      .roadmap-header,
+      .roadmap-row {
+        display: grid;
+        grid-template-columns: 180px repeat(var(--roadmap-columns, 4), minmax(140px, 1fr));
+      }
+
+      .roadmap-header {
+        background: rgba(15, 23, 42, 0.18);
+        color: inherit;
+        font-family: var(--font-display);
+        font-size: 0.95rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      body.theme-minimal .roadmap-header {
+        background: rgba(15, 23, 42, 0.06);
+      }
+
+      .roadmap-corner,
+      .roadmap-col-head {
+        padding: 1.2rem 1.4rem;
+        border-right: 1px solid rgba(148, 163, 184, 0.35);
+      }
+
+      .roadmap-col-head:last-child {
+        border-right: none;
+      }
+
+      .roadmap-row {
+        background: rgba(15, 23, 42, 0.1);
+      }
+
+      .roadmap-row:nth-child(even) {
+        background: rgba(15, 23, 42, 0.16);
+      }
+
+      body.theme-minimal .roadmap-row {
+        background: rgba(148, 163, 184, 0.08);
+      }
+
+      body.theme-minimal .roadmap-row:nth-child(even) {
+        background: rgba(148, 163, 184, 0.15);
+      }
+
+      .roadmap-lane-title {
+        padding: 1.4rem 1.4rem;
+        border-right: 1px solid rgba(148, 163, 184, 0.35);
+        font-weight: 600;
+        font-size: 0.98rem;
+        display: flex;
+        align-items: center;
+      }
+
+      .roadmap-cell {
+        padding: 1.1rem 1.2rem;
+        border-right: 1px solid rgba(148, 163, 184, 0.28);
+        border-top: 1px solid rgba(148, 163, 184, 0.28);
+        font-size: 0.95rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+
+      .roadmap-cell:last-child {
+        border-right: none;
+      }
+
+      .roadmap-cell strong {
+        font-size: 0.85rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: inherit;
+        opacity: 0.72;
+      }
+
+      .roadmap-legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem 1.6rem;
+        margin-top: 1.8rem;
+        font-size: 0.9rem;
+        opacity: 0.8;
+      }
+
+      .roadmap-legend span {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .legend-marker {
+        width: 0.85rem;
+        height: 0.85rem;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+        box-shadow: 0 0 10px rgba(107, 91, 255, 0.35);
+      }
+
+      body.theme-minimal .legend-marker {
+        background: #1d4ed8;
+        box-shadow: none;
+      }
+
+      @media (max-width: 720px) {
+        section.slide {
+          padding: 2.6rem 1.8rem;
+          border-radius: 22px;
+        }
+
+        header.slide-meta {
+          position: static;
+          margin-bottom: 1rem;
+        }
+      }
+
+      nav.nav-controls {
+        position: fixed;
+        right: 2.2rem;
+        bottom: 2.2rem;
+        display: grid;
+        gap: 0.8rem;
+        z-index: 20;
+      }
+
+      nav.nav-controls button {
+        cursor: pointer;
+        border: none;
+        border-radius: 50%;
+        width: 3.4rem;
+        height: 3.4rem;
+        font-size: 1.1rem;
+        font-family: var(--font-display);
+        color: rgba(241, 245, 249, 0.95);
+        background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.35);
+        transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
+      }
+
+      nav.nav-controls button:disabled {
+        cursor: not-allowed;
+        opacity: 0.4;
+        box-shadow: none;
+      }
+
+      nav.nav-controls button:not(:disabled):hover {
+        transform: translateY(-2px);
+        box-shadow: 0 18px 36px rgba(15, 23, 42, 0.42);
+      }
+
+      nav.nav-controls button:not(:disabled):active {
+        transform: translateY(0);
+        box-shadow: 0 10px 22px rgba(15, 23, 42, 0.32);
+      }
+
+      body.theme-minimal nav.nav-controls button {
+        background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+        color: #f8fafc;
+        box-shadow: 0 12px 26px rgba(15, 23, 42, 0.25);
+      }
+
+      @media (max-width: 640px) {
+        nav.nav-controls {
+          right: 1.2rem;
+          bottom: 1.6rem;
+        }
+
+        nav.nav-controls button {
+          width: 3rem;
+          height: 3rem;
+          font-size: 1rem;
+        }
+      }
+    </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Toggle theme by setting ?theme=vibrant or ?theme=minimal
+        const params = new URLSearchParams(window.location.search);
+        const theme = params.get("theme");
+        const body = document.body;
+
+        if (theme === "minimal") {
+          body.classList.remove("theme-vibrant");
+          body.classList.add("theme-minimal");
+          document.documentElement.dataset.theme = "minimal";
+        } else {
+          body.classList.add("theme-vibrant");
+          document.documentElement.dataset.theme = "vibrant";
+        }
+
+        // Slide navigation
+        const slides = Array.from(document.querySelectorAll("section.slide"));
+        const prevBtn = document.querySelector("[data-nav='prev']");
+        const nextBtn = document.querySelector("[data-nav='next']");
+
+        if (!slides.length || !prevBtn || !nextBtn) {
+          return;
+        }
+
+        let currentIndex = slides.findIndex((slide) =>
+          slide.classList.contains("is-active")
+        );
+        if (currentIndex < 0) currentIndex = 0;
+
+        const updateSlides = (target) => {
+          const boundedIndex = Math.min(
+            Math.max(target, 0),
+            slides.length - 1
+          );
+          slides.forEach((slide, idx) => {
+            const active = idx === boundedIndex;
+            slide.classList.toggle("is-active", active);
+            slide.setAttribute("aria-hidden", String(!active));
+          });
+          prevBtn.disabled = boundedIndex === 0;
+          nextBtn.disabled = boundedIndex === slides.length - 1;
+          currentIndex = boundedIndex;
+        };
+
+        const move = (delta) => {
+          if (delta === 0) return;
+          updateSlides(currentIndex + delta);
+        };
+
+        prevBtn.addEventListener("click", () => move(-1));
+        nextBtn.addEventListener("click", () => move(1));
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "ArrowUp" || event.key === "PageUp") {
+            event.preventDefault();
+            move(-1);
+          }
+          if (event.key === "ArrowDown" || event.key === "PageDown") {
+            event.preventDefault();
+            move(1);
+          }
+        });
+
+        updateSlides(currentIndex);
+      });
+    </script>
+  </head>
+  <body class="theme-vibrant">
+    <!--
+      生成AIが差し替える想定のフィールドには <span data-ai-field="..."> や data-slot 属性を付与。
+      指示文では data-ai-field のラベルを参照して具体的な内容を入力させる。
+
+      テーマの切り替え:
+        - 華美（プレミアム演出）: body class="theme-vibrant"
+        - 社内共有などシンプル版: body class="theme-minimal"
+      生成AIにスタイル切り替えを指示する場合は body 要素の class を適宜変更させる。
+    -->
+    <main>
+      <section class="slide is-active" data-slide-id="title">
+        <header class="slide-meta">Slide 01 · タイトル</header>
+        <h1><span data-ai-field="presentation_title">タイトルを入力</span></h1>
+        <p class="lead">
+          <span data-ai-field="presentation_tagline"
+            >資料全体のトーンを示す短いリード文を入力してください。</span
+          >
+        </p>
+        <div class="split">
+          <div>
+            <h3>登壇者</h3>
+            <ul class="key-points">
+              <li>
+                <span data-ai-field="presenter_name">名前（役職など）</span>
+              </li>
+              <li>
+                <span data-ai-field="presentation_date">発表日</span>
+              </li>
+            </ul>
+          </div>
+          <div class="chart-card">
+            <strong>ビジュアル要素</strong>
+            <span data-ai-field="title_visual_hint"
+              >印象的なポンチ絵・写真・アイコンの指示を記述</span
+            >
+          </div>
+        </div>
+        <footer class="next-link">
+          <span data-ai-field="title_to_agenda_transition"
+            >次スライド（アジェンダ）への導入文</span
+          >
+        </footer>
+      </section>
+
+      <section class="slide" data-slide-id="agenda">
+        <header class="slide-meta">Slide 02 · アジェンダ</header>
+        <span class="section-label">AGENDA</span>
+        <h2><span data-ai-field="agenda_title">本日の流れ</span></h2>
+        <p class="lead">
+          <span data-ai-field="agenda_lead"
+            >アジェンダ全体の狙いや期待値を簡潔に書いてください。</span
+          >
+        </p>
+        <ul class="timeline">
+          <li>
+            <span data-ai-field="agenda_item_1_title">背景</span>：
+            <span data-ai-field="agenda_item_1_desc"
+              >背景スライドで扱う要点の要約</span
+            >
+          </li>
+          <li>
+            <span data-ai-field="agenda_item_2_title">本日の目的</span>：
+            <span data-ai-field="agenda_item_2_desc"
+              >目的スライドの焦点を記述</span
+            >
+          </li>
+          <li>
+            <span data-ai-field="agenda_item_3_title">サマリー</span>：
+            <span data-ai-field="agenda_item_3_desc"
+              >中間サマリーで触れるトピック</span
+            >
+          </li>
+          <li>
+            <span data-ai-field="agenda_item_4_title">全体まとめ</span>：
+            <span data-ai-field="agenda_item_4_desc"
+              >最終スライドでのメッセージ</span
+            >
+          </li>
+        </ul>
+        <footer class="next-link">
+          <span data-ai-field="agenda_to_background_transition"
+            >背景スライドへ滑らかに遷移する一文</span
+          >
+        </footer>
+      </section>
+
+      <section class="slide transition-slide" data-slide-id="agenda-transition">
+        <header class="slide-meta">Slide 03 · クッション</header>
+        <h2>
+          <span data-ai-field="transition_heading"
+            >ここから課題背景について解説します</span
+          >
+        </h2>
+        <p class="lead">
+          <span data-ai-field="transition_lead"
+            >前後スライドの内容が飛躍しないよう、論旨を接続する短いストーリーを書いてください。</span
+          >
+        </p>
+        <div class="chart-card">
+          <strong>イメージ</strong>
+          <span data-ai-field="transition_visual_hint"
+            >流れを示すアイコンや簡易図の指示</span
+          >
+        </div>
+        <footer class="next-link">
+          <span data-ai-field="transition_to_background"
+            >背景スライドへの導入文</span
+          >
+        </footer>
+      </section>
+
+      <section class="slide" data-slide-id="background">
+        <header class="slide-meta">Slide 04 · 背景</header>
+        <span class="section-label">BACKGROUND</span>
+        <h2><span data-ai-field="background_title">背景・現状</span></h2>
+        <p class="lead">
+          <span data-ai-field="background_lead"
+            >背景の全体像と重要なキーメッセージをまとめたリード文。</span
+          >
+        </p>
+        <div class="split">
+          <div>
+            <h3>要点</h3>
+            <ul class="key-points">
+              <li>
+                <span data-ai-field="background_point_1"
+                  >定量データやファクトの要約</span
+                >
+              </li>
+              <li>
+                <span data-ai-field="background_point_2"
+                  >課題の背景にある要因</span
+                >
+              </li>
+              <li>
+                <span data-ai-field="background_point_3"
+                  >ステークホルダーの視点</span
+                >
+              </li>
+            </ul>
+          </div>
+          <figure class="viz-card" data-ai-field="background_visual">
+            <strong>チャート・ポンチ絵</strong>
+            <p>背景を図解する図表の指示を記述</p>
+          </figure>
+        </div>
+        <footer class="next-link">
+          <span data-ai-field="background_to_objective_transition"
+            >本日の目的スライドへ繋ぐ文</span
+          >
+        </footer>
+      </section>
+
+      <section class="slide" data-slide-id="objective">
+        <header class="slide-meta">Slide 05 · 本日の目的</header>
+        <span class="section-label">OBJECTIVE</span>
+        <h2><span data-ai-field="objective_title">本日の目的</span></h2>
+        <p class="lead">
+          <span data-ai-field="objective_lead"
+            >本日のゴールと期待される成果をシンプルに記述。</span
+          >
+        </p>
+        <div class="split">
+          <div class="callout">
+            <h3>ゴール</h3>
+            <p>
+              <span data-ai-field="objective_goal"
+                >このセッションで参加者が到達すべき状態</span
+              >
+            </p>
+          </div>
+          <div class="chart-card">
+            <strong>可視化案</strong>
+            <span data-ai-field="objective_visual_hint"
+              >目的を象徴するイラストやチャートの指示</span
+            >
+          </div>
+        </div>
+        <footer class="next-link">
+          <span data-ai-field="objective_to_summary_transition"
+            >サマリースライドへの導入文</span
+          >
+        </footer>
+      </section>
+
+      <section class="slide transition-slide" data-slide-id="section-cushion">
+        <header class="slide-meta">Slide 06 · クッション</header>
+        <h2>
+          <span data-ai-field="section_transition_heading"
+            >ここからサマリーのポイントに入ります</span
+          >
+        </h2>
+        <p class="lead">
+          <span data-ai-field="section_transition_lead"
+            >アジェンダの区切りや話題転換の橋渡しとなるメッセージ。</span
+          >
+        </p>
+        <div class="chart-card">
+          <strong>構図イメージ</strong>
+          <span data-ai-field="section_transition_visual"
+            >チャート・ポンチ絵のコンセプト指示</span
+          >
+        </div>
+        <footer class="next-link">
+          <span data-ai-field="section_transition_to_summary"
+            >次のサマリースライドへ向けた誘導文</span
+          >
+        </footer>
+      </section>
+
+      <section class="slide" data-slide-id="summary">
+        <header class="slide-meta">Slide 07 · サマリー</header>
+        <span class="section-label">INTERIM SUMMARY</span>
+        <h2><span data-ai-field="summary_title">中間サマリー</span></h2>
+        <p class="lead">
+          <span data-ai-field="summary_lead"
+            >ここまでの議論から導かれるポイントを要約。</span
+          >
+        </p>
+        <div class="summary-grid">
+          <article class="summary-card">
+            <h3><span data-ai-field="summary_point_1_title">要約①</span></h3>
+            <p>
+              <span data-ai-field="summary_point_1_body"
+                >主要な示唆や重要データ</span
+              >
+            </p>
+          </article>
+          <article class="summary-card">
+            <h3><span data-ai-field="summary_point_2_title">要約②</span></h3>
+            <p>
+              <span data-ai-field="summary_point_2_body"
+                >課題に対する洞察</span
+              >
+            </p>
+          </article>
+          <article class="summary-card">
+            <h3><span data-ai-field="summary_point_3_title">要約③</span></h3>
+            <p>
+              <span data-ai-field="summary_point_3_body"
+                >次に繋がる示唆</span
+              >
+            </p>
+          </article>
+        </div>
+        <footer class="next-link">
+          <span data-ai-field="summary_to_roadmap_transition"
+            >ロードマップスライドへの接続文</span
+          >
+        </footer>
+      </section>
+
+      <section class="slide" data-slide-id="roadmap">
+        <header class="slide-meta">Slide 08 · ロードマップ</header>
+        <span class="section-label">ROADMAP</span>
+        <h2><span data-ai-field="roadmap_title">進捗・ロードマップ</span></h2>
+        <p class="lead">
+          <span data-ai-field="roadmap_lead"
+            >主要フェーズの到達状況と今後の計画を俯瞰するリード文。</span
+          >
+        </p>
+        <div class="roadmap-board" style="--roadmap-columns: 4">
+          <div class="roadmap-header">
+            <div class="roadmap-corner">
+              <span data-ai-field="roadmap_corner_label">フェーズ</span>
+            </div>
+            <div class="roadmap-col-head">
+              <span data-ai-field="roadmap_col_1">FY25 Q1</span>
+            </div>
+            <div class="roadmap-col-head">
+              <span data-ai-field="roadmap_col_2">FY25 Q2</span>
+            </div>
+            <div class="roadmap-col-head">
+              <span data-ai-field="roadmap_col_3">FY25 Q3</span>
+            </div>
+            <div class="roadmap-col-head">
+              <span data-ai-field="roadmap_col_4">FY25 Q4</span>
+            </div>
+          </div>
+          <div class="roadmap-row">
+            <div class="roadmap-lane-title">
+              <span data-ai-field="roadmap_lane_1_title">経営層ブリーフィング</span>
+            </div>
+            <div class="roadmap-cell">
+              <span data-ai-field="roadmap_lane_1_col_1"
+                >初回報告会／課題共有</span
+              >
+            </div>
+            <div class="roadmap-cell">
+              <span data-ai-field="roadmap_lane_1_col_2"
+                >KPIレビュー・意思決定</span
+              >
+            </div>
+            <div class="roadmap-cell">
+              <span data-ai-field="roadmap_lane_1_col_3"
+                >投資判断に向けた素案調整</span
+              >
+            </div>
+            <div class="roadmap-cell">
+              <span data-ai-field="roadmap_lane_1_col_4"
+                >最終承認・ガバナンス整備</span
+              >
+            </div>
+          </div>
+          <div class="roadmap-row">
+            <div class="roadmap-lane-title">
+              <span data-ai-field="roadmap_lane_2_title">実行チーム</span>
+            </div>
+            <div class="roadmap-cell">
+              <span data-ai-field="roadmap_lane_2_col_1"
+                >要件定義ワークショップ</span
+              >
+            </div>
+            <div class="roadmap-cell">
+              <span data-ai-field="roadmap_lane_2_col_2"
+                >プロトタイプ検証と改善</span
+              >
+            </div>
+            <div class="roadmap-cell">
+              <span data-ai-field="roadmap_lane_2_col_3"
+                >PoC 承認・導入準備</span
+              >
+            </div>
+            <div class="roadmap-cell">
+              <span data-ai-field="roadmap_lane_2_col_4"
+                >本番リリース／教育実施</span
+              >
+            </div>
+          </div>
+          <div class="roadmap-row">
+            <div class="roadmap-lane-title">
+              <span data-ai-field="roadmap_lane_3_title">ステークホルダー</span>
+            </div>
+            <div class="roadmap-cell">
+              <span data-ai-field="roadmap_lane_3_col_1"
+                >関係部門ヒアリング</span
+              >
+            </div>
+            <div class="roadmap-cell">
+              <span data-ai-field="roadmap_lane_3_col_2"
+                >利用部門との連携体制構築</span
+              >
+            </div>
+            <div class="roadmap-cell">
+              <span data-ai-field="roadmap_lane_3_col_3"
+                >外部パートナー調整</span
+              >
+            </div>
+            <div class="roadmap-cell">
+              <span data-ai-field="roadmap_lane_3_col_4"
+                >リリース告知・オンボーディング</span
+              >
+            </div>
+          </div>
+          <div class="roadmap-row">
+            <div class="roadmap-lane-title">
+              <span data-ai-field="roadmap_lane_4_title">リスク／依存関係</span>
+            </div>
+            <div class="roadmap-cell">
+              <span data-ai-field="roadmap_lane_4_col_1"
+                >課題洗い出し・優先度付け</span
+              >
+            </div>
+            <div class="roadmap-cell">
+              <span data-ai-field="roadmap_lane_4_col_2"
+                >リスク対策と合意形成</span
+              >
+            </div>
+            <div class="roadmap-cell">
+              <span data-ai-field="roadmap_lane_4_col_3"
+                >マイルストーンの見直し</span
+              >
+            </div>
+            <div class="roadmap-cell">
+              <span data-ai-field="roadmap_lane_4_col_4"
+                >次年度計画への接続</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="roadmap-legend">
+          <span
+            ><span class="legend-marker"></span
+            ><span data-ai-field="roadmap_marker_note_1"
+              >青＝進行中、赤＝遅延リスク 等の凡例指示</span
+            ></span
+          >
+          <span
+            ><span class="legend-marker"></span
+            ><span data-ai-field="roadmap_marker_note_2"
+              >コネクタ矢印や依存関係の描画指示</span
+            ></span
+          >
+        </div>
+        <footer class="next-link">
+          <span data-ai-field="roadmap_to_wrap_transition"
+            >全体まとめスライドへ繋ぐ一文</span
+          >
+        </footer>
+      </section>
+
+      <section class="slide" data-slide-id="overall-wrap">
+        <header class="slide-meta">Slide 09 · 全体まとめ</header>
+        <span class="section-label">FINAL TAKEAWAY</span>
+        <h2><span data-ai-field="wrap_title">全体のまとめ</span></h2>
+        <p class="lead">
+          <span data-ai-field="wrap_lead"
+            >受講者に残したい最も重要なメッセージを凝縮。</span
+          >
+        </p>
+        <div class="split">
+          <div>
+            <h3>アクション</h3>
+            <ul class="key-points">
+              <li>
+                <span data-ai-field="wrap_action_1"
+                  >次のアクション（短期）</span
+                >
+              </li>
+              <li>
+                <span data-ai-field="wrap_action_2"
+                  >フォローアップ事項</span
+                >
+              </li>
+              <li>
+                <span data-ai-field="wrap_action_3"
+                  >期待される成果と指標</span
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="chart-card">
+            <strong>締めのビジュアル</strong>
+            <span data-ai-field="wrap_visual_hint"
+              >行動喚起を促す象徴的なイメージの指示</span
+            >
+          </div>
+        </div>
+        <footer class="next-link">
+          <span data-ai-field="wrap_closure"
+            >クロージングの一言や問い合わせ先</span
+          >
+        </footer>
+      </section>
+
+      <section class="slide" data-slide-id="appendix" aria-hidden="true">
+        <header class="slide-meta">Optional · 追加資料</header>
+        <span class="section-label">OPTIONAL</span>
+        <h2>補足スライドのテンプレート</h2>
+        <p class="lead">
+          クッションスライドや詳細説明を追加する際はこのセクションを複製してください。
+        </p>
+        <div class="split">
+          <div class="punch-card">
+            <strong>ポンチ絵</strong>
+            <span
+              >主張の流れを図解するラフラベルを指定（例：ユーザー旅路）</span
+            >
+          </div>
+          <div class="chart-card">
+            <strong>データチャート</strong>
+            <span>必要なグラフ形式を具体的に（例：棒グラフ／サンバースト）</span>
+          </div>
+        </div>
+      </section>
+    </main>
+    <nav class="nav-controls" aria-label="スライド操作">
+      <button type="button" data-nav="prev" aria-label="前のスライド">▲</button>
+      <button type="button" data-nav="next" aria-label="次のスライド">▼</button>
+    </nav>
+  </body>
+</html>
