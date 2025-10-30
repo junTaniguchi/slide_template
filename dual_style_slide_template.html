@@ -84,6 +84,53 @@
         font-weight: 700;
       }
 
+      .slide-wrapper {
+        position: relative;
+        width: min(1080px, 100%);
+        margin: 0 auto;
+      }
+
+      .slide-wrapper[hidden] {
+        display: none !important;
+      }
+
+      .svg-copy {
+        position: absolute;
+        top: -2.8rem;
+        right: 0.2rem;
+        padding: 0.55rem 1.1rem;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        background: rgba(226, 232, 240, 0.9);
+        backdrop-filter: blur(6px);
+        color: var(--text-strong);
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: transform var(--transition), box-shadow var(--transition),
+          background var(--transition), color var(--transition);
+        box-shadow: 0 10px 20px rgba(15, 23, 42, 0.1);
+      }
+
+      .svg-copy:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 14px 28px rgba(15, 23, 42, 0.18);
+      }
+
+      .svg-copy:active {
+        transform: translateY(0);
+        box-shadow: 0 8px 18px rgba(15, 23, 42, 0.14);
+      }
+
+      .svg-copy.copied {
+        background: rgba(34, 197, 94, 0.9);
+        color: #ffffff;
+        border-color: rgba(34, 197, 94, 0.9);
+        box-shadow: 0 12px 24px rgba(22, 163, 74, 0.28);
+      }
+
       header.slide-meta {
         position: absolute;
         top: 1.4rem;
@@ -418,25 +465,25 @@
 
       .gantt-track {
         position: relative;
-        padding: 1.3rem 3rem 1.3rem 1.6rem;
+        padding: 1.2rem 2rem 1.2rem 1.4rem;
         display: grid;
         grid-template-columns: repeat(
-            var(--timeline-columns, 8),
-            minmax(110px, 1fr)
+            var(--timeline-columns, 6),
+            minmax(90px, 1fr)
           );
-        gap: 1rem;
+        gap: 0.8rem;
         align-items: center;
       }
 
       .gantt-guides {
         position: absolute;
-        inset: 1.1rem 2.6rem 1.1rem 1.6rem;
+        inset: 1rem 1.8rem 1rem 1.4rem;
         display: grid;
         grid-template-columns: repeat(
-            var(--timeline-columns, 8),
-            minmax(110px, 1fr)
+            var(--timeline-columns, 6),
+            minmax(90px, 1fr)
           );
-        gap: 1rem;
+        gap: 0.8rem;
         pointer-events: none;
         z-index: 0;
       }
@@ -611,6 +658,9 @@
 
         // Slide navigation
         const slides = Array.from(document.querySelectorAll("section.slide"));
+        const slideWrappers = slides.map((slide) =>
+          slide.closest(".slide-wrapper")
+        );
         const prevBtn = document.querySelector("[data-nav='prev']");
         const nextBtn = document.querySelector("[data-nav='next']");
 
@@ -623,6 +673,11 @@
         );
         if (currentIndex < 0) currentIndex = 0;
 
+        slideWrappers.forEach((wrapper, idx) => {
+          if (!wrapper) return;
+          wrapper.hidden = idx !== currentIndex;
+        });
+
         const updateSlides = (target) => {
           const boundedIndex = Math.min(
             Math.max(target, 0),
@@ -632,6 +687,12 @@
             const active = idx === boundedIndex;
             slide.classList.toggle("is-active", active);
             slide.setAttribute("aria-hidden", String(!active));
+          });
+          slideWrappers.forEach((wrapper, idx) => {
+            if (!wrapper) return;
+            const active = idx === boundedIndex;
+            wrapper.hidden = !active;
+            wrapper.classList.toggle("is-active-wrapper", active);
           });
           prevBtn.disabled = boundedIndex === 0;
           nextBtn.disabled = boundedIndex === slides.length - 1;
@@ -658,6 +719,82 @@
         });
 
         updateSlides(currentIndex);
+
+        const styleBlocks = Array.from(document.querySelectorAll("style"));
+        const combinedStyles = styleBlocks
+          .map((block) => block.textContent || "")
+          .join("\n");
+
+        const copyButtons = document.querySelectorAll(".svg-copy");
+
+        const copySlideAsSvg = async (button, slide) => {
+          if (!slide) return;
+          const rect = slide.getBoundingClientRect();
+          const width = Math.round(rect.width);
+          const height = Math.round(rect.height);
+
+          const clone = slide.cloneNode(true);
+          clone.classList.add("is-active");
+          clone.removeAttribute("aria-hidden");
+
+          const svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMinYMin meet">
+  <foreignObject width="100%" height="100%">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%;background:#ffffff;">
+      <style>${combinedStyles}</style>
+      ${clone.outerHTML}
+    </div>
+  </foreignObject>
+</svg>`;
+
+          const svgBlob = new Blob([svgContent], { type: "image/svg+xml" });
+
+          if (navigator.clipboard && window.ClipboardItem) {
+            try {
+              button.disabled = true;
+              await navigator.clipboard.write([
+                new ClipboardItem({
+                  "image/svg+xml": svgBlob,
+                  "text/plain": new Blob([svgContent], {
+                    type: "text/plain",
+                  }),
+                }),
+              ]);
+              button.classList.add("copied");
+              const originalLabel = button.dataset.label || button.textContent;
+              button.dataset.label = originalLabel;
+              button.textContent = "コピー完了";
+              setTimeout(() => {
+                button.classList.remove("copied");
+                button.textContent = originalLabel;
+                button.disabled = false;
+              }, 1800);
+              return;
+            } catch (error) {
+              button.disabled = false;
+              console.warn("Clipboard copy failed, falling back to download.", error);
+            }
+          }
+
+          const downloadUrl = URL.createObjectURL(svgBlob);
+          const anchor = document.createElement("a");
+          anchor.href = downloadUrl;
+          anchor.download = `${slide.dataset.slideId || "slide"}.svg`;
+          document.body.appendChild(anchor);
+          anchor.click();
+          document.body.removeChild(anchor);
+          setTimeout(() => URL.revokeObjectURL(downloadUrl), 1000);
+          button.disabled = false;
+        };
+
+        copyButtons.forEach((button) => {
+          const targetId = button.getAttribute("data-target");
+          const slide = document.querySelector(
+            `section.slide[data-slide-id="${targetId}"]`
+          );
+          const originalLabel = button.textContent.trim();
+          button.dataset.label = originalLabel;
+          button.addEventListener("click", () => copySlideAsSvg(button, slide));
+        });
       });
     </script>
   </head>
@@ -669,12 +806,21 @@
       アクセントカラーを切り替えたい場合は、必要に応じて body に任意の class を追加し CSS を拡張してください。
     -->
     <main>
-      <section class="slide is-active" data-slide-id="title">
-        <header class="slide-meta">Slide 01 · タイトル</header>
-        <h1><span data-ai-field="presentation_title">タイトルを入力</span></h1>
-        <p class="lead">
-          <span data-ai-field="presentation_tagline"
-            >資料全体のトーンを示す短いリード文を入力してください。</span
+      <div class="slide-wrapper is-active-wrapper" data-wrapper-id="title">
+        <button
+          type="button"
+          class="svg-copy"
+          data-target="title"
+          aria-label="SVGとしてコピー"
+        >
+          SVGコピー
+        </button>
+        <section class="slide is-active" data-slide-id="title">
+          <header class="slide-meta">Slide 01 · タイトル</header>
+          <h1><span data-ai-field="presentation_title">タイトルを入力</span></h1>
+          <p class="lead">
+            <span data-ai-field="presentation_tagline"
+              >資料全体のトーンを示す短いリード文を入力してください。</span
           >
         </p>
         <div class="split">
@@ -696,19 +842,29 @@
             >
           </div>
         </div>
-        <footer class="next-link">
-          <span data-ai-field="title_to_agenda_transition"
-            >次スライド（アジェンダ）への導入文</span
-          >
-        </footer>
-      </section>
+          <footer class="next-link">
+            <span data-ai-field="title_to_agenda_transition"
+              >次スライド（アジェンダ）への導入文</span
+            >
+          </footer>
+        </section>
+      </div>
 
-      <section class="slide" data-slide-id="agenda">
-        <header class="slide-meta">Slide 02 · アジェンダ</header>
-        <span class="section-label">AGENDA</span>
-        <h2><span data-ai-field="agenda_title">本日の流れ</span></h2>
-        <p class="lead">
-          <span data-ai-field="agenda_lead"
+      <div class="slide-wrapper" data-wrapper-id="agenda" hidden>
+        <button
+          type="button"
+          class="svg-copy"
+          data-target="agenda"
+          aria-label="SVGとしてコピー"
+        >
+          SVGコピー
+        </button>
+        <section class="slide" data-slide-id="agenda">
+          <header class="slide-meta">Slide 02 · アジェンダ</header>
+          <span class="section-label">AGENDA</span>
+          <h2><span data-ai-field="agenda_title">本日の流れ</span></h2>
+          <p class="lead">
+            <span data-ai-field="agenda_lead"
             >アジェンダ全体の狙いや期待値を簡潔に書いてください。</span
           >
         </p>
@@ -738,19 +894,29 @@
             >
           </li>
         </ul>
-        <footer class="next-link">
-          <span data-ai-field="agenda_to_background_transition"
-            >背景スライドへ滑らかに遷移する一文</span
-          >
-        </footer>
-      </section>
+          <footer class="next-link">
+            <span data-ai-field="agenda_to_background_transition"
+              >背景スライドへ滑らかに遷移する一文</span
+            >
+          </footer>
+        </section>
+      </div>
 
-      <section class="slide transition-slide" data-slide-id="agenda-transition">
-        <header class="slide-meta">Slide 03 · クッション</header>
-        <h2>
-          <span data-ai-field="transition_heading"
-            >ここから課題背景について解説します</span
-          >
+      <div class="slide-wrapper" data-wrapper-id="agenda-transition" hidden>
+        <button
+          type="button"
+          class="svg-copy"
+          data-target="agenda-transition"
+          aria-label="SVGとしてコピー"
+        >
+          SVGコピー
+        </button>
+        <section class="slide transition-slide" data-slide-id="agenda-transition">
+          <header class="slide-meta">Slide 03 · クッション</header>
+          <h2>
+            <span data-ai-field="transition_heading"
+              >ここから課題背景について解説します</span
+            >
         </h2>
         <p class="lead">
           <span data-ai-field="transition_lead"
@@ -763,19 +929,29 @@
             >流れを示すアイコンや簡易図の指示</span
           >
         </div>
-        <footer class="next-link">
-          <span data-ai-field="transition_to_background"
-            >背景スライドへの導入文</span
-          >
-        </footer>
-      </section>
+          <footer class="next-link">
+            <span data-ai-field="transition_to_background"
+              >背景スライドへの導入文</span
+            >
+          </footer>
+        </section>
+      </div>
 
-      <section class="slide" data-slide-id="background">
-        <header class="slide-meta">Slide 04 · 背景</header>
-        <span class="section-label">BACKGROUND</span>
-        <h2><span data-ai-field="background_title">背景・現状</span></h2>
-        <p class="lead">
-          <span data-ai-field="background_lead"
+      <div class="slide-wrapper" data-wrapper-id="background" hidden>
+        <button
+          type="button"
+          class="svg-copy"
+          data-target="background"
+          aria-label="SVGとしてコピー"
+        >
+          SVGコピー
+        </button>
+        <section class="slide" data-slide-id="background">
+          <header class="slide-meta">Slide 04 · 背景</header>
+          <span class="section-label">BACKGROUND</span>
+          <h2><span data-ai-field="background_title">背景・現状</span></h2>
+          <p class="lead">
+            <span data-ai-field="background_lead"
             >背景の全体像と重要なキーメッセージをまとめたリード文。</span
           >
         </p>
@@ -805,19 +981,29 @@
             <p>背景を図解する図表の指示を記述</p>
           </figure>
         </div>
-        <footer class="next-link">
-          <span data-ai-field="background_to_objective_transition"
-            >本日の目的スライドへ繋ぐ文</span
-          >
-        </footer>
-      </section>
+          <footer class="next-link">
+            <span data-ai-field="background_to_objective_transition"
+              >本日の目的スライドへ繋ぐ文</span
+            >
+          </footer>
+        </section>
+      </div>
 
-      <section class="slide" data-slide-id="objective">
-        <header class="slide-meta">Slide 05 · 本日の目的</header>
-        <span class="section-label">OBJECTIVE</span>
-        <h2><span data-ai-field="objective_title">本日の目的</span></h2>
-        <p class="lead">
-          <span data-ai-field="objective_lead"
+      <div class="slide-wrapper" data-wrapper-id="objective" hidden>
+        <button
+          type="button"
+          class="svg-copy"
+          data-target="objective"
+          aria-label="SVGとしてコピー"
+        >
+          SVGコピー
+        </button>
+        <section class="slide" data-slide-id="objective">
+          <header class="slide-meta">Slide 05 · 本日の目的</header>
+          <span class="section-label">OBJECTIVE</span>
+          <h2><span data-ai-field="objective_title">本日の目的</span></h2>
+          <p class="lead">
+            <span data-ai-field="objective_lead"
             >本日のゴールと期待される成果をシンプルに記述。</span
           >
         </p>
@@ -837,19 +1023,29 @@
             >
           </div>
         </div>
-        <footer class="next-link">
-          <span data-ai-field="objective_to_summary_transition"
-            >サマリースライドへの導入文</span
-          >
-        </footer>
-      </section>
+          <footer class="next-link">
+            <span data-ai-field="objective_to_summary_transition"
+              >サマリースライドへの導入文</span
+            >
+          </footer>
+        </section>
+      </div>
 
-      <section class="slide transition-slide" data-slide-id="section-cushion">
-        <header class="slide-meta">Slide 06 · クッション</header>
-        <h2>
-          <span data-ai-field="section_transition_heading"
-            >ここからサマリーのポイントに入ります</span
-          >
+      <div class="slide-wrapper" data-wrapper-id="section-cushion" hidden>
+        <button
+          type="button"
+          class="svg-copy"
+          data-target="section-cushion"
+          aria-label="SVGとしてコピー"
+        >
+          SVGコピー
+        </button>
+        <section class="slide transition-slide" data-slide-id="section-cushion">
+          <header class="slide-meta">Slide 06 · クッション</header>
+          <h2>
+            <span data-ai-field="section_transition_heading"
+              >ここからサマリーのポイントに入ります</span
+            >
         </h2>
         <p class="lead">
           <span data-ai-field="section_transition_lead"
@@ -862,19 +1058,29 @@
             >チャート・ポンチ絵のコンセプト指示</span
           >
         </div>
-        <footer class="next-link">
-          <span data-ai-field="section_transition_to_summary"
-            >次のサマリースライドへ向けた誘導文</span
-          >
-        </footer>
-      </section>
+          <footer class="next-link">
+            <span data-ai-field="section_transition_to_summary"
+              >次のサマリースライドへ向けた誘導文</span
+            >
+          </footer>
+        </section>
+      </div>
 
-      <section class="slide" data-slide-id="summary">
-        <header class="slide-meta">Slide 07 · サマリー</header>
-        <span class="section-label">INTERIM SUMMARY</span>
-        <h2><span data-ai-field="summary_title">中間サマリー</span></h2>
-        <p class="lead">
-          <span data-ai-field="summary_lead"
+      <div class="slide-wrapper" data-wrapper-id="summary" hidden>
+        <button
+          type="button"
+          class="svg-copy"
+          data-target="summary"
+          aria-label="SVGとしてコピー"
+        >
+          SVGコピー
+        </button>
+        <section class="slide" data-slide-id="summary">
+          <header class="slide-meta">Slide 07 · サマリー</header>
+          <span class="section-label">INTERIM SUMMARY</span>
+          <h2><span data-ai-field="summary_title">中間サマリー</span></h2>
+          <p class="lead">
+            <span data-ai-field="summary_lead"
             >ここまでの議論から導かれるポイントを要約。</span
           >
         </p>
@@ -904,19 +1110,29 @@
             </p>
           </article>
         </div>
-        <footer class="next-link">
-          <span data-ai-field="summary_to_roadmap_transition"
-            >ロードマップスライドへの接続文</span
-          >
-        </footer>
-      </section>
+          <footer class="next-link">
+            <span data-ai-field="summary_to_roadmap_transition"
+              >ロードマップスライドへの接続文</span
+            >
+          </footer>
+        </section>
+      </div>
 
-      <section class="slide" data-slide-id="roadmap">
-        <header class="slide-meta">Slide 08 · ロードマップ</header>
-        <span class="section-label">ROADMAP</span>
-        <h2><span data-ai-field="roadmap_title">進捗・ロードマップ</span></h2>
-        <p class="lead">
-          <span data-ai-field="roadmap_lead"
+      <div class="slide-wrapper" data-wrapper-id="roadmap" hidden>
+        <button
+          type="button"
+          class="svg-copy"
+          data-target="roadmap"
+          aria-label="SVGとしてコピー"
+        >
+          SVGコピー
+        </button>
+        <section class="slide" data-slide-id="roadmap">
+          <header class="slide-meta">Slide 08 · ロードマップ</header>
+          <span class="section-label">ROADMAP</span>
+          <h2><span data-ai-field="roadmap_title">進捗・ロードマップ</span></h2>
+          <p class="lead">
+            <span data-ai-field="roadmap_lead"
             >主要フェーズの到達状況と今後の計画を俯瞰するリード文。</span
           >
         </p>
@@ -1053,19 +1269,29 @@
             ></span
           >
         </div>
-        <footer class="next-link">
-          <span data-ai-field="roadmap_to_gantt_transition"
-            >ステークホルダー・ガントへの接続文</span
-          >
-        </footer>
-      </section>
+          <footer class="next-link">
+            <span data-ai-field="roadmap_to_gantt_transition"
+              >ステークホルダー・ガントへの接続文</span
+            >
+          </footer>
+        </section>
+      </div>
 
-      <section class="slide" data-slide-id="stakeholder-gantt">
-        <header class="slide-meta">Slide 09 · ステークホルダー・ガント</header>
-        <span class="section-label">STAKEHOLDER ALIGNMENT</span>
-        <h2>
-          <span data-ai-field="stakeholder_gantt_title"
-            >ステークホルダー別タスクと連携状況</span
+      <div class="slide-wrapper" data-wrapper-id="stakeholder-gantt" hidden>
+        <button
+          type="button"
+          class="svg-copy"
+          data-target="stakeholder-gantt"
+          aria-label="SVGとしてコピー"
+        >
+          SVGコピー
+        </button>
+        <section class="slide" data-slide-id="stakeholder-gantt">
+          <header class="slide-meta">Slide 09 · ステークホルダー・ガント</header>
+          <span class="section-label">STAKEHOLDER ALIGNMENT</span>
+          <h2>
+            <span data-ai-field="stakeholder_gantt_title"
+              >ステークホルダー別タスクと連携状況</span
           >
         </h2>
         <p class="lead">
@@ -1073,7 +1299,7 @@
             >各ステークホルダーのアクションと依存関係を時系列で俯瞰できるよう記入してください。</span
           >
         </p>
-        <div class="stakeholder-gantt" style="--timeline-columns: 8">
+        <div class="stakeholder-gantt" style="--timeline-columns: 6">
           <div class="gantt-header">
             <div class="gantt-corner">
               <span data-ai-field="stakeholder_corner_label">ステークホルダー</span>
@@ -1096,12 +1322,6 @@
             <div class="gantt-head-cell">
               <span data-ai-field="stakeholder_timeline_col_6">FY26 Q2</span>
             </div>
-            <div class="gantt-head-cell">
-              <span data-ai-field="stakeholder_timeline_col_7">FY26 Q3</span>
-            </div>
-            <div class="gantt-head-cell">
-              <span data-ai-field="stakeholder_timeline_col_8">FY26 Q4</span>
-            </div>
           </div>
           <div class="gantt-body">
             <div class="gantt-row">
@@ -1110,12 +1330,12 @@
               </div>
               <div class="gantt-track">
                 <div class="gantt-guides">
-                  <span></span><span></span><span></span><span></span
-                  ><span></span><span></span><span></span><span></span>
+                  <span></span><span></span><span></span
+                  ><span></span><span></span><span></span>
                 </div>
                 <div
                   class="gantt-task"
-                  style="--start: 1; --end: 3; --task-color: rgba(79, 70, 229, 0.88);"
+                  style="--start: 1; --end: 3; --task-color: rgba(29, 78, 216, 0.9);"
                 >
                   <span
                     class="gantt-task-title"
@@ -1163,8 +1383,8 @@
               </div>
               <div class="gantt-track">
                 <div class="gantt-guides">
-                  <span></span><span></span><span></span><span></span
-                  ><span></span><span></span><span></span><span></span>
+                  <span></span><span></span><span></span
+                  ><span></span><span></span><span></span>
                 </div>
                 <div
                   class="gantt-task"
@@ -1189,7 +1409,7 @@
                 </div>
                 <div
                   class="gantt-task"
-                  style="--start: 4; --end: 7; --task-color: rgba(249, 115, 22, 0.88);"
+                  style="--start: 4; --end: 6; --task-color: rgba(249, 115, 22, 0.88);"
                 >
                   <span
                     class="gantt-task-title"
@@ -1216,8 +1436,8 @@
               </div>
               <div class="gantt-track">
                 <div class="gantt-guides">
-                  <span></span><span></span><span></span><span></span
-                  ><span></span><span></span><span></span><span></span>
+                  <span></span><span></span><span></span
+                  ><span></span><span></span><span></span>
                 </div>
                 <div
                   class="gantt-task"
@@ -1242,7 +1462,7 @@
                 </div>
                 <div
                   class="gantt-task"
-                  style="--start: 4; --end: 7; --task-color: rgba(94, 234, 212, 0.85);"
+                  style="--start: 4; --end: 6; --task-color: rgba(94, 234, 212, 0.85);"
                 >
                   <span
                     class="gantt-task-title"
@@ -1269,8 +1489,8 @@
               </div>
               <div class="gantt-track">
                 <div class="gantt-guides">
-                  <span></span><span></span><span></span><span></span
-                  ><span></span><span></span><span></span><span></span>
+                  <span></span><span></span><span></span
+                  ><span></span><span></span><span></span>
                 </div>
                 <div
                   class="gantt-task"
@@ -1341,19 +1561,29 @@
             >
           </div>
         </div>
-        <footer class="next-link">
-          <span data-ai-field="stakeholder_gantt_to_wrap_transition"
-            >全体まとめスライドへの導出文</span
-          >
-        </footer>
-      </section>
+          <footer class="next-link">
+            <span data-ai-field="stakeholder_gantt_to_wrap_transition"
+              >全体まとめスライドへの導出文</span
+            >
+          </footer>
+        </section>
+      </div>
 
-      <section class="slide" data-slide-id="overall-wrap">
-        <header class="slide-meta">Slide 10 · 全体まとめ</header>
-        <span class="section-label">FINAL TAKEAWAY</span>
-        <h2><span data-ai-field="wrap_title">全体のまとめ</span></h2>
-        <p class="lead">
-          <span data-ai-field="wrap_lead"
+      <div class="slide-wrapper" data-wrapper-id="overall-wrap" hidden>
+        <button
+          type="button"
+          class="svg-copy"
+          data-target="overall-wrap"
+          aria-label="SVGとしてコピー"
+        >
+          SVGコピー
+        </button>
+        <section class="slide" data-slide-id="overall-wrap">
+          <header class="slide-meta">Slide 10 · 全体まとめ</header>
+          <span class="section-label">FINAL TAKEAWAY</span>
+          <h2><span data-ai-field="wrap_title">全体のまとめ</span></h2>
+          <p class="lead">
+            <span data-ai-field="wrap_lead"
             >受講者に残したい最も重要なメッセージを凝縮。</span
           >
         </p>
@@ -1385,19 +1615,29 @@
             >
           </div>
         </div>
-        <footer class="next-link">
-          <span data-ai-field="wrap_closure"
-            >クロージングの一言や問い合わせ先</span
-          >
-        </footer>
-      </section>
+          <footer class="next-link">
+            <span data-ai-field="wrap_closure"
+              >クロージングの一言や問い合わせ先</span
+            >
+          </footer>
+        </section>
+      </div>
 
-      <section class="slide" data-slide-id="appendix" aria-hidden="true">
-        <header class="slide-meta">Optional · 追加資料</header>
-        <span class="section-label">OPTIONAL</span>
-        <h2>補足スライドのテンプレート</h2>
-        <p class="lead">
-          クッションスライドや詳細説明を追加する際はこのセクションを複製してください。
+      <div class="slide-wrapper" data-wrapper-id="appendix" hidden>
+        <button
+          type="button"
+          class="svg-copy"
+          data-target="appendix"
+          aria-label="SVGとしてコピー"
+        >
+          SVGコピー
+        </button>
+        <section class="slide" data-slide-id="appendix" aria-hidden="true">
+          <header class="slide-meta">Optional · 追加資料</header>
+          <span class="section-label">OPTIONAL</span>
+          <h2>補足スライドのテンプレート</h2>
+          <p class="lead">
+            クッションスライドや詳細説明を追加する際はこのセクションを複製してください。
         </p>
         <div class="split">
           <div class="punch-card">
@@ -1411,7 +1651,8 @@
             <span>必要なグラフ形式を具体的に（例：棒グラフ／サンバースト）</span>
           </div>
         </div>
-      </section>
+        </section>
+      </div>
     </main>
     <nav class="nav-controls" aria-label="スライド操作">
       <button type="button" data-nav="prev" aria-label="前のスライド">▲</button>
