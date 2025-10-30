@@ -12,40 +12,34 @@
       :root {
         --font-sans: "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif;
         --font-display: "Poppins", "Hiragino Sans", "Noto Sans JP", sans-serif;
-        --accent-1: #6b5bff;
-        --accent-2: #ff7f50;
-        --accent-3: #00c9a7;
-        --bg-dark: #0f172a;
-        --bg-light: #f8fafc;
-        --text-dark: #0b1120;
-        --text-muted: #475569;
-        --surface: rgba(255, 255, 255, 0.92);
-        --surface-border: rgba(148, 163, 184, 0.35);
-        --shadow-strong: 0 25px 60px rgba(15, 23, 42, 0.35);
-        --shadow-soft: 0 12px 30px rgba(15, 23, 42, 0.16);
+        --accent-1: #1d4ed8;
+        --accent-2: #38bdf8;
+        --accent-3: #0ea5e9;
+        --bg-base: #ffffff;
+        --bg-muted: #f1f5f9;
+        --text-strong: #0f172a;
+        --text-body: #1e293b;
+        --text-muted: #64748b;
+        --surface: #ffffff;
+        --surface-border: rgba(148, 163, 184, 0.25);
+        --shadow-strong: 0 28px 60px rgba(148, 163, 184, 0.28);
+        --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.12);
         --transition: 220ms ease;
       }
 
-      /* Theme switcher */
       body {
         margin: 0;
         font-family: var(--font-sans);
-        color: var(--text-dark);
-        background: var(--bg-light);
+        color: var(--text-body);
+        background: var(--bg-base);
         transition: background var(--transition), color var(--transition);
         line-height: 1.6;
       }
 
-      body.theme-vibrant {
-        background: radial-gradient(circle at 0% 0%, rgba(107, 91, 255, 0.45), transparent 50%),
-          radial-gradient(circle at 80% 10%, rgba(0, 201, 167, 0.35), transparent 55%),
-          var(--bg-dark);
-        color: rgba(241, 245, 249, 0.92);
-      }
-
+      body.theme-vibrant,
       body.theme-minimal {
-        background: var(--bg-light);
-        color: var(--text-dark);
+        background: var(--bg-base);
+        color: var(--text-body);
       }
 
       /* Slide container */
@@ -79,16 +73,15 @@
         transform: translateY(0);
       }
 
-      body.theme-vibrant section.slide {
-        background: linear-gradient(135deg, rgba(15, 23, 42, 0.7), rgba(31, 41, 55, 0.8));
-        border: 1px solid rgba(148, 163, 184, 0.35);
-        box-shadow: var(--shadow-strong);
-      }
-
-      body.theme-minimal section.slide {
-        background: #fff;
-        border: 1px solid rgba(148, 163, 184, 0.2);
-        box-shadow: var(--shadow-soft);
+      section.slide::after {
+        content: "CONFIDENTIAL";
+        position: absolute;
+        right: 1.6rem;
+        bottom: 1.1rem;
+        font-size: 0.92rem;
+        letter-spacing: 0.28em;
+        color: #d90429;
+        font-weight: 700;
       }
 
       header.slide-meta {
@@ -128,10 +121,6 @@
         color: inherit;
       }
 
-      body.theme-minimal p.lead {
-        color: var(--text-muted);
-      }
-
       ul.agenda,
       ul.key-points {
         margin: 0;
@@ -143,7 +132,7 @@
       .timeline {
         display: grid;
         gap: 0.8rem;
-        border-left: 3px solid rgba(107, 91, 255, 0.3);
+        border-left: 3px solid rgba(29, 78, 216, 0.2);
         padding-left: 1.4rem;
         margin: 0;
       }
@@ -163,16 +152,7 @@
         height: 0.85rem;
         border-radius: 999px;
         background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-        box-shadow: 0 0 15px rgba(107, 91, 255, 0.4);
-      }
-
-      body.theme-minimal .timeline {
-        border-left-color: rgba(15, 23, 42, 0.12);
-      }
-
-      body.theme-minimal .timeline li::before {
-        background: #1d4ed8;
-        box-shadow: none;
+        box-shadow: 0 0 8px rgba(37, 99, 235, 0.35);
       }
 
       .split {
@@ -187,8 +167,8 @@
       .punch-card {
         padding: 1.8rem;
         border-radius: 20px;
-        border: 1px dashed rgba(148, 163, 184, 0.45);
-        background: rgba(148, 163, 184, 0.06);
+        border: 1px dashed rgba(148, 163, 184, 0.28);
+        background: rgba(226, 232, 240, 0.4);
         min-height: 200px;
         display: flex;
         flex-direction: column;
@@ -197,12 +177,7 @@
         align-items: center;
         text-align: center;
         font-size: 0.95rem;
-      }
-
-      body.theme-minimal .chart-card,
-      body.theme-minimal .viz-card,
-      body.theme-minimal .punch-card {
-        background: rgba(148, 163, 184, 0.08);
+        color: var(--text-body);
       }
 
       .chart-card strong {
@@ -216,15 +191,10 @@
         border-left: 4px solid var(--accent-3);
         padding-left: 1.4rem;
         font-size: 1rem;
-        color: inherit;
-        background: rgba(0, 201, 167, 0.12);
+        color: var(--text-body);
+        background: rgba(14, 165, 233, 0.12);
         border-radius: 16px;
         padding: 1.4rem;
-      }
-
-      body.theme-minimal .callout {
-        background: rgba(224, 231, 255, 0.45);
-        border-left-color: #1d4ed8;
       }
 
       .section-label {
@@ -276,8 +246,8 @@
       .summary-card {
         border-radius: 20px;
         padding: 1.6rem;
-        background: rgba(148, 163, 184, 0.08);
-        border: 1px solid rgba(148, 163, 184, 0.4);
+        background: rgba(226, 232, 240, 0.45);
+        border: 1px solid rgba(148, 163, 184, 0.28);
         display: grid;
         gap: 0.6rem;
       }
@@ -287,23 +257,14 @@
         font-size: 1.1rem;
       }
 
-      body.theme-minimal .summary-card {
-        background: rgba(241, 245, 249, 0.95);
-        border-color: rgba(148, 163, 184, 0.25);
-      }
-
       .roadmap-board {
         position: relative;
         border-radius: 26px;
         overflow: hidden;
-        border: 1px solid rgba(148, 163, 184, 0.4);
-        background: rgba(15, 23, 42, 0.12);
+        border: 1px solid rgba(148, 163, 184, 0.28);
+        background: rgba(226, 232, 240, 0.45);
         display: grid;
         gap: 0;
-      }
-
-      body.theme-minimal .roadmap-board {
-        background: rgba(241, 245, 249, 0.85);
       }
 
       .roadmap-header,
@@ -313,16 +274,12 @@
       }
 
       .roadmap-header {
-        background: rgba(15, 23, 42, 0.18);
-        color: inherit;
+        background: rgba(37, 99, 235, 0.08);
+        color: var(--text-strong);
         font-family: var(--font-display);
         font-size: 0.95rem;
         letter-spacing: 0.08em;
         text-transform: uppercase;
-      }
-
-      body.theme-minimal .roadmap-header {
-        background: rgba(15, 23, 42, 0.06);
       }
 
       .roadmap-corner,
@@ -336,19 +293,11 @@
       }
 
       .roadmap-row {
-        background: rgba(15, 23, 42, 0.1);
+        background: rgba(15, 23, 42, 0.04);
       }
 
       .roadmap-row:nth-child(even) {
-        background: rgba(15, 23, 42, 0.16);
-      }
-
-      body.theme-minimal .roadmap-row {
-        background: rgba(148, 163, 184, 0.08);
-      }
-
-      body.theme-minimal .roadmap-row:nth-child(even) {
-        background: rgba(148, 163, 184, 0.15);
+        background: rgba(15, 23, 42, 0.08);
       }
 
       .roadmap-lane-title {
@@ -402,25 +351,16 @@
         height: 0.85rem;
         border-radius: 999px;
         background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-        box-shadow: 0 0 10px rgba(107, 91, 255, 0.35);
-      }
-
-      body.theme-minimal .legend-marker {
-        background: #1d4ed8;
-        box-shadow: none;
+        box-shadow: 0 0 10px rgba(37, 99, 235, 0.25);
       }
 
       .stakeholder-gantt {
         border-radius: 26px;
-        border: 1px solid rgba(148, 163, 184, 0.35);
+        border: 1px solid rgba(148, 163, 184, 0.28);
         padding: 2.2rem 2rem;
-        background: rgba(15, 23, 42, 0.14);
+        background: rgba(226, 232, 240, 0.45);
         display: grid;
         gap: 1.6rem;
-      }
-
-      body.theme-minimal .stakeholder-gantt {
-        background: rgba(241, 245, 249, 0.95);
       }
 
       .gantt-header {
@@ -433,23 +373,18 @@
         text-transform: uppercase;
         letter-spacing: 0.08em;
         font-size: 0.9rem;
-        color: inherit;
+        color: var(--text-strong);
       }
 
       .gantt-corner,
       .gantt-head-cell {
         padding: 0.9rem 1rem;
-        border-right: 1px solid rgba(148, 163, 184, 0.35);
-        background: rgba(15, 23, 42, 0.16);
+        border-right: 1px solid rgba(148, 163, 184, 0.28);
+        background: rgba(37, 99, 235, 0.08);
       }
 
       .gantt-head-cell:last-child {
         border-right: none;
-      }
-
-      body.theme-minimal .gantt-corner,
-      body.theme-minimal .gantt-head-cell {
-        background: rgba(148, 163, 184, 0.2);
       }
 
       .gantt-head-cell {
@@ -465,14 +400,11 @@
       .gantt-row {
         display: grid;
         grid-template-columns: 220px 1fr;
-        background: rgba(15, 23, 42, 0.12);
+        background: rgba(255, 255, 255, 0.85);
         border-radius: 20px;
         overflow: hidden;
-        border: 1px solid rgba(148, 163, 184, 0.22);
-      }
-
-      body.theme-minimal .gantt-row {
-        background: rgba(226, 232, 240, 0.7);
+        border: 1px solid rgba(148, 163, 184, 0.24);
+        box-shadow: 0 16px 30px rgba(15, 23, 42, 0.08);
       }
 
       .gantt-lane-title {
@@ -525,11 +457,11 @@
         border-radius: 999px 16px 16px 999px;
         background: linear-gradient(
           135deg,
-          var(--task-color, rgba(79, 70, 229, 0.9)),
-          rgba(79, 70, 229, 0.72)
+          var(--task-color, rgba(29, 78, 216, 0.92)),
+          rgba(59, 130, 246, 0.72)
         );
-        color: #f8fafc;
-        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.35);
+        color: #ffffff;
+        box-shadow: 0 16px 32px rgba(15, 23, 42, 0.18);
         position: relative;
         z-index: 1;
         font-size: 0.94rem;
@@ -541,13 +473,9 @@
         right: -16px;
         top: 50%;
         transform: translateY(-50%);
-        border-left: 16px solid var(--task-color, rgba(79, 70, 229, 0.9));
+        border-left: 16px solid var(--task-color, rgba(29, 78, 216, 0.92));
         border-top: 11px solid transparent;
         border-bottom: 11px solid transparent;
-      }
-
-      body.theme-minimal .gantt-task {
-        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.22);
       }
 
       .gantt-task-title {
@@ -576,15 +504,9 @@
       .gantt-task-links span {
         padding: 0.3rem 0.6rem;
         border-radius: 999px;
-        border: 1px solid rgba(255, 255, 255, 0.45);
-        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        background: rgba(255, 255, 255, 0.2);
         color: inherit;
-      }
-
-      body.theme-minimal .gantt-task-links span {
-        border-color: rgba(15, 23, 42, 0.25);
-        background: rgba(255, 255, 255, 0.65);
-        color: var(--text-dark);
       }
 
       .gantt-legend {
@@ -665,12 +587,6 @@
         box-shadow: 0 10px 22px rgba(15, 23, 42, 0.32);
       }
 
-      body.theme-minimal nav.nav-controls button {
-        background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-        color: #f8fafc;
-        box-shadow: 0 12px 26px rgba(15, 23, 42, 0.25);
-      }
-
       @media (max-width: 640px) {
         nav.nav-controls {
           right: 1.2rem;
@@ -686,18 +602,11 @@
     </style>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        // Toggle theme by setting ?theme=vibrant or ?theme=minimal
+        // Optional query to annotate theme selection (for future styling variations)
         const params = new URLSearchParams(window.location.search);
         const theme = params.get("theme");
-        const body = document.body;
-
-        if (theme === "minimal") {
-          body.classList.remove("theme-vibrant");
-          body.classList.add("theme-minimal");
-          document.documentElement.dataset.theme = "minimal";
-        } else {
-          body.classList.add("theme-vibrant");
-          document.documentElement.dataset.theme = "vibrant";
+        if (theme) {
+          document.documentElement.dataset.theme = theme;
         }
 
         // Slide navigation
@@ -752,15 +661,12 @@
       });
     </script>
   </head>
-  <body class="theme-vibrant">
+  <body>
     <!--
       生成AIが差し替える想定のフィールドには <span data-ai-field="..."> や data-slot 属性を付与。
       指示文では data-ai-field のラベルを参照して具体的な内容を入力させる。
-
-      テーマの切り替え:
-        - 華美（プレミアム演出）: body class="theme-vibrant"
-        - 社内共有などシンプル版: body class="theme-minimal"
-      生成AIにスタイル切り替えを指示する場合は body 要素の class を適宜変更させる。
+      全スライドは白基調で統一され、右下に赤字「CONFIDENTIAL」が常時表示される。
+      アクセントカラーを切り替えたい場合は、必要に応じて body に任意の class を追加し CSS を拡張してください。
     -->
     <main>
       <section class="slide is-active" data-slide-id="title">
