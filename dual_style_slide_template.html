@@ -44,12 +44,10 @@
 
       /* Slide container */
       main {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: grid;
+        place-items: center;
+        gap: 4rem;
         padding: 6rem 3rem;
-        position: relative;
       }
 
       section.slide {
@@ -61,16 +59,6 @@
         box-shadow: var(--shadow-soft);
         backdrop-filter: blur(12px);
         position: relative;
-        display: none;
-        opacity: 0;
-        transform: translateY(24px);
-        transition: opacity var(--transition), transform var(--transition);
-      }
-
-      section.slide.is-active {
-        display: block;
-        opacity: 1;
-        transform: translateY(0);
       }
 
       section.slide::after {
@@ -84,14 +72,10 @@
         font-weight: 700;
       }
 
-      .slide-wrapper {
+      .slide-container {
         position: relative;
         width: min(1080px, 100%);
         margin: 0 auto;
-      }
-
-      .slide-wrapper[hidden] {
-        display: none !important;
       }
 
       .svg-copy {
@@ -595,57 +579,6 @@
         }
       }
 
-      nav.nav-controls {
-        position: fixed;
-        right: 2.2rem;
-        bottom: 2.2rem;
-        display: grid;
-        gap: 0.8rem;
-        z-index: 20;
-      }
-
-      nav.nav-controls button {
-        cursor: pointer;
-        border: none;
-        border-radius: 50%;
-        width: 3.4rem;
-        height: 3.4rem;
-        font-size: 1.1rem;
-        font-family: var(--font-display);
-        color: rgba(241, 245, 249, 0.95);
-        background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.35);
-        transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
-      }
-
-      nav.nav-controls button:disabled {
-        cursor: not-allowed;
-        opacity: 0.4;
-        box-shadow: none;
-      }
-
-      nav.nav-controls button:not(:disabled):hover {
-        transform: translateY(-2px);
-        box-shadow: 0 18px 36px rgba(15, 23, 42, 0.42);
-      }
-
-      nav.nav-controls button:not(:disabled):active {
-        transform: translateY(0);
-        box-shadow: 0 10px 22px rgba(15, 23, 42, 0.32);
-      }
-
-      @media (max-width: 640px) {
-        nav.nav-controls {
-          right: 1.2rem;
-          bottom: 1.6rem;
-        }
-
-        nav.nav-controls button {
-          width: 3rem;
-          height: 3rem;
-          font-size: 1rem;
-        }
-      }
     </style>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
@@ -655,70 +588,6 @@
         if (theme) {
           document.documentElement.dataset.theme = theme;
         }
-
-        // Slide navigation
-        const slides = Array.from(document.querySelectorAll("section.slide"));
-        const slideWrappers = slides.map((slide) =>
-          slide.closest(".slide-wrapper")
-        );
-        const prevBtn = document.querySelector("[data-nav='prev']");
-        const nextBtn = document.querySelector("[data-nav='next']");
-
-        if (!slides.length || !prevBtn || !nextBtn) {
-          return;
-        }
-
-        let currentIndex = slides.findIndex((slide) =>
-          slide.classList.contains("is-active")
-        );
-        if (currentIndex < 0) currentIndex = 0;
-
-        slideWrappers.forEach((wrapper, idx) => {
-          if (!wrapper) return;
-          wrapper.hidden = idx !== currentIndex;
-        });
-
-        const updateSlides = (target) => {
-          const boundedIndex = Math.min(
-            Math.max(target, 0),
-            slides.length - 1
-          );
-          slides.forEach((slide, idx) => {
-            const active = idx === boundedIndex;
-            slide.classList.toggle("is-active", active);
-            slide.setAttribute("aria-hidden", String(!active));
-          });
-          slideWrappers.forEach((wrapper, idx) => {
-            if (!wrapper) return;
-            const active = idx === boundedIndex;
-            wrapper.hidden = !active;
-            wrapper.classList.toggle("is-active-wrapper", active);
-          });
-          prevBtn.disabled = boundedIndex === 0;
-          nextBtn.disabled = boundedIndex === slides.length - 1;
-          currentIndex = boundedIndex;
-        };
-
-        const move = (delta) => {
-          if (delta === 0) return;
-          updateSlides(currentIndex + delta);
-        };
-
-        prevBtn.addEventListener("click", () => move(-1));
-        nextBtn.addEventListener("click", () => move(1));
-
-        document.addEventListener("keydown", (event) => {
-          if (event.key === "ArrowUp" || event.key === "PageUp") {
-            event.preventDefault();
-            move(-1);
-          }
-          if (event.key === "ArrowDown" || event.key === "PageDown") {
-            event.preventDefault();
-            move(1);
-          }
-        });
-
-        updateSlides(currentIndex);
 
         const styleBlocks = Array.from(document.querySelectorAll("style"));
         const combinedStyles = styleBlocks
@@ -734,7 +603,6 @@
           const height = Math.round(rect.height);
 
           const clone = slide.cloneNode(true);
-          clone.classList.add("is-active");
           clone.removeAttribute("aria-hidden");
 
           const svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMinYMin meet">
@@ -806,7 +674,7 @@
       アクセントカラーを切り替えたい場合は、必要に応じて body に任意の class を追加し CSS を拡張してください。
     -->
     <main>
-      <div class="slide-wrapper is-active-wrapper" data-wrapper-id="title">
+      <div class="slide-container" data-wrapper-id="title">
         <button
           type="button"
           class="svg-copy"
@@ -815,7 +683,7 @@
         >
           SVGコピー
         </button>
-        <section class="slide is-active" data-slide-id="title">
+        <section class="slide" data-slide-id="title">
           <header class="slide-meta">Slide 01 · タイトル</header>
           <h1><span data-ai-field="presentation_title">タイトルを入力</span></h1>
           <p class="lead">
@@ -850,7 +718,7 @@
         </section>
       </div>
 
-      <div class="slide-wrapper" data-wrapper-id="agenda" hidden>
+      <div class="slide-container" data-wrapper-id="agenda">
         <button
           type="button"
           class="svg-copy"
@@ -902,7 +770,7 @@
         </section>
       </div>
 
-      <div class="slide-wrapper" data-wrapper-id="agenda-transition" hidden>
+      <div class="slide-container" data-wrapper-id="agenda-transition">
         <button
           type="button"
           class="svg-copy"
@@ -937,7 +805,7 @@
         </section>
       </div>
 
-      <div class="slide-wrapper" data-wrapper-id="background" hidden>
+      <div class="slide-container" data-wrapper-id="background">
         <button
           type="button"
           class="svg-copy"
@@ -989,7 +857,7 @@
         </section>
       </div>
 
-      <div class="slide-wrapper" data-wrapper-id="objective" hidden>
+      <div class="slide-container" data-wrapper-id="objective">
         <button
           type="button"
           class="svg-copy"
@@ -1031,7 +899,7 @@
         </section>
       </div>
 
-      <div class="slide-wrapper" data-wrapper-id="section-cushion" hidden>
+      <div class="slide-container" data-wrapper-id="section-cushion">
         <button
           type="button"
           class="svg-copy"
@@ -1066,7 +934,7 @@
         </section>
       </div>
 
-      <div class="slide-wrapper" data-wrapper-id="summary" hidden>
+      <div class="slide-container" data-wrapper-id="summary">
         <button
           type="button"
           class="svg-copy"
@@ -1118,7 +986,7 @@
         </section>
       </div>
 
-      <div class="slide-wrapper" data-wrapper-id="roadmap" hidden>
+      <div class="slide-container" data-wrapper-id="roadmap">
         <button
           type="button"
           class="svg-copy"
@@ -1277,7 +1145,7 @@
         </section>
       </div>
 
-      <div class="slide-wrapper" data-wrapper-id="stakeholder-gantt" hidden>
+      <div class="slide-container" data-wrapper-id="stakeholder-gantt">
         <button
           type="button"
           class="svg-copy"
@@ -1569,7 +1437,7 @@
         </section>
       </div>
 
-      <div class="slide-wrapper" data-wrapper-id="overall-wrap" hidden>
+      <div class="slide-container" data-wrapper-id="overall-wrap">
         <button
           type="button"
           class="svg-copy"
@@ -1623,7 +1491,7 @@
         </section>
       </div>
 
-      <div class="slide-wrapper" data-wrapper-id="appendix" hidden>
+      <div class="slide-container" data-wrapper-id="appendix">
         <button
           type="button"
           class="svg-copy"
@@ -1654,9 +1522,5 @@
         </section>
       </div>
     </main>
-    <nav class="nav-controls" aria-label="スライド操作">
-      <button type="button" data-nav="prev" aria-label="前のスライド">▲</button>
-      <button type="button" data-nav="next" aria-label="次のスライド">▼</button>
-    </nav>
   </body>
 </html>
