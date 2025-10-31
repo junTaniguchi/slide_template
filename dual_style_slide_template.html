@@ -8,6 +8,15 @@
       content="生成AIがコンテンツを流し込むためのHTMLスライドテンプレート。華美な演出用と社内共有向けシンプル版を切り替え可能。"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      window.tailwind = window.tailwind || {};
+      window.tailwind.config = {
+        corePlugins: {
+          preflight: false,
+        },
+      };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
       :root {
         --font-sans: "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif;
@@ -209,6 +218,10 @@
         text-align: center;
         font-size: 0.95rem;
         color: var(--text-body);
+      }
+
+      .tailwind-infographic {
+        font-family: var(--font-sans);
       }
 
       .chart-card strong {
@@ -848,14 +861,66 @@
             <strong>チャート・ポンチ絵</strong>
             <div class="viz-sample">
               <p>📊 市場規模の推移（兆円）</p>
-              <ul>
-                <li>2022: 1.8 ▓▓▓▓▓▓</li>
-                <li>2023: 2.3 ▓▓▓▓▓▓▓▓</li>
-                <li>2024: 3.1 ▓▓▓▓▓▓▓▓▓▓</li>
-              </ul>
-              <div class="swimlane">
-                <span>顧客課題: 情報分散・属人化</span>
-                <span>提供価値: ダッシュボードで統合・自動化</span>
+              <div class="tailwind-infographic mt-4">
+                <div
+                  class="max-w-2xl rounded-3xl border border-sky-200 bg-gradient-to-br from-sky-50 via-white to-white p-6 text-slate-800 shadow-lg"
+                >
+                  <div class="flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex items-center gap-2">
+                      <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-sky-500/20 text-sky-600">📈</span>
+                      <span class="text-sm font-semibold uppercase tracking-widest text-sky-600">Growth Journey</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs text-slate-500">
+                      <span class="flex items-center gap-1"><span class="h-2.5 w-2.5 rounded-full bg-emerald-400"></span> 実績KPI</span>
+                      <span class="flex items-center gap-1"><span class="h-2.5 w-2.5 rounded-full bg-sky-400"></span> 期待値</span>
+                    </div>
+                  </div>
+                  <div class="mt-6 grid gap-4 sm:grid-cols-3">
+                    <div class="flex flex-col gap-2 rounded-2xl border border-sky-100 bg-white/90 p-4 shadow-sm">
+                      <span class="text-xs font-semibold uppercase tracking-wide text-slate-500">2022</span>
+                      <span class="text-2xl font-bold text-sky-700">1.8兆円</span>
+                      <div class="relative h-2.5 rounded-full bg-slate-200">
+                        <span class="absolute inset-y-0 left-0 rounded-full bg-emerald-400" style="width: 45%"></span>
+                        <span class="absolute inset-y-0 left-0 rounded-full bg-sky-400/70" style="width: 65%"></span>
+                      </div>
+                      <p class="text-xs text-slate-500">現状: 検証導入段階</p>
+                    </div>
+                    <div class="flex flex-col gap-2 rounded-2xl border border-sky-100 bg-white/90 p-4 shadow-sm">
+                      <span class="text-xs font-semibold uppercase tracking-wide text-slate-500">2023</span>
+                      <span class="text-2xl font-bold text-sky-700">2.3兆円</span>
+                      <div class="relative h-2.5 rounded-full bg-slate-200">
+                        <span class="absolute inset-y-0 left-0 rounded-full bg-emerald-400" style="width: 62%"></span>
+                        <span class="absolute inset-y-0 left-0 rounded-full bg-sky-400/70" style="width: 78%"></span>
+                      </div>
+                      <p class="text-xs text-slate-500">拡大: 主要業界へ横展開</p>
+                    </div>
+                    <div class="flex flex-col gap-2 rounded-2xl border border-sky-100 bg-white/90 p-4 shadow-sm">
+                      <span class="text-xs font-semibold uppercase tracking-wide text-slate-500">2024</span>
+                      <span class="text-2xl font-bold text-sky-700">3.1兆円</span>
+                      <div class="relative h-2.5 rounded-full bg-slate-200">
+                        <span class="absolute inset-y-0 left-0 rounded-full bg-emerald-400" style="width: 88%"></span>
+                        <span class="absolute inset-y-0 left-0 rounded-full bg-sky-400/70" style="width: 100%"></span>
+                      </div>
+                      <p class="text-xs text-slate-500">将来像: 継続率90%の安定運用</p>
+                    </div>
+                  </div>
+                  <div class="mt-6 grid gap-4 md:grid-cols-[1.5fr_1fr]">
+                    <div class="rounded-2xl border border-sky-100 bg-white/60 p-4">
+                      <h4 class="text-sm font-semibold text-slate-600">顧客課題</h4>
+                      <ul class="mt-2 space-y-1 text-sm text-slate-500">
+                        <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-rose-400"></span><span>情報の分散と属人化により意思決定が遅延</span></li>
+                        <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-rose-400"></span><span>運用負荷が高く、部門間連携が断続的</span></li>
+                      </ul>
+                    </div>
+                    <div class="rounded-2xl border border-emerald-100 bg-emerald-50/60 p-4">
+                      <h4 class="text-sm font-semibold text-emerald-700">提供価値</h4>
+                      <ul class="mt-2 space-y-1 text-sm text-emerald-700/80">
+                        <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-400"></span><span>データ統合ダッシュボードで意思決定を高速化</span></li>
+                        <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-400"></span><span>自動アラートで部門横断のアクションを同期</span></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </figure>
@@ -1521,9 +1586,75 @@
         <div class="split">
           <div class="punch-card">
             <strong>ポンチ絵</strong>
-            <span
-              >🧭 ユーザー旅路: 認知🔍 → 比較⚖️ → 導入🚀 → 定着💡</span
-            >
+            <div class="tailwind-infographic">
+              <div class="max-w-2xl rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-inner">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <span class="text-xs font-semibold uppercase tracking-widest text-slate-500">ユーザー旅路の全体像</span>
+                  <div class="flex items-center gap-2 text-xs text-slate-500">
+                    <span class="inline-flex items-center gap-1"><span class="h-2.5 w-2.5 rounded-full bg-sky-400"></span> 施策</span>
+                    <span class="inline-flex items-center gap-1"><span class="h-2.5 w-2.5 rounded-full bg-emerald-400"></span> KPI</span>
+                  </div>
+                </div>
+                <div class="mt-5 grid gap-4 sm:grid-cols-4">
+                  <div class="flex flex-col gap-3 rounded-2xl border border-sky-100 bg-white/90 p-4 shadow-sm">
+                    <div class="flex items-center gap-2">
+                      <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-sky-500/15 text-lg">🔍</span>
+                      <div>
+                        <p class="text-sm font-semibold text-slate-600">認知</p>
+                        <p class="text-xs text-slate-500">Awareness</p>
+                      </div>
+                    </div>
+                    <ul class="space-y-1 text-xs text-slate-500">
+                      <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-sky-400"></span>業界ウェビナーで課題共有</li>
+                      <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-400"></span>リード獲得数 +35%</li>
+                    </ul>
+                  </div>
+                  <div class="flex flex-col gap-3 rounded-2xl border border-sky-100 bg-white/90 p-4 shadow-sm">
+                    <div class="flex items-center gap-2">
+                      <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-sky-500/15 text-lg">⚖️</span>
+                      <div>
+                        <p class="text-sm font-semibold text-slate-600">比較</p>
+                        <p class="text-xs text-slate-500">Consider</p>
+                      </div>
+                    </div>
+                    <ul class="space-y-1 text-xs text-slate-500">
+                      <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-sky-400"></span>導入事例を個別提案</li>
+                      <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-400"></span>商談化率 42%</li>
+                    </ul>
+                  </div>
+                  <div class="flex flex-col gap-3 rounded-2xl border border-sky-100 bg-white/90 p-4 shadow-sm">
+                    <div class="flex items-center gap-2">
+                      <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-sky-500/15 text-lg">🚀</span>
+                      <div>
+                        <p class="text-sm font-semibold text-slate-600">導入</p>
+                        <p class="text-xs text-slate-500">Adopt</p>
+                      </div>
+                    </div>
+                    <ul class="space-y-1 text-xs text-slate-500">
+                      <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-sky-400"></span>オンボーディングワークショップ</li>
+                      <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-400"></span>初期活用率 85%</li>
+                    </ul>
+                  </div>
+                  <div class="flex flex-col gap-3 rounded-2xl border border-sky-100 bg-white/90 p-4 shadow-sm">
+                    <div class="flex items-center gap-2">
+                      <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-sky-500/15 text-lg">💡</span>
+                      <div>
+                        <p class="text-sm font-semibold text-slate-600">定着</p>
+                        <p class="text-xs text-slate-500">Retain</p>
+                      </div>
+                    </div>
+                    <ul class="space-y-1 text-xs text-slate-500">
+                      <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-sky-400"></span>定例レビューと改善提案</li>
+                      <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-400"></span>NPS +18 / 継続率 92%</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="mt-5 flex flex-wrap items-center gap-3 text-xs text-slate-500">
+                  <div class="inline-flex items-center gap-1 rounded-full bg-sky-500/10 px-3 py-1 font-medium text-sky-600">🤝 次の一手: CS強化と伴走支援</div>
+                  <div class="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-3 py-1 font-medium text-emerald-600">📆 90日内で成果創出</div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="chart-card">
             <strong>データチャート</strong>
