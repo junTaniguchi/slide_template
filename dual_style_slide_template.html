@@ -1045,20 +1045,38 @@
           <!-- Slide meta: Slide 05 · 本日の目的 -->
           <!-- Section label: OBJECTIVE -->
           <h2><span data-ai-field="objective_title">本日の合意事項</span></h2>
+          <!-- リード文に本日の目的とゴールを統合し、テキストだけで決定したい論点を整理する -->
           <p class="lead">
             <span data-ai-field="objective_lead"
-            >本日のゴールと期待される成果をシンプルに記述。</span
-          >
-        </p>
-        <div class="split">
-          <div class="callout">
-            <h3>ゴール</h3>
-            <p>
-              <span data-ai-field="objective_goal"
-                >このセッションで参加者が到達すべき状態</span
-              >
-            </p>
-          </div>
+              >本日の目的と合意形成ゴールを一文でまとめ、決めるべき範囲を明確にする。</span
+            >
+          </p>
+          <div class="split">
+            <div class="callout">
+              <h3>合意事項サマリ</h3>
+              <p class="text-sm text-slate-600">
+                <span data-ai-field="objective_decision_intro"
+                  >リード文に書けなかった補足条件や決定事項の背景があれば簡潔に添える。</span
+                >
+              </p>
+              <ul class="key-points">
+                <li>
+                  <span data-ai-field="objective_decision_point_1"
+                    >主要な合意内容や承認項目を箇条書きで整理</span
+                  >
+                </li>
+                <li>
+                  <span data-ai-field="objective_decision_point_2"
+                    >未解決の論点やフォローアップ条件を記載</span
+                  >
+                </li>
+                <li>
+                  <span data-ai-field="objective_decision_point_3"
+                    >意思決定に紐づく次のアクションを明記</span
+                  >
+                </li>
+              </ul>
+            </div>
           <!-- data-ai-field="objective_visual_hint" では、READMEのプロンプト通りに可視化の狙いや描画ルールのみを書かせる -->
           <div class="chart-card">
             <span class="hidden" data-ai-field="objective_visual_hint"></span>
