@@ -207,6 +207,12 @@
         align-items: start;
       }
 
+      .split.background-layout {
+        grid-template-columns: minmax(280px, 1.05fr) minmax(520px, 1.6fr);
+        gap: 2.2rem;
+        align-items: stretch;
+      }
+
       .title-summary {
         grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       }
@@ -231,6 +237,16 @@
         background: transparent;
         min-height: 0;
         display: block;
+      }
+
+      .viz-card.background-visual {
+        display: flex;
+        align-items: stretch;
+      }
+
+      .viz-card.background-visual .tailwind-infographic {
+        width: 100%;
+        height: auto;
       }
 
       .tailwind-infographic {
@@ -705,7 +721,7 @@
           SVGコピー
         </button>
         <section class="slide" data-slide-id="title">
-          <header class="slide-meta">Slide 01 · タイトル</header>
+          <!-- Slide meta: Slide 01 · タイトル -->
           <h1><span data-ai-field="presentation_title">タイトルを入力</span></h1>
           <p class="lead">
             <span data-ai-field="presentation_tagline"
@@ -756,9 +772,9 @@
           SVGコピー
         </button>
         <section class="slide" data-slide-id="agenda">
-          <header class="slide-meta">Slide 02 · アジェンダ</header>
-          <span class="section-label">AGENDA</span>
-          <h2><span data-ai-field="agenda_title">本日の流れ</span></h2>
+          <!-- Slide meta: Slide 02 · アジェンダ -->
+          <!-- Section label: AGENDA -->
+          <h2><span data-ai-field="agenda_title">全体アジェンダの俯瞰</span></h2>
           <p class="lead">
             <span data-ai-field="agenda_lead"
             >アジェンダ全体の狙いや期待値を簡潔に書いてください。</span
@@ -808,12 +824,12 @@
           SVGコピー
         </button>
         <section class="slide transition-slide" data-slide-id="agenda-transition">
-          <header class="slide-meta">Slide 03 · クッション</header>
+          <!-- Slide meta: Slide 03 · クッション -->
           <h2>
             <span data-ai-field="transition_heading"
               >ここから課題背景について解説します</span
             >
-        </h2>
+          </h2>
         <p class="lead">
           <span data-ai-field="transition_lead"
             >前後スライドの内容が飛躍しないよう、論旨を接続する短いストーリーを書いてください。</span
@@ -899,15 +915,17 @@
           SVGコピー
         </button>
         <section class="slide" data-slide-id="background">
-          <header class="slide-meta">Slide 04 · 背景</header>
-          <span class="section-label">BACKGROUND</span>
-          <h2><span data-ai-field="background_title">背景・現状</span></h2>
+          <!-- Slide meta: Slide 04 · 背景 -->
+          <!-- Section label: BACKGROUND -->
+          <h2>
+            <span data-ai-field="background_title">市場環境と足元の状況整理</span>
+          </h2>
           <p class="lead">
             <span data-ai-field="background_lead"
             >背景の全体像と重要なキーメッセージをまとめたリード文。</span
           >
         </p>
-        <div class="split">
+        <div class="split background-layout">
           <div>
             <h3>要点</h3>
             <ul class="key-points">
@@ -928,11 +946,11 @@
               </li>
             </ul>
           </div>
-          <!-- data-ai-field="background_visual": 背景の事実を可視化する実チャート／ポンチ絵をここで描画し、レイアウトはTailwindユーティリティで必要に応じて調整する -->
-          <figure class="viz-card" data-ai-field="background_visual">
-            <div class="viz-sample">
+          <!-- data-ai-field="background_visual": 背景の事実を可視化する実チャート／ポンチ絵をここで描画し、必要に応じてTailwindユーティリティでサイズや比率を調整しつつ全体が収まるよう仕上げる -->
+          <figure class="viz-card background-visual" data-ai-field="background_visual">
+            <div class="viz-sample w-full">
               <p>📊 市場規模の推移（兆円）</p>
-              <div class="tailwind-infographic mt-4 aspect-[16/9]">
+              <div class="tailwind-infographic mt-4 aspect-[16/9] w-full">
                 <div
                   class="infographic-frame grid h-full w-full overflow-hidden rounded-3xl border border-sky-200 bg-gradient-to-br from-sky-50 via-white to-white p-6 text-slate-800 shadow-lg md:grid-cols-[1.6fr_1fr]"
                 >
@@ -1024,9 +1042,9 @@
           SVGコピー
         </button>
         <section class="slide" data-slide-id="objective">
-          <header class="slide-meta">Slide 05 · 本日の目的</header>
-          <span class="section-label">OBJECTIVE</span>
-          <h2><span data-ai-field="objective_title">本日の目的</span></h2>
+          <!-- Slide meta: Slide 05 · 本日の目的 -->
+          <!-- Section label: OBJECTIVE -->
+          <h2><span data-ai-field="objective_title">本日の合意事項</span></h2>
           <p class="lead">
             <span data-ai-field="objective_lead"
             >本日のゴールと期待される成果をシンプルに記述。</span
@@ -1132,7 +1150,7 @@
           SVGコピー
         </button>
         <section class="slide transition-slide" data-slide-id="section-cushion">
-          <header class="slide-meta">Slide 06 · クッション</header>
+          <!-- Slide meta: Slide 06 · クッション -->
           <h2>
             <span data-ai-field="section_transition_heading"
               >ここからサマリーのポイントに入ります</span
@@ -1222,9 +1240,9 @@
           SVGコピー
         </button>
         <section class="slide" data-slide-id="summary">
-          <header class="slide-meta">Slide 07 · サマリー</header>
-          <span class="section-label">INTERIM SUMMARY</span>
-          <h2><span data-ai-field="summary_title">中間サマリー</span></h2>
+          <!-- Slide meta: Slide 07 · サマリー -->
+          <!-- Section label: INTERIM SUMMARY -->
+          <h2><span data-ai-field="summary_title">中間の主要ポイント</span></h2>
           <p class="lead">
             <span data-ai-field="summary_lead"
             >ここまでの議論から導かれるポイントを要約。</span
@@ -1274,9 +1292,9 @@
           SVGコピー
         </button>
         <section class="slide" data-slide-id="roadmap">
-          <header class="slide-meta">Slide 08 · ロードマップ</header>
-          <span class="section-label">ROADMAP</span>
-          <h2><span data-ai-field="roadmap_title">進捗・ロードマップ</span></h2>
+          <!-- Slide meta: Slide 08 · ロードマップ -->
+          <!-- Section label: ROADMAP -->
+          <h2><span data-ai-field="roadmap_title">主要マイルストーンの見通し</span></h2>
           <p class="lead">
             <span data-ai-field="roadmap_lead"
             >主要フェーズの到達状況と今後の計画を俯瞰するリード文。</span
@@ -1433,11 +1451,11 @@
           SVGコピー
         </button>
         <section class="slide" data-slide-id="stakeholder-gantt">
-          <header class="slide-meta">Slide 09 · ステークホルダー・ガント</header>
-          <span class="section-label">STAKEHOLDER ALIGNMENT</span>
+          <!-- Slide meta: Slide 09 · ステークホルダー・ガント -->
+          <!-- Section label: STAKEHOLDER ALIGNMENT -->
           <h2>
             <span data-ai-field="stakeholder_gantt_title"
-              >ステークホルダー別タスクと連携状況</span
+              >関係者別のタスク進行表</span
           >
         </h2>
         <p class="lead">
@@ -1725,9 +1743,9 @@
           SVGコピー
         </button>
         <section class="slide" data-slide-id="overall-wrap">
-          <header class="slide-meta">Slide 10 · 全体まとめ</header>
-          <span class="section-label">FINAL TAKEAWAY</span>
-          <h2><span data-ai-field="wrap_title">全体のまとめ</span></h2>
+          <!-- Slide meta: Slide 10 · 全体まとめ -->
+          <!-- Section label: FINAL TAKEAWAY -->
+          <h2><span data-ai-field="wrap_title">クロージングメッセージ</span></h2>
           <p class="lead">
             <span data-ai-field="wrap_lead"
             >受講者に残したい最も重要なメッセージを凝縮。</span
@@ -1842,8 +1860,8 @@
           SVGコピー
         </button>
         <section class="slide" data-slide-id="appendix" aria-hidden="true">
-          <header class="slide-meta">Optional · 追加資料</header>
-          <span class="section-label">OPTIONAL</span>
+          <!-- Slide meta: Optional · 追加資料 -->
+          <!-- Section label: OPTIONAL -->
           <h2>補足スライドのテンプレート</h2>
           <p class="lead">
             クッションスライドや詳細説明を追加する際はこのセクションを複製してください。
@@ -1933,8 +1951,8 @@
           SVGコピー
         </button>
         <section class="slide" data-slide-id="appendix-chart" aria-hidden="true">
-          <header class="slide-meta">Optional · 追加資料</header>
-          <span class="section-label">OPTIONAL</span>
+          <!-- Slide meta: Optional · 追加資料 -->
+          <!-- Section label: OPTIONAL -->
           <h2>データチャートのテンプレート</h2>
           <p class="lead">
             数値の推移や指標を共有するグラフ用スライド。必要に応じてレイアウトや色を調整してください。
