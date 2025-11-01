@@ -841,7 +841,7 @@
           <span class="hidden" data-ai-field="transition_visual_hint"></span>
           <div class="tailwind-infographic w-full aspect-[16/9]">
             <div
-              class="infographic-frame flex h-full w-full flex-col overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-br from-indigo-50 via-white to-white p-6 text-left shadow-lg"
+              class="infographic-frame flex h-full w-full flex-col overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-br from-indigo-50 via-white to-white p-5 text-left shadow-lg sm:p-6"
             >
               <div class="flex flex-wrap items-center justify-between gap-2">
                 <span class="text-xs font-semibold uppercase tracking-[0.28em] text-indigo-500">Story Bridge</span>
@@ -850,28 +850,29 @@
                   <span data-ai-field="transition_visual_theme">前章 → 課題背景 → 次章</span>
                 </span>
               </div>
-              <div class="relative mt-6 flex flex-1 flex-col justify-center">
-                <div class="absolute left-8 right-8 top-1/2 hidden -translate-y-1/2 border-t-2 border-dashed border-indigo-200 sm:block"></div>
-                <div class="grid gap-4 sm:grid-cols-3">
-                  <div class="relative flex flex-col gap-3 rounded-2xl border border-indigo-100 bg-white/90 p-4 shadow-sm">
+              <div class="relative mt-4 flex flex-1 flex-col justify-center">
+                <div class="flex flex-col items-stretch gap-3 sm:flex-row sm:items-stretch sm:gap-3">
+                  <div class="flex flex-col gap-3 rounded-2xl border border-indigo-100 bg-white/90 p-4 shadow-sm">
                     <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-500/15 text-lg">🔎</span>
                     <h4 class="text-sm font-semibold text-slate-600" data-ai-field="transition_visual_step_1_title">現状の疑問</h4>
                     <p class="text-xs text-slate-500" data-ai-field="transition_visual_step_1_body">
                       直前スライドで触れた成果・課題の問い直し
                     </p>
-                    <span class="pointer-events-none absolute inset-y-0 -right-6 hidden w-12 items-center justify-center text-indigo-200 sm:flex">
-                      <span class="h-12 w-12 rounded-full border border-indigo-100/60 bg-indigo-500/10"></span>
-                    </span>
                   </div>
-                  <div class="relative flex flex-col gap-3 rounded-2xl border border-indigo-100 bg-white/90 p-4 shadow-sm">
+                  <div class="flex items-center justify-center sm:w-10 sm:flex-none" aria-hidden="true">
+                    <span class="text-xl text-indigo-500 sm:hidden">⬇️</span>
+                    <span class="hidden text-2xl text-indigo-400 sm:inline">➡️</span>
+                  </div>
+                  <div class="flex flex-col gap-3 rounded-2xl border border-indigo-100 bg-white/90 p-4 shadow-sm">
                     <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-500/15 text-lg">🧩</span>
                     <h4 class="text-sm font-semibold text-slate-600" data-ai-field="transition_visual_step_2_title">背景の整理</h4>
                     <p class="text-xs text-slate-500" data-ai-field="transition_visual_step_2_body">
                       課題の構造化・関係者の視点をここで提示
                     </p>
-                    <span class="pointer-events-none absolute inset-y-0 -right-6 hidden w-12 items-center justify-center text-indigo-200 sm:flex">
-                      <span class="h-12 w-12 rotate-45 border-b-2 border-r-2 border-indigo-200"></span>
-                    </span>
+                  </div>
+                  <div class="flex items-center justify-center sm:w-10 sm:flex-none" aria-hidden="true">
+                    <span class="text-xl text-indigo-500 sm:hidden">⬇️</span>
+                    <span class="hidden text-2xl text-indigo-400 sm:inline">➡️</span>
                   </div>
                   <div class="flex flex-col gap-3 rounded-2xl border border-indigo-100 bg-white/90 p-4 shadow-sm">
                     <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-500/15 text-lg">🚀</span>
@@ -882,7 +883,7 @@
                   </div>
                 </div>
               </div>
-              <div class="mt-6 grid gap-2 text-xs text-slate-500">
+              <div class="mt-5 grid gap-2 text-xs text-slate-500">
                 <div class="flex flex-wrap items-center justify-between gap-2">
                   <span data-ai-field="transition_visual_signal_1">共通キーワード</span>
                   <span class="rounded-full bg-indigo-500/10 px-2 py-1 text-[0.7rem] font-medium text-indigo-600">Focus</span>
