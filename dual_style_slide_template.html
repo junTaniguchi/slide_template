@@ -225,31 +225,17 @@
       .chart-card,
       .viz-card,
       .punch-card {
-        padding: 1.8rem;
-        border-radius: 20px;
-        border: 1px dashed rgba(148, 163, 184, 0.28);
-        background: rgba(226, 232, 240, 0.4);
-        min-height: 200px;
-        display: flex;
-        flex-direction: column;
-        gap: 0.8rem;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        font-size: 0.95rem;
-        color: var(--text-body);
+        margin: 0;
+        padding: 0;
+        border: none;
+        background: transparent;
+        min-height: 0;
+        display: block;
       }
 
       .tailwind-infographic {
         font-family: var(--font-sans);
         width: 100%;
-      }
-
-      .chart-card strong {
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-        font-size: 0.82rem;
-        color: inherit;
       }
 
       .callout {
@@ -833,8 +819,9 @@
             >前後スライドの内容が飛躍しないよう、論旨を接続する短いストーリーを書いてください。</span
           >
         </p>
+        <!-- READMEのプロンプトと同様に、data-ai-field="transition_visual_hint" には描画意図だけを書かせ、表示領域は実際のポンチ絵をTailwindで構成できるようにする -->
+        <!-- チャートやポンチ絵のサイズは例示に縛られず、必要に応じてTailwindユーティリティで拡縮してよい -->
         <div class="chart-card">
-          <strong>イメージ</strong>
           <span class="hidden" data-ai-field="transition_visual_hint"></span>
           <div class="tailwind-infographic w-full aspect-[16/9]">
             <div
@@ -941,8 +928,8 @@
               </li>
             </ul>
           </div>
+          <!-- data-ai-field="background_visual": 背景の事実を可視化する実チャート／ポンチ絵をここで描画し、レイアウトはTailwindユーティリティで必要に応じて調整する -->
           <figure class="viz-card" data-ai-field="background_visual">
-            <strong>チャート・ポンチ絵</strong>
             <div class="viz-sample">
               <p>📊 市場規模の推移（兆円）</p>
               <div class="tailwind-infographic mt-4 aspect-[16/9]">
@@ -1054,8 +1041,8 @@
               >
             </p>
           </div>
+          <!-- data-ai-field="objective_visual_hint" では、READMEのプロンプト通りに可視化の狙いや描画ルールのみを書かせる -->
           <div class="chart-card">
-            <strong>可視化案</strong>
             <span class="hidden" data-ai-field="objective_visual_hint"></span>
             <div class="tailwind-infographic w-full aspect-[16/9]">
               <div
@@ -1156,8 +1143,8 @@
             >アジェンダの区切りや話題転換の橋渡しとなるメッセージ。</span
           >
         </p>
+        <!-- data-ai-field="section_transition_visual" は、章間の橋渡しビジュアルを描く際のメモだけを格納する -->
         <div class="chart-card">
-          <strong>構図イメージ</strong>
           <span class="hidden" data-ai-field="section_transition_visual"></span>
           <div class="tailwind-infographic w-full aspect-[16/9]">
             <div
@@ -1696,8 +1683,8 @@
               </div>
             </div>
           </div>
+          <!-- ガント図で使う矢印やハイライトの指示は data-ai-field のテキストで記述し、表示ラベルは不要 -->
           <div class="gantt-notes">
-            <strong>描画指示メモ</strong>
             <span data-ai-field="stakeholder_gantt_arrow_note"
               >矢印・コネクタで依存関係を示す際の指示を記述</span
             >
@@ -1767,8 +1754,8 @@
               </li>
             </ul>
           </div>
+          <!-- data-ai-field="wrap_visual_hint" はクロージング用ビジュアルの設計意図のみを記載する領域 -->
           <div class="chart-card">
-            <strong>締めのビジュアル</strong>
             <span class="hidden" data-ai-field="wrap_visual_hint"></span>
             <div class="tailwind-infographic w-full aspect-[16/9]">
               <div
@@ -1861,8 +1848,8 @@
           <p class="lead">
             クッションスライドや詳細説明を追加する際はこのセクションを複製してください。
           </p>
+          <!-- appendix セクションでは、READMEの指示に従い実際の補足図解のみを表示し、指示文はコメントや data-ai-field に保持する -->
           <div class="punch-card">
-              <strong>ポンチ絵</strong>
               <div class="tailwind-infographic aspect-[16/9]">
                 <div class="infographic-frame flex h-full w-full flex-col justify-between overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 p-6 text-left shadow-inner">
                   <div class="flex flex-wrap items-center justify-between gap-2">
@@ -1952,8 +1939,8 @@
           <p class="lead">
             数値の推移や指標を共有するグラフ用スライド。必要に応じてレイアウトや色を調整してください。
           </p>
+          <!-- data-ai-field 群の数値は実データで差し替え、チャートのレイアウトもTailwindで自由に組み替えてよい -->
           <div class="chart-card">
-            <strong>データチャート</strong>
             <div class="tailwind-infographic aspect-[16/9]">
               <div class="infographic-frame flex h-full w-full flex-col justify-between overflow-hidden rounded-3xl border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-white p-6 text-left shadow-inner">
                 <div class="flex flex-wrap items-center justify-between gap-3 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-500">
