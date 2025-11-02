@@ -65,10 +65,18 @@
         background: var(--surface);
         border: 1px solid var(--surface-border);
         border-radius: 28px;
-        padding: 3rem 2.6rem;
+        padding: 3rem 2.6rem 1.8rem;
         box-shadow: var(--shadow-soft);
         backdrop-filter: blur(12px);
         position: relative;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .slide-content {
+        flex: 1 1 auto;
+        min-height: 0;
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
@@ -76,15 +84,15 @@
       }
 
       .confidential-tag {
-        position: absolute;
-        right: 1.6rem;
-        bottom: 1.1rem;
+        margin-top: auto;
+        align-self: flex-end;
         font-size: 0.92rem;
         letter-spacing: 0.28em;
         color: #d90429;
         font-weight: 700;
         text-transform: uppercase;
         pointer-events: none;
+        padding-top: 0.75rem;
       }
 
       .slide-container {
@@ -723,43 +731,45 @@
         </button>
         <section class="slide" data-slide-id="title">
           <!-- Slide meta: Slide 01 · タイトル -->
-          <h1><span data-ai-field="presentation_title">タイトルを入力</span></h1>
-          <p class="lead">
-            <span data-ai-field="presentation_tagline"
-              >資料全体のトーンを示す短いリード文を入力してください。</span
-          >
-        </p>
-        <div class="split title-summary">
-          <div>
-            <h3>登壇者</h3>
-            <ul class="key-points">
-              <li>
-                <span data-ai-field="presenter_name">名前（役職など）</span>
-              </li>
-              <li>
-                <span data-ai-field="presentation_date">発表日</span>
-              </li>
-            </ul>
-          </div>
-          <div class="title-overview">
-            <h3>本日のハイライト</h3>
-            <p>
-              <span data-ai-field="title_highlight_summary"
-                >この資料で伝える価値や背景のキーメッセージを1〜2文で記載してください。</span
-              >
-            </p>
-            <p>
-              <span data-ai-field="title_expected_outcome"
-                >聴衆に期待するアクションや持ち帰ってほしい観点を簡潔にまとめてください。</span
-              >
-            </p>
-          </div>
-        </div>
-          <footer class="next-link">
-            <span data-ai-field="title_to_agenda_transition"
-              >次スライド（アジェンダ）への導入文</span
+          <div class="slide-content">
+            <h1><span data-ai-field="presentation_title">タイトルを入力</span></h1>
+            <p class="lead">
+              <span data-ai-field="presentation_tagline"
+                >資料全体のトーンを示す短いリード文を入力してください。</span
             >
-          </footer>
+          </p>
+          <div class="split title-summary">
+            <div>
+              <h3>登壇者</h3>
+              <ul class="key-points">
+                <li>
+                  <span data-ai-field="presenter_name">名前（役職など）</span>
+                </li>
+                <li>
+                  <span data-ai-field="presentation_date">発表日</span>
+                </li>
+              </ul>
+            </div>
+            <div class="title-overview">
+              <h3>本日のハイライト</h3>
+              <p>
+                <span data-ai-field="title_highlight_summary"
+                  >この資料で伝える価値や背景のキーメッセージを1〜2文で記載してください。</span
+                >
+              </p>
+              <p>
+                <span data-ai-field="title_expected_outcome"
+                  >聴衆に期待するアクションや持ち帰ってほしい観点を簡潔にまとめてください。</span
+                >
+              </p>
+            </div>
+          </div>
+            <footer class="next-link">
+              <span data-ai-field="title_to_agenda_transition"
+                >次スライド（アジェンダ）への導入文</span
+              >
+            </footer>
+          </div>
           <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
         </section>
       </div>
@@ -776,43 +786,45 @@
         <section class="slide" data-slide-id="agenda">
           <!-- Slide meta: Slide 02 · アジェンダ -->
           <!-- Section label: AGENDA -->
-          <h2><span data-ai-field="agenda_title">全体アジェンダの俯瞰</span></h2>
-          <p class="lead">
-            <span data-ai-field="agenda_lead"
-            >アジェンダ全体の狙いや期待値を簡潔に書いてください。</span
-          >
-        </p>
-        <ul class="timeline">
-          <li>
-            <span data-ai-field="agenda_item_1_title">背景</span>：
-            <span data-ai-field="agenda_item_1_desc"
-              >背景スライドで扱う要点の要約</span
+          <div class="slide-content">
+            <h2><span data-ai-field="agenda_title">全体アジェンダの俯瞰</span></h2>
+            <p class="lead">
+              <span data-ai-field="agenda_lead"
+              >アジェンダ全体の狙いや期待値を簡潔に書いてください。</span
             >
-          </li>
-          <li>
-            <span data-ai-field="agenda_item_2_title">本日の目的</span>：
-            <span data-ai-field="agenda_item_2_desc"
-              >目的スライドの焦点を記述</span
-            >
-          </li>
-          <li>
-            <span data-ai-field="agenda_item_3_title">サマリー</span>：
-            <span data-ai-field="agenda_item_3_desc"
-              >中間サマリーで触れるトピック</span
-            >
-          </li>
-          <li>
-            <span data-ai-field="agenda_item_4_title">全体まとめ</span>：
-            <span data-ai-field="agenda_item_4_desc"
-              >最終スライドでのメッセージ</span
-            >
-          </li>
-        </ul>
-          <footer class="next-link">
-            <span data-ai-field="agenda_to_background_transition"
-              >背景スライドへ滑らかに遷移する一文</span
-            >
-          </footer>
+          </p>
+          <ul class="timeline">
+            <li>
+              <span data-ai-field="agenda_item_1_title">背景</span>：
+              <span data-ai-field="agenda_item_1_desc"
+                >背景スライドで扱う要点の要約</span
+              >
+            </li>
+            <li>
+              <span data-ai-field="agenda_item_2_title">本日の目的</span>：
+              <span data-ai-field="agenda_item_2_desc"
+                >目的スライドの焦点を記述</span
+              >
+            </li>
+            <li>
+              <span data-ai-field="agenda_item_3_title">サマリー</span>：
+              <span data-ai-field="agenda_item_3_desc"
+                >中間サマリーで触れるトピック</span
+              >
+            </li>
+            <li>
+              <span data-ai-field="agenda_item_4_title">全体まとめ</span>：
+              <span data-ai-field="agenda_item_4_desc"
+                >最終スライドでのメッセージ</span
+              >
+            </li>
+          </ul>
+            <footer class="next-link">
+              <span data-ai-field="agenda_to_background_transition"
+                >背景スライドへ滑らかに遷移する一文</span
+              >
+            </footer>
+          </div>
           <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
         </section>
       </div>
@@ -828,84 +840,86 @@
         </button>
         <section class="slide transition-slide" data-slide-id="agenda-transition">
           <!-- Slide meta: Slide 03 · クッション -->
-          <h2>
-            <span data-ai-field="transition_heading"
-              >ここから課題背景について解説します</span
+          <div class="slide-content">
+            <h2>
+              <span data-ai-field="transition_heading"
+                >ここから課題背景について解説します</span
+              >
+            </h2>
+          <p class="lead">
+            <span data-ai-field="transition_lead"
+              >前後スライドの内容が飛躍しないよう、論旨を接続する短いストーリーを書いてください。</span
             >
-          </h2>
-        <p class="lead">
-          <span data-ai-field="transition_lead"
-            >前後スライドの内容が飛躍しないよう、論旨を接続する短いストーリーを書いてください。</span
-          >
-        </p>
-        <!-- READMEのプロンプトと同様に、data-ai-field="transition_visual_hint" には描画意図だけを書かせ、表示領域は実際のポンチ絵をTailwindで構成できるようにする -->
-        <!-- チャートやポンチ絵のサイズは例示に縛られず、必要に応じてTailwindユーティリティで拡縮してよい -->
-        <div class="chart-card">
-          <span class="hidden" data-ai-field="transition_visual_hint"></span>
-          <div class="tailwind-infographic w-full aspect-[16/9]">
-            <div
-              class="infographic-frame flex h-full w-full flex-col overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-br from-indigo-50 via-white to-white p-4 text-left shadow-lg sm:p-5"
-            >
-              <div class="flex flex-wrap items-center justify-between gap-2">
-                <span class="text-xs font-semibold uppercase tracking-[0.28em] text-indigo-500">Story Bridge</span>
-                <span class="inline-flex items-center gap-2 rounded-full bg-indigo-500/10 px-3 py-1 text-xs font-medium text-indigo-600">
-                  <span>🧭</span>
-                  <span data-ai-field="transition_visual_theme">前章 → 課題背景 → 次章</span>
-                </span>
-              </div>
-              <div class="relative mt-3 flex flex-1 flex-col justify-center">
-                <div class="flex flex-col items-stretch gap-3 sm:flex-row sm:items-stretch sm:gap-3">
-                  <div class="flex flex-col gap-2.5 rounded-2xl border border-indigo-100 bg-white/90 p-3.5 shadow-sm">
-                    <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-500/15 text-lg">🔎</span>
-                    <h4 class="text-sm font-semibold text-slate-600" data-ai-field="transition_visual_step_1_title">現状の疑問</h4>
-                    <p class="text-xs text-slate-500" data-ai-field="transition_visual_step_1_body">
-                      直前スライドで触れた成果・課題の問い直し
-                    </p>
-                  </div>
-                  <div class="flex items-center justify-center sm:w-10 sm:flex-none" aria-hidden="true">
-                    <span class="text-xl text-indigo-500 sm:hidden">⬇️</span>
-                    <span class="hidden text-2xl text-indigo-400 sm:inline">➡️</span>
-                  </div>
-                  <div class="flex flex-col gap-2.5 rounded-2xl border border-indigo-100 bg-white/90 p-3.5 shadow-sm">
-                    <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-500/15 text-lg">🧩</span>
-                    <h4 class="text-sm font-semibold text-slate-600" data-ai-field="transition_visual_step_2_title">背景の整理</h4>
-                    <p class="text-xs text-slate-500" data-ai-field="transition_visual_step_2_body">
-                      課題の構造化・関係者の視点をここで提示
-                    </p>
-                  </div>
-                  <div class="flex items-center justify-center sm:w-10 sm:flex-none" aria-hidden="true">
-                    <span class="text-xl text-indigo-500 sm:hidden">⬇️</span>
-                    <span class="hidden text-2xl text-indigo-400 sm:inline">➡️</span>
-                  </div>
-                  <div class="flex flex-col gap-2.5 rounded-2xl border border-indigo-100 bg-white/90 p-3.5 shadow-sm">
-                    <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-500/15 text-lg">🚀</span>
-                    <h4 class="text-sm font-semibold text-slate-600" data-ai-field="transition_visual_step_3_title">次章の伏線</h4>
-                    <p class="text-xs text-slate-500" data-ai-field="transition_visual_step_3_body">
-                      この後の解決策・提案につながる期待を示す
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="mt-4 grid gap-2 text-xs text-slate-500">
+          </p>
+          <!-- READMEのプロンプトと同様に、data-ai-field="transition_visual_hint" には描画意図だけを書かせ、表示領域は実際のポンチ絵をTailwindで構成できるようにする -->
+          <!-- チャートやポンチ絵のサイズは例示に縛られず、必要に応じてTailwindユーティリティで拡縮してよい -->
+          <div class="chart-card">
+            <span class="hidden" data-ai-field="transition_visual_hint"></span>
+            <div class="tailwind-infographic w-full aspect-[16/9]">
+              <div
+                class="infographic-frame flex h-full w-full flex-col overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-br from-indigo-50 via-white to-white p-4 text-left shadow-lg sm:p-5"
+              >
                 <div class="flex flex-wrap items-center justify-between gap-2">
-                  <span data-ai-field="transition_visual_signal_1">共通キーワード</span>
-                  <span class="rounded-full bg-indigo-500/10 px-2 py-1 text-[0.7rem] font-medium text-indigo-600">Focus</span>
+                  <span class="text-xs font-semibold uppercase tracking-[0.28em] text-indigo-500">Story Bridge</span>
+                  <span class="inline-flex items-center gap-2 rounded-full bg-indigo-500/10 px-3 py-1 text-xs font-medium text-indigo-600">
+                    <span>🧭</span>
+                    <span data-ai-field="transition_visual_theme">前章 → 課題背景 → 次章</span>
+                  </span>
                 </div>
-                <div class="h-1.5 rounded-full bg-slate-200">
-                  <span class="block h-full rounded-full bg-indigo-500" style="width: 70%"></span>
+                <div class="relative mt-3 flex flex-1 flex-col justify-center">
+                  <div class="flex flex-col items-stretch gap-3 sm:flex-row sm:items-stretch sm:gap-3">
+                    <div class="flex flex-col gap-2.5 rounded-2xl border border-indigo-100 bg-white/90 p-3.5 shadow-sm">
+                      <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-500/15 text-lg">🔎</span>
+                      <h4 class="text-sm font-semibold text-slate-600" data-ai-field="transition_visual_step_1_title">現状の疑問</h4>
+                      <p class="text-xs text-slate-500" data-ai-field="transition_visual_step_1_body">
+                        直前スライドで触れた成果・課題の問い直し
+                      </p>
+                    </div>
+                    <div class="flex items-center justify-center sm:w-10 sm:flex-none" aria-hidden="true">
+                      <span class="text-xl text-indigo-500 sm:hidden">⬇️</span>
+                      <span class="hidden text-2xl text-indigo-400 sm:inline">➡️</span>
+                    </div>
+                    <div class="flex flex-col gap-2.5 rounded-2xl border border-indigo-100 bg-white/90 p-3.5 shadow-sm">
+                      <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-500/15 text-lg">🧩</span>
+                      <h4 class="text-sm font-semibold text-slate-600" data-ai-field="transition_visual_step_2_title">背景の整理</h4>
+                      <p class="text-xs text-slate-500" data-ai-field="transition_visual_step_2_body">
+                        課題の構造化・関係者の視点をここで提示
+                      </p>
+                    </div>
+                    <div class="flex items-center justify-center sm:w-10 sm:flex-none" aria-hidden="true">
+                      <span class="text-xl text-indigo-500 sm:hidden">⬇️</span>
+                      <span class="hidden text-2xl text-indigo-400 sm:inline">➡️</span>
+                    </div>
+                    <div class="flex flex-col gap-2.5 rounded-2xl border border-indigo-100 bg-white/90 p-3.5 shadow-sm">
+                      <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-500/15 text-lg">🚀</span>
+                      <h4 class="text-sm font-semibold text-slate-600" data-ai-field="transition_visual_step_3_title">次章の伏線</h4>
+                      <p class="text-xs text-slate-500" data-ai-field="transition_visual_step_3_body">
+                        この後の解決策・提案につながる期待を示す
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <p class="text-[0.72rem] text-slate-500" data-ai-field="transition_visual_signal_2">
-                  背景スライドで詳述する視点を先に提示し、聞き手の思考を整える
-                </p>
+                <div class="mt-4 grid gap-2 text-xs text-slate-500">
+                  <div class="flex flex-wrap items-center justify-between gap-2">
+                    <span data-ai-field="transition_visual_signal_1">共通キーワード</span>
+                    <span class="rounded-full bg-indigo-500/10 px-2 py-1 text-[0.7rem] font-medium text-indigo-600">Focus</span>
+                  </div>
+                  <div class="h-1.5 rounded-full bg-slate-200">
+                    <span class="block h-full rounded-full bg-indigo-500" style="width: 70%"></span>
+                  </div>
+                  <p class="text-[0.72rem] text-slate-500" data-ai-field="transition_visual_signal_2">
+                    背景スライドで詳述する視点を先に提示し、聞き手の思考を整える
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-          <footer class="next-link">
-            <span data-ai-field="transition_to_background"
-              >背景スライドへの導入文</span
-            >
-          </footer>
+            <footer class="next-link">
+              <span data-ai-field="transition_to_background"
+                >背景スライドへの導入文</span
+              >
+            </footer>
+          </div>
           <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
         </section>
       </div>
@@ -922,118 +936,120 @@
         <section class="slide" data-slide-id="background">
           <!-- Slide meta: Slide 04 · 背景 -->
           <!-- Section label: BACKGROUND -->
-          <h2>
-            <span data-ai-field="background_title">市場環境と足元の状況整理</span>
-          </h2>
-          <p class="lead">
-            <span data-ai-field="background_lead"
-            >背景の全体像と重要なキーメッセージをまとめたリード文。</span
-          >
-        </p>
-        <div class="split background-layout">
-          <div>
-            <h3>要点</h3>
-            <ul class="key-points">
-              <li>
-                <span data-ai-field="background_point_1"
-                  >定量データやファクトの要約</span
-                >
-              </li>
-              <li>
-                <span data-ai-field="background_point_2"
-                  >課題の背景にある要因</span
-                >
-              </li>
-              <li>
-                <span data-ai-field="background_point_3"
-                  >ステークホルダーの視点</span
-                >
-              </li>
-            </ul>
-          </div>
-          <!-- data-ai-field="background_visual": 背景の事実を可視化する実チャート／ポンチ絵をここで描画し、必要に応じてTailwindユーティリティでサイズや比率を調整しつつ全体が収まるよう仕上げる -->
-          <figure class="viz-card background-visual" data-ai-field="background_visual">
-            <div class="viz-sample w-full">
-              <p>📊 市場規模の推移（兆円）</p>
-              <div class="tailwind-infographic mt-3 aspect-[16/9] w-full">
-                <div
-                  class="infographic-frame grid h-full w-full overflow-hidden rounded-3xl border border-sky-200 bg-gradient-to-br from-sky-50 via-white to-white p-5 text-slate-800 shadow-lg md:grid-cols-[1.6fr_1fr]"
-                >
-                  <div class="flex h-full flex-col justify-between gap-3.5">
-                    <div class="flex flex-wrap items-center justify-between gap-3 text-xs font-semibold uppercase tracking-[0.28em] text-sky-600">
-                      <span class="inline-flex items-center gap-2">
-                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-sky-500/20 text-sky-600">📈</span>
-                        <span>Growth Journey</span>
-                      </span>
-                      <span class="inline-flex items-center gap-2 text-[0.7rem] text-slate-500">
-                        <span class="flex items-center gap-1"><span class="h-2.5 w-2.5 rounded-full bg-emerald-400"></span> 実績KPI</span>
-                        <span class="flex items-center gap-1"><span class="h-2.5 w-2.5 rounded-full bg-sky-400"></span> 期待値</span>
-                      </span>
-                    </div>
-                    <div class="grid flex-1 grid-cols-3 items-end gap-3 text-xs text-slate-500">
-                      <div class="flex flex-col gap-1.5 rounded-2xl border border-sky-100 bg-white/80 p-3 shadow-sm">
-                        <span class="font-semibold text-slate-600">2022</span>
-                        <span class="text-lg font-bold text-sky-700">1.8兆円</span>
-                        <div class="flex h-24 w-full items-end gap-2 rounded-2xl bg-slate-100/60 p-2">
-                          <span class="w-full rounded-t-lg bg-emerald-400" style="height: 45%"></span>
-                          <span class="w-full rounded-t-lg bg-sky-400/70" style="height: 65%"></span>
-                        </div>
-                        <p class="leading-tight text-[0.72rem]">現状: 検証導入段階</p>
+          <div class="slide-content">
+            <h2>
+              <span data-ai-field="background_title">市場環境と足元の状況整理</span>
+            </h2>
+            <p class="lead">
+              <span data-ai-field="background_lead"
+              >背景の全体像と重要なキーメッセージをまとめたリード文。</span
+            >
+          </p>
+          <div class="split background-layout">
+            <div>
+              <h3>要点</h3>
+              <ul class="key-points">
+                <li>
+                  <span data-ai-field="background_point_1"
+                    >定量データやファクトの要約</span
+                  >
+                </li>
+                <li>
+                  <span data-ai-field="background_point_2"
+                    >課題の背景にある要因</span
+                  >
+                </li>
+                <li>
+                  <span data-ai-field="background_point_3"
+                    >ステークホルダーの視点</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <!-- data-ai-field="background_visual": 背景の事実を可視化する実チャート／ポンチ絵をここで描画し、必要に応じてTailwindユーティリティでサイズや比率を調整しつつ全体が収まるよう仕上げる -->
+            <figure class="viz-card background-visual" data-ai-field="background_visual">
+              <div class="viz-sample w-full">
+                <p>📊 市場規模の推移（兆円）</p>
+                <div class="tailwind-infographic mt-3 aspect-[16/9] w-full">
+                  <div
+                    class="infographic-frame grid h-full w-full overflow-hidden rounded-3xl border border-sky-200 bg-gradient-to-br from-sky-50 via-white to-white p-5 text-slate-800 shadow-lg md:grid-cols-[1.6fr_1fr]"
+                  >
+                    <div class="flex h-full flex-col justify-between gap-3.5">
+                      <div class="flex flex-wrap items-center justify-between gap-3 text-xs font-semibold uppercase tracking-[0.28em] text-sky-600">
+                        <span class="inline-flex items-center gap-2">
+                          <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-sky-500/20 text-sky-600">📈</span>
+                          <span>Growth Journey</span>
+                        </span>
+                        <span class="inline-flex items-center gap-2 text-[0.7rem] text-slate-500">
+                          <span class="flex items-center gap-1"><span class="h-2.5 w-2.5 rounded-full bg-emerald-400"></span> 実績KPI</span>
+                          <span class="flex items-center gap-1"><span class="h-2.5 w-2.5 rounded-full bg-sky-400"></span> 期待値</span>
+                        </span>
                       </div>
-                      <div class="flex flex-col gap-1.5 rounded-2xl border border-sky-100 bg-white/80 p-3 shadow-sm">
-                        <span class="font-semibold text-slate-600">2023</span>
-                        <span class="text-lg font-bold text-sky-700">2.3兆円</span>
-                        <div class="flex h-24 w-full items-end gap-2 rounded-2xl bg-slate-100/60 p-2">
-                          <span class="w-full rounded-t-lg bg-emerald-400" style="height: 62%"></span>
-                          <span class="w-full rounded-t-lg bg-sky-400/70" style="height: 78%"></span>
+                      <div class="grid flex-1 grid-cols-3 items-end gap-3 text-xs text-slate-500">
+                        <div class="flex flex-col gap-1.5 rounded-2xl border border-sky-100 bg-white/80 p-3 shadow-sm">
+                          <span class="font-semibold text-slate-600">2022</span>
+                          <span class="text-lg font-bold text-sky-700">1.8兆円</span>
+                          <div class="flex h-24 w-full items-end gap-2 rounded-2xl bg-slate-100/60 p-2">
+                            <span class="w-full rounded-t-lg bg-emerald-400" style="height: 45%"></span>
+                            <span class="w-full rounded-t-lg bg-sky-400/70" style="height: 65%"></span>
+                          </div>
+                          <p class="leading-tight text-[0.72rem]">現状: 検証導入段階</p>
                         </div>
-                        <p class="leading-tight text-[0.72rem]">拡大: 主要業界へ横展開</p>
+                        <div class="flex flex-col gap-1.5 rounded-2xl border border-sky-100 bg-white/80 p-3 shadow-sm">
+                          <span class="font-semibold text-slate-600">2023</span>
+                          <span class="text-lg font-bold text-sky-700">2.3兆円</span>
+                          <div class="flex h-24 w-full items-end gap-2 rounded-2xl bg-slate-100/60 p-2">
+                            <span class="w-full rounded-t-lg bg-emerald-400" style="height: 62%"></span>
+                            <span class="w-full rounded-t-lg bg-sky-400/70" style="height: 78%"></span>
+                          </div>
+                          <p class="leading-tight text-[0.72rem]">拡大: 主要業界へ横展開</p>
+                        </div>
+                        <div class="flex flex-col gap-1.5 rounded-2xl border border-sky-100 bg-white/80 p-3 shadow-sm">
+                          <span class="font-semibold text-slate-600">2024</span>
+                          <span class="text-lg font-bold text-sky-700">3.1兆円</span>
+                          <div class="flex h-24 w-full items-end gap-2 rounded-2xl bg-slate-100/60 p-2">
+                            <span class="w-full rounded-t-lg bg-emerald-400" style="height: 88%"></span>
+                            <span class="w-full rounded-t-lg bg-sky-400/70" style="height: 100%"></span>
+                          </div>
+                          <p class="leading-tight text-[0.72rem]">将来像: 継続率90%の安定運用</p>
+                        </div>
                       </div>
-                      <div class="flex flex-col gap-1.5 rounded-2xl border border-sky-100 bg-white/80 p-3 shadow-sm">
-                        <span class="font-semibold text-slate-600">2024</span>
-                        <span class="text-lg font-bold text-sky-700">3.1兆円</span>
-                        <div class="flex h-24 w-full items-end gap-2 rounded-2xl bg-slate-100/60 p-2">
-                          <span class="w-full rounded-t-lg bg-emerald-400" style="height: 88%"></span>
-                          <span class="w-full rounded-t-lg bg-sky-400/70" style="height: 100%"></span>
-                        </div>
-                        <p class="leading-tight text-[0.72rem]">将来像: 継続率90%の安定運用</p>
+                      <div class="grid gap-1.5 rounded-2xl border border-sky-100 bg-white/75 p-3.5 text-sm text-slate-600">
+                        <h4 class="text-xs font-semibold uppercase tracking-[0.2em] text-sky-600">Key Signals</h4>
+                        <p data-ai-field="background_visual_signal_a">決裁までのリードタイム短縮と継続率向上が並行で進行</p>
+                        <p data-ai-field="background_visual_signal_b">投資対効果の可視化により導入部門が拡大しつつある</p>
                       </div>
                     </div>
-                    <div class="grid gap-1.5 rounded-2xl border border-sky-100 bg-white/75 p-3.5 text-sm text-slate-600">
-                      <h4 class="text-xs font-semibold uppercase tracking-[0.2em] text-sky-600">Key Signals</h4>
-                      <p data-ai-field="background_visual_signal_a">決裁までのリードタイム短縮と継続率向上が並行で進行</p>
-                      <p data-ai-field="background_visual_signal_b">投資対効果の可視化により導入部門が拡大しつつある</p>
-                    </div>
-                  </div>
-                  <div class="flex h-full flex-col justify-between gap-3.5 rounded-2xl border border-sky-100 bg-white/70 p-3.5">
-                    <div class="grid gap-1.5 text-sm text-slate-600">
-                      <h4 class="text-xs font-semibold uppercase tracking-[0.2em] text-sky-600">Customer Tension</h4>
-                      <p data-ai-field="background_visual_tension">情報の分散と属人化で意思決定が遅延、現場の運用負荷が高止まり</p>
-                    </div>
-                    <div class="grid gap-2.5 rounded-2xl border border-emerald-100 bg-emerald-50/80 p-3.5 text-sm text-emerald-700">
-                      <h4 class="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600">Our Leverage</h4>
-                      <p data-ai-field="background_visual_value">統合ダッシュボードと自動アラートで部門横断のアクションを同期</p>
-                      <div class="grid gap-0.5 text-[0.75rem]">
-                        <div class="flex items-center justify-between text-emerald-600/90">
-                          <span data-ai-field="background_visual_metric_label">導入組織のROI見込み</span>
-                          <span data-ai-field="background_visual_metric_value">2.4x</span>
-                        </div>
-                        <div class="h-2 rounded-full bg-emerald-200/60">
-                          <span class="block h-full rounded-full bg-emerald-500" style="width: 78%"></span>
+                    <div class="flex h-full flex-col justify-between gap-3.5 rounded-2xl border border-sky-100 bg-white/70 p-3.5">
+                      <div class="grid gap-1.5 text-sm text-slate-600">
+                        <h4 class="text-xs font-semibold uppercase tracking-[0.2em] text-sky-600">Customer Tension</h4>
+                        <p data-ai-field="background_visual_tension">情報の分散と属人化で意思決定が遅延、現場の運用負荷が高止まり</p>
+                      </div>
+                      <div class="grid gap-2.5 rounded-2xl border border-emerald-100 bg-emerald-50/80 p-3.5 text-sm text-emerald-700">
+                        <h4 class="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600">Our Leverage</h4>
+                        <p data-ai-field="background_visual_value">統合ダッシュボードと自動アラートで部門横断のアクションを同期</p>
+                        <div class="grid gap-0.5 text-[0.75rem]">
+                          <div class="flex items-center justify-between text-emerald-600/90">
+                            <span data-ai-field="background_visual_metric_label">導入組織のROI見込み</span>
+                            <span data-ai-field="background_visual_metric_value">2.4x</span>
+                          </div>
+                          <div class="h-2 rounded-full bg-emerald-200/60">
+                            <span class="block h-full rounded-full bg-emerald-500" style="width: 78%"></span>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </figure>
-        </div>
-          <footer class="next-link">
-            <span data-ai-field="background_to_objective_transition"
-              >本日の目的スライドへ繋ぐ文</span
-            >
-          </footer>
+            </figure>
+          </div>
+            <footer class="next-link">
+              <span data-ai-field="background_to_objective_transition"
+                >本日の目的スライドへ繋ぐ文</span
+              >
+            </footer>
+          </div>
           <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
         </section>
       </div>
@@ -1050,117 +1066,119 @@
         <section class="slide" data-slide-id="objective">
           <!-- Slide meta: Slide 05 · 本日の目的 -->
           <!-- Section label: OBJECTIVE -->
-          <h2><span data-ai-field="objective_title">本日の合意事項</span></h2>
-          <!-- リード文に本日の目的とゴールを統合し、テキストだけで決定したい論点を整理する -->
-          <p class="lead">
-            <span data-ai-field="objective_lead"
-              >本日の目的と合意形成ゴールを一文でまとめ、決めるべき範囲を明確にする。</span
-            >
-          </p>
-          <div class="split">
-            <div class="callout">
-              <h3>合意事項サマリ</h3>
-              <p class="text-sm text-slate-600">
-                <span data-ai-field="objective_decision_intro"
-                  >リード文に書けなかった補足条件や決定事項の背景があれば簡潔に添える。</span
-                >
-              </p>
-              <ul class="key-points">
-                <li>
-                  <span data-ai-field="objective_decision_point_1"
-                    >主要な合意内容や承認項目を箇条書きで整理</span
-                  >
-                </li>
-                <li>
-                  <span data-ai-field="objective_decision_point_2"
-                    >未解決の論点やフォローアップ条件を記載</span
-                  >
-                </li>
-                <li>
-                  <span data-ai-field="objective_decision_point_3"
-                    >意思決定に紐づく次のアクションを明記</span
-                  >
-                </li>
-              </ul>
-            </div>
-          <!-- data-ai-field="objective_visual_hint" では、READMEのプロンプト通りに可視化の狙いや描画ルールのみを書かせる -->
-          <div class="chart-card">
-            <span class="hidden" data-ai-field="objective_visual_hint"></span>
-            <div class="tailwind-infographic w-full aspect-[16/9]">
-              <div
-                class="infographic-frame flex h-full w-full flex-col justify-between overflow-hidden rounded-3xl border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-white p-5 text-left shadow-lg"
+          <div class="slide-content">
+            <h2><span data-ai-field="objective_title">本日の合意事項</span></h2>
+            <!-- リード文に本日の目的とゴールを統合し、テキストだけで決定したい論点を整理する -->
+            <p class="lead">
+              <span data-ai-field="objective_lead"
+                >本日の目的と合意形成ゴールを一文でまとめ、決めるべき範囲を明確にする。</span
               >
-                <div class="flex flex-wrap items-center justify-between gap-3">
-                  <span class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600">Goal Alignment</span>
-                  <span
-                    class="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-700"
+            </p>
+            <div class="split">
+              <div class="callout">
+                <h3>合意事項サマリ</h3>
+                <p class="text-sm text-slate-600">
+                  <span data-ai-field="objective_decision_intro"
+                    >リード文に書けなかった補足条件や決定事項の背景があれば簡潔に添える。</span
                   >
-                    <span>🎯</span>
-                    <span data-ai-field="objective_visual_theme">成功基準のスナップショット</span>
-                  </span>
-                </div>
-                <div class="grid flex-1 gap-3.5 md:grid-cols-2">
-                  <div class="flex flex-col gap-2.5 rounded-2xl border border-emerald-100 bg-white/90 p-3.5 shadow-sm">
-                    <span class="text-xs font-semibold uppercase tracking-wide text-emerald-500">Target</span>
-                    <span class="text-2xl font-bold text-emerald-700" data-ai-field="objective_visual_target_metric">定着率 85%</span>
-                    <p class="text-xs text-emerald-600/80" data-ai-field="objective_visual_target_note">本日の合意形成でオンボーディング計画を承認</p>
-                    <div class="mt-auto grid gap-1.5 text-[0.75rem] text-emerald-600/80">
-                      <span class="font-semibold uppercase tracking-[0.24em]">Success Horizon</span>
-                      <div class="flex h-16 w-full items-end gap-2 rounded-2xl bg-emerald-50 p-2">
-                        <span class="w-full rounded-t-lg bg-emerald-400" style="height: 85%"></span>
-                        <span class="w-full rounded-t-lg bg-emerald-300/80" style="height: 100%"></span>
+                </p>
+                <ul class="key-points">
+                  <li>
+                    <span data-ai-field="objective_decision_point_1"
+                      >主要な合意内容や承認項目を箇条書きで整理</span
+                    >
+                  </li>
+                  <li>
+                    <span data-ai-field="objective_decision_point_2"
+                      >未解決の論点やフォローアップ条件を記載</span
+                    >
+                  </li>
+                  <li>
+                    <span data-ai-field="objective_decision_point_3"
+                      >意思決定に紐づく次のアクションを明記</span
+                    >
+                  </li>
+                </ul>
+              </div>
+            <!-- data-ai-field="objective_visual_hint" では、READMEのプロンプト通りに可視化の狙いや描画ルールのみを書かせる -->
+            <div class="chart-card">
+              <span class="hidden" data-ai-field="objective_visual_hint"></span>
+              <div class="tailwind-infographic w-full aspect-[16/9]">
+                <div
+                  class="infographic-frame flex h-full w-full flex-col justify-between overflow-hidden rounded-3xl border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-white p-5 text-left shadow-lg"
+                >
+                  <div class="flex flex-wrap items-center justify-between gap-3">
+                    <span class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600">Goal Alignment</span>
+                    <span
+                      class="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-700"
+                    >
+                      <span>🎯</span>
+                      <span data-ai-field="objective_visual_theme">成功基準のスナップショット</span>
+                    </span>
+                  </div>
+                  <div class="grid flex-1 gap-3.5 md:grid-cols-2">
+                    <div class="flex flex-col gap-2.5 rounded-2xl border border-emerald-100 bg-white/90 p-3.5 shadow-sm">
+                      <span class="text-xs font-semibold uppercase tracking-wide text-emerald-500">Target</span>
+                      <span class="text-2xl font-bold text-emerald-700" data-ai-field="objective_visual_target_metric">定着率 85%</span>
+                      <p class="text-xs text-emerald-600/80" data-ai-field="objective_visual_target_note">本日の合意形成でオンボーディング計画を承認</p>
+                      <div class="mt-auto grid gap-1.5 text-[0.75rem] text-emerald-600/80">
+                        <span class="font-semibold uppercase tracking-[0.24em]">Success Horizon</span>
+                        <div class="flex h-16 w-full items-end gap-2 rounded-2xl bg-emerald-50 p-2">
+                          <span class="w-full rounded-t-lg bg-emerald-400" style="height: 85%"></span>
+                          <span class="w-full rounded-t-lg bg-emerald-300/80" style="height: 100%"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flex flex-col gap-2.5 rounded-2xl border border-emerald-100 bg-white/90 p-3.5 shadow-sm">
+                      <span class="text-xs font-semibold uppercase tracking-wide text-emerald-500">Current</span>
+                      <span class="text-2xl font-bold text-slate-700" data-ai-field="objective_visual_status_metric">トライアル継続率 62%</span>
+                      <p class="text-xs text-slate-500" data-ai-field="objective_visual_status_note">課題: 活用シナリオが限定的で成功事例が不足</p>
+                      <div class="mt-auto grid gap-0.5 rounded-2xl border border-slate-200/70 bg-slate-50/70 p-2.5 text-[0.75rem] text-slate-500">
+                        <span class="font-semibold uppercase tracking-[0.24em]">Risk Watch</span>
+                        <p data-ai-field="objective_visual_risk_note">利用浸透の遅れとサクセスストーリー不足を補完する必要</p>
                       </div>
                     </div>
                   </div>
-                  <div class="flex flex-col gap-2.5 rounded-2xl border border-emerald-100 bg-white/90 p-3.5 shadow-sm">
-                    <span class="text-xs font-semibold uppercase tracking-wide text-emerald-500">Current</span>
-                    <span class="text-2xl font-bold text-slate-700" data-ai-field="objective_visual_status_metric">トライアル継続率 62%</span>
-                    <p class="text-xs text-slate-500" data-ai-field="objective_visual_status_note">課題: 活用シナリオが限定的で成功事例が不足</p>
-                    <div class="mt-auto grid gap-0.5 rounded-2xl border border-slate-200/70 bg-slate-50/70 p-2.5 text-[0.75rem] text-slate-500">
-                      <span class="font-semibold uppercase tracking-[0.24em]">Risk Watch</span>
-                      <p data-ai-field="objective_visual_risk_note">利用浸透の遅れとサクセスストーリー不足を補完する必要</p>
+                  <div class="grid gap-2.5 rounded-2xl border border-emerald-100 bg-white/90 p-3.5">
+                    <div class="grid gap-1">
+                      <div class="flex items-center justify-between text-xs text-slate-500">
+                        <span data-ai-field="objective_visual_indicator_1_label">意思決定の確度</span>
+                        <span data-ai-field="objective_visual_indicator_1_value">+25pt</span>
+                      </div>
+                      <div class="h-2 rounded-full bg-slate-200">
+                        <span class="block h-full rounded-full bg-emerald-500" style="width: 72%"></span>
+                      </div>
+                    </div>
+                    <div class="grid gap-1">
+                      <div class="flex items-center justify-between text-xs text-slate-500">
+                        <span data-ai-field="objective_visual_indicator_2_label">導入ロードマップ整備</span>
+                        <span data-ai-field="objective_visual_indicator_2_value">80%</span>
+                      </div>
+                      <div class="h-2 rounded-full bg-slate-200">
+                        <span class="block h-full rounded-full bg-sky-500/80" style="width: 80%"></span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="grid gap-2.5 rounded-2xl border border-emerald-100 bg-white/90 p-3.5">
-                  <div class="grid gap-1">
-                    <div class="flex items-center justify-between text-xs text-slate-500">
-                      <span data-ai-field="objective_visual_indicator_1_label">意思決定の確度</span>
-                      <span data-ai-field="objective_visual_indicator_1_value">+25pt</span>
+                  <div class="grid gap-1.5 text-xs text-slate-500 sm:grid-cols-2">
+                    <div class="flex items-center gap-2 rounded-2xl border border-emerald-100 bg-white/80 p-2.5">
+                      <span class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/15 text-sm">✅</span>
+                      <span data-ai-field="objective_visual_action_1">承認プロセスと成果指標を合意</span>
                     </div>
-                    <div class="h-2 rounded-full bg-slate-200">
-                      <span class="block h-full rounded-full bg-emerald-500" style="width: 72%"></span>
+                    <div class="flex items-center gap-2 rounded-2xl border border-emerald-100 bg-white/80 p-2.5">
+                      <span class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/15 text-sm">🧑‍🤝‍🧑</span>
+                      <span data-ai-field="objective_visual_action_2">伴走体制と役割分担を明確化</span>
                     </div>
-                  </div>
-                  <div class="grid gap-1">
-                    <div class="flex items-center justify-between text-xs text-slate-500">
-                      <span data-ai-field="objective_visual_indicator_2_label">導入ロードマップ整備</span>
-                      <span data-ai-field="objective_visual_indicator_2_value">80%</span>
-                    </div>
-                    <div class="h-2 rounded-full bg-slate-200">
-                      <span class="block h-full rounded-full bg-sky-500/80" style="width: 80%"></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="grid gap-1.5 text-xs text-slate-500 sm:grid-cols-2">
-                  <div class="flex items-center gap-2 rounded-2xl border border-emerald-100 bg-white/80 p-2.5">
-                    <span class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/15 text-sm">✅</span>
-                    <span data-ai-field="objective_visual_action_1">承認プロセスと成果指標を合意</span>
-                  </div>
-                  <div class="flex items-center gap-2 rounded-2xl border border-emerald-100 bg-white/80 p-2.5">
-                    <span class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/15 text-sm">🧑‍🤝‍🧑</span>
-                    <span data-ai-field="objective_visual_action_2">伴走体制と役割分担を明確化</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-          <footer class="next-link">
-            <span data-ai-field="objective_to_summary_transition"
-              >サマリースライドへの導入文</span
-            >
-          </footer>
+            <footer class="next-link">
+              <span data-ai-field="objective_to_summary_transition"
+                >サマリースライドへの導入文</span
+              >
+            </footer>
+          </div>
           <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
         </section>
       </div>
@@ -1176,92 +1194,94 @@
         </button>
         <section class="slide transition-slide" data-slide-id="section-cushion">
           <!-- Slide meta: Slide 06 · クッション -->
-          <h2>
-            <span data-ai-field="section_transition_heading"
-              >ここからサマリーのポイントに入ります</span
+          <div class="slide-content">
+            <h2>
+              <span data-ai-field="section_transition_heading"
+                >ここからサマリーのポイントに入ります</span
+              >
+          </h2>
+          <p class="lead">
+            <span data-ai-field="section_transition_lead"
+              >アジェンダの区切りや話題転換の橋渡しとなるメッセージ。</span
             >
-        </h2>
-        <p class="lead">
-          <span data-ai-field="section_transition_lead"
-            >アジェンダの区切りや話題転換の橋渡しとなるメッセージ。</span
-          >
-        </p>
-        <!-- data-ai-field="section_transition_visual" は、章間の橋渡しビジュアルを描く際のメモだけを格納する -->
-        <div class="chart-card">
-          <span class="hidden" data-ai-field="section_transition_visual"></span>
-          <div class="tailwind-infographic w-full aspect-[16/9]">
-            <div
-              class="infographic-frame flex h-full w-full flex-col overflow-hidden rounded-3xl border border-purple-200 bg-gradient-to-br from-purple-50 via-white to-white p-4 text-left shadow-lg sm:p-5"
-            >
-              <div class="flex flex-wrap items-center justify-between gap-2">
-                <span class="text-xs font-semibold uppercase tracking-[0.28em] text-purple-500">Chapter Relay</span>
-                <span class="inline-flex items-center gap-2 rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-600">
-                  <span>🔁</span>
-                  <span data-ai-field="section_transition_theme">論点を滑らかに接続</span>
-                </span>
-              </div>
-              <div class="mt-4 flex flex-1 flex-col gap-4">
-                <div class="flex flex-col gap-3 sm:flex-row sm:items-stretch sm:gap-4">
-                  <div class="flex-1 rounded-2xl border border-purple-100 bg-white/90 p-3.5 shadow-sm">
-                    <div class="flex items-center justify-between text-xs text-purple-400">
-                      <span class="font-semibold uppercase tracking-[0.32em]">Step 1</span>
-                      <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-purple-500/15 text-sm font-semibold text-purple-600">1</span>
+          </p>
+          <!-- data-ai-field="section_transition_visual" は、章間の橋渡しビジュアルを描く際のメモだけを格納する -->
+          <div class="chart-card">
+            <span class="hidden" data-ai-field="section_transition_visual"></span>
+            <div class="tailwind-infographic w-full aspect-[16/9]">
+              <div
+                class="infographic-frame flex h-full w-full flex-col overflow-hidden rounded-3xl border border-purple-200 bg-gradient-to-br from-purple-50 via-white to-white p-4 text-left shadow-lg sm:p-5"
+              >
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <span class="text-xs font-semibold uppercase tracking-[0.28em] text-purple-500">Chapter Relay</span>
+                  <span class="inline-flex items-center gap-2 rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-600">
+                    <span>🔁</span>
+                    <span data-ai-field="section_transition_theme">論点を滑らかに接続</span>
+                  </span>
+                </div>
+                <div class="mt-4 flex flex-1 flex-col gap-4">
+                  <div class="flex flex-col gap-3 sm:flex-row sm:items-stretch sm:gap-4">
+                    <div class="flex-1 rounded-2xl border border-purple-100 bg-white/90 p-3.5 shadow-sm">
+                      <div class="flex items-center justify-between text-xs text-purple-400">
+                        <span class="font-semibold uppercase tracking-[0.32em]">Step 1</span>
+                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-purple-500/15 text-sm font-semibold text-purple-600">1</span>
+                      </div>
+                      <p class="mt-3 text-sm font-semibold text-slate-600" data-ai-field="section_transition_step_1_title">現状整理</p>
+                      <p class="text-xs text-slate-500" data-ai-field="section_transition_step_1_body">直前章のサマリーを再掲し、聞き手の記憶を同期</p>
                     </div>
-                    <p class="mt-3 text-sm font-semibold text-slate-600" data-ai-field="section_transition_step_1_title">現状整理</p>
-                    <p class="text-xs text-slate-500" data-ai-field="section_transition_step_1_body">直前章のサマリーを再掲し、聞き手の記憶を同期</p>
-                  </div>
-                  <div class="flex items-center justify-center px-1 text-2xl text-purple-400 sm:px-2 sm:text-[1.85rem]">
-                    <span class="sm:hidden">⬇️</span>
-                    <span class="hidden sm:inline">➡️</span>
-                  </div>
-                  <div class="flex-1 rounded-2xl border border-purple-100 bg-white/90 p-3.5 shadow-sm">
-                    <div class="flex items-center justify-between text-xs text-purple-400">
-                      <span class="font-semibold uppercase tracking-[0.32em]">Step 2</span>
-                      <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-purple-500/15 text-sm font-semibold text-purple-600">2</span>
+                    <div class="flex items-center justify-center px-1 text-2xl text-purple-400 sm:px-2 sm:text-[1.85rem]">
+                      <span class="sm:hidden">⬇️</span>
+                      <span class="hidden sm:inline">➡️</span>
                     </div>
-                    <p class="mt-3 text-sm font-semibold text-slate-600" data-ai-field="section_transition_step_2_title">課題共有</p>
-                    <p class="text-xs text-slate-500" data-ai-field="section_transition_step_2_body">背景データと課題感を対比し、次章の必要性を明示</p>
-                  </div>
-                  <div class="flex items-center justify-center px-1 text-2xl text-purple-400 sm:px-2 sm:text-[1.85rem]">
-                    <span class="sm:hidden">⬇️</span>
-                    <span class="hidden sm:inline">➡️</span>
-                  </div>
-                  <div class="flex-1 rounded-2xl border border-purple-100 bg-white/90 p-3.5 shadow-sm">
-                    <div class="flex items-center justify-between text-xs text-purple-400">
-                      <span class="font-semibold uppercase tracking-[0.32em]">Step 3</span>
-                      <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-purple-500/15 text-sm font-semibold text-purple-600">3</span>
+                    <div class="flex-1 rounded-2xl border border-purple-100 bg-white/90 p-3.5 shadow-sm">
+                      <div class="flex items-center justify-between text-xs text-purple-400">
+                        <span class="font-semibold uppercase tracking-[0.32em]">Step 2</span>
+                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-purple-500/15 text-sm font-semibold text-purple-600">2</span>
+                      </div>
+                      <p class="mt-3 text-sm font-semibold text-slate-600" data-ai-field="section_transition_step_2_title">課題共有</p>
+                      <p class="text-xs text-slate-500" data-ai-field="section_transition_step_2_body">背景データと課題感を対比し、次章の必要性を明示</p>
                     </div>
-                    <p class="mt-3 text-sm font-semibold text-slate-600" data-ai-field="section_transition_step_3_title">解決策への導入</p>
-                    <p class="text-xs text-slate-500" data-ai-field="section_transition_step_3_body">次章で語るソリューションのベネフィットを伏線化</p>
+                    <div class="flex items-center justify-center px-1 text-2xl text-purple-400 sm:px-2 sm:text-[1.85rem]">
+                      <span class="sm:hidden">⬇️</span>
+                      <span class="hidden sm:inline">➡️</span>
+                    </div>
+                    <div class="flex-1 rounded-2xl border border-purple-100 bg-white/90 p-3.5 shadow-sm">
+                      <div class="flex items-center justify-between text-xs text-purple-400">
+                        <span class="font-semibold uppercase tracking-[0.32em]">Step 3</span>
+                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-purple-500/15 text-sm font-semibold text-purple-600">3</span>
+                      </div>
+                      <p class="mt-3 text-sm font-semibold text-slate-600" data-ai-field="section_transition_step_3_title">解決策への導入</p>
+                      <p class="text-xs text-slate-500" data-ai-field="section_transition_step_3_body">次章で語るソリューションのベネフィットを伏線化</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="grid gap-2.5 rounded-2xl border border-purple-100 bg-white/90 p-3.5">
-                <div class="flex items-center justify-between text-xs text-slate-500">
-                  <span data-ai-field="section_transition_signal_label">聞き手の理解度</span>
-                  <span data-ai-field="section_transition_signal_value">70% → 95%</span>
+                <div class="grid gap-2.5 rounded-2xl border border-purple-100 bg-white/90 p-3.5">
+                  <div class="flex items-center justify-between text-xs text-slate-500">
+                    <span data-ai-field="section_transition_signal_label">聞き手の理解度</span>
+                    <span data-ai-field="section_transition_signal_value">70% → 95%</span>
+                  </div>
+                  <div class="h-2 rounded-full bg-slate-200">
+                    <span class="block h-full rounded-full bg-purple-500" style="width: 85%"></span>
+                  </div>
+                  <p class="text-[0.72rem] text-slate-500" data-ai-field="section_transition_signal_note">バトンの受け渡しを示す矢印やフェード演出で場の集中度を維持</p>
                 </div>
-                <div class="h-2 rounded-full bg-slate-200">
-                  <span class="block h-full rounded-full bg-purple-500" style="width: 85%"></span>
-                </div>
-                <p class="text-[0.72rem] text-slate-500" data-ai-field="section_transition_signal_note">バトンの受け渡しを示す矢印やフェード演出で場の集中度を維持</p>
-              </div>
-              <div class="grid gap-2 text-[0.72rem] text-slate-500 sm:grid-cols-[1.2fr_1fr]">
-                <div class="rounded-2xl border border-purple-100 bg-purple-50/80 p-2.5 text-purple-600">
-                  <p data-ai-field="section_transition_bridge_note">章間のギャップや論点の抜けを事前に補完して聞き手の疑問を解消</p>
-                </div>
-                <div class="rounded-2xl border border-purple-100 bg-white/70 p-2.5">
-                  <p data-ai-field="section_transition_next_hint">次章のキーメッセージやデータハイライトへの期待値を先に提示</p>
+                <div class="grid gap-2 text-[0.72rem] text-slate-500 sm:grid-cols-[1.2fr_1fr]">
+                  <div class="rounded-2xl border border-purple-100 bg-purple-50/80 p-2.5 text-purple-600">
+                    <p data-ai-field="section_transition_bridge_note">章間のギャップや論点の抜けを事前に補完して聞き手の疑問を解消</p>
+                  </div>
+                  <div class="rounded-2xl border border-purple-100 bg-white/70 p-2.5">
+                    <p data-ai-field="section_transition_next_hint">次章のキーメッセージやデータハイライトへの期待値を先に提示</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-          <footer class="next-link">
-            <span data-ai-field="section_transition_to_summary"
-              >次のサマリースライドへ向けた誘導文</span
-            >
-          </footer>
+            <footer class="next-link">
+              <span data-ai-field="section_transition_to_summary"
+                >次のサマリースライドへ向けた誘導文</span
+              >
+            </footer>
+          </div>
           <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
         </section>
       </div>
@@ -1278,43 +1298,45 @@
         <section class="slide" data-slide-id="summary">
           <!-- Slide meta: Slide 07 · サマリー -->
           <!-- Section label: INTERIM SUMMARY -->
-          <h2><span data-ai-field="summary_title">中間の主要ポイント</span></h2>
-          <p class="lead">
-            <span data-ai-field="summary_lead"
-            >ここまでの議論から導かれるポイントを要約。</span
-          >
-        </p>
-        <div class="summary-grid">
-          <article class="summary-card">
-            <h3><span data-ai-field="summary_point_1_title">要約①</span></h3>
-            <p>
-              <span data-ai-field="summary_point_1_body"
-                >主要な示唆や重要データ</span
-              >
-            </p>
-          </article>
-          <article class="summary-card">
-            <h3><span data-ai-field="summary_point_2_title">要約②</span></h3>
-            <p>
-              <span data-ai-field="summary_point_2_body"
-                >課題に対する洞察</span
-              >
-            </p>
-          </article>
-          <article class="summary-card">
-            <h3><span data-ai-field="summary_point_3_title">要約③</span></h3>
-            <p>
-              <span data-ai-field="summary_point_3_body"
-                >次に繋がる示唆</span
-              >
-            </p>
-          </article>
-        </div>
-          <footer class="next-link">
-            <span data-ai-field="summary_to_roadmap_transition"
-              >ロードマップスライドへの接続文</span
+          <div class="slide-content">
+            <h2><span data-ai-field="summary_title">中間の主要ポイント</span></h2>
+            <p class="lead">
+              <span data-ai-field="summary_lead"
+              >ここまでの議論から導かれるポイントを要約。</span
             >
-          </footer>
+          </p>
+          <div class="summary-grid">
+            <article class="summary-card">
+              <h3><span data-ai-field="summary_point_1_title">要約①</span></h3>
+              <p>
+                <span data-ai-field="summary_point_1_body"
+                  >主要な示唆や重要データ</span
+                >
+              </p>
+            </article>
+            <article class="summary-card">
+              <h3><span data-ai-field="summary_point_2_title">要約②</span></h3>
+              <p>
+                <span data-ai-field="summary_point_2_body"
+                  >課題に対する洞察</span
+                >
+              </p>
+            </article>
+            <article class="summary-card">
+              <h3><span data-ai-field="summary_point_3_title">要約③</span></h3>
+              <p>
+                <span data-ai-field="summary_point_3_body"
+                  >次に繋がる示唆</span
+                >
+              </p>
+            </article>
+          </div>
+            <footer class="next-link">
+              <span data-ai-field="summary_to_roadmap_transition"
+                >ロードマップスライドへの接続文</span
+              >
+            </footer>
+          </div>
           <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
         </section>
       </div>
@@ -1331,150 +1353,152 @@
         <section class="slide" data-slide-id="roadmap">
           <!-- Slide meta: Slide 08 · ロードマップ -->
           <!-- Section label: ROADMAP -->
-          <h2><span data-ai-field="roadmap_title">主要マイルストーンの見通し</span></h2>
-          <p class="lead">
-            <span data-ai-field="roadmap_lead"
-            >主要フェーズの到達状況と今後の計画を俯瞰するリード文。</span
-          >
-        </p>
-        <div class="roadmap-board" style="--roadmap-columns: 4">
-          <div class="roadmap-header">
-            <div class="roadmap-corner">
-              <span data-ai-field="roadmap_corner_label">フェーズ</span>
-            </div>
-            <div class="roadmap-col-head">
-              <span data-ai-field="roadmap_col_1">FY25 Q1</span>
-            </div>
-            <div class="roadmap-col-head">
-              <span data-ai-field="roadmap_col_2">FY25 Q2</span>
-            </div>
-            <div class="roadmap-col-head">
-              <span data-ai-field="roadmap_col_3">FY25 Q3</span>
-            </div>
-            <div class="roadmap-col-head">
-              <span data-ai-field="roadmap_col_4">FY25 Q4</span>
-            </div>
-          </div>
-          <div class="roadmap-row">
-            <div class="roadmap-lane-title">
-              <span data-ai-field="roadmap_lane_1_title">経営層ブリーフィング</span>
-            </div>
-            <div class="roadmap-cell">
-              <span data-ai-field="roadmap_lane_1_col_1"
-                >初回報告会／課題共有</span
-              >
-            </div>
-            <div class="roadmap-cell">
-              <span data-ai-field="roadmap_lane_1_col_2"
-                >KPIレビュー・意思決定</span
-              >
-            </div>
-            <div class="roadmap-cell">
-              <span data-ai-field="roadmap_lane_1_col_3"
-                >投資判断に向けた素案調整</span
-              >
-            </div>
-            <div class="roadmap-cell">
-              <span data-ai-field="roadmap_lane_1_col_4"
-                >最終承認・ガバナンス整備</span
-              >
-            </div>
-          </div>
-          <div class="roadmap-row">
-            <div class="roadmap-lane-title">
-              <span data-ai-field="roadmap_lane_2_title">実行チーム</span>
-            </div>
-            <div class="roadmap-cell">
-              <span data-ai-field="roadmap_lane_2_col_1"
-                >要件定義ワークショップ</span
-              >
-            </div>
-            <div class="roadmap-cell">
-              <span data-ai-field="roadmap_lane_2_col_2"
-                >プロトタイプ検証と改善</span
-              >
-            </div>
-            <div class="roadmap-cell">
-              <span data-ai-field="roadmap_lane_2_col_3"
-                >PoC 承認・導入準備</span
-              >
-            </div>
-            <div class="roadmap-cell">
-              <span data-ai-field="roadmap_lane_2_col_4"
-                >本番リリース／教育実施</span
-              >
-            </div>
-          </div>
-          <div class="roadmap-row">
-            <div class="roadmap-lane-title">
-              <span data-ai-field="roadmap_lane_3_title">ステークホルダー</span>
-            </div>
-            <div class="roadmap-cell">
-              <span data-ai-field="roadmap_lane_3_col_1"
-                >関係部門ヒアリング</span
-              >
-            </div>
-            <div class="roadmap-cell">
-              <span data-ai-field="roadmap_lane_3_col_2"
-                >利用部門との連携体制構築</span
-              >
-            </div>
-            <div class="roadmap-cell">
-              <span data-ai-field="roadmap_lane_3_col_3"
-                >外部パートナー調整</span
-              >
-            </div>
-            <div class="roadmap-cell">
-              <span data-ai-field="roadmap_lane_3_col_4"
-                >リリース告知・オンボーディング</span
-              >
-            </div>
-          </div>
-          <div class="roadmap-row">
-            <div class="roadmap-lane-title">
-              <span data-ai-field="roadmap_lane_4_title">リスク／依存関係</span>
-            </div>
-            <div class="roadmap-cell">
-              <span data-ai-field="roadmap_lane_4_col_1"
-                >課題洗い出し・優先度付け</span
-              >
-            </div>
-            <div class="roadmap-cell">
-              <span data-ai-field="roadmap_lane_4_col_2"
-                >リスク対策と合意形成</span
-              >
-            </div>
-            <div class="roadmap-cell">
-              <span data-ai-field="roadmap_lane_4_col_3"
-                >マイルストーンの見直し</span
-              >
-            </div>
-            <div class="roadmap-cell">
-              <span data-ai-field="roadmap_lane_4_col_4"
-                >次年度計画への接続</span
-              >
-            </div>
-          </div>
-        </div>
-        <div class="roadmap-legend">
-          <span
-            ><span class="legend-marker"></span
-            ><span data-ai-field="roadmap_marker_note_1"
-              >青＝進行中、赤＝遅延リスク 等の凡例指示</span
-            ></span
-          >
-          <span
-            ><span class="legend-marker"></span
-            ><span data-ai-field="roadmap_marker_note_2"
-              >コネクタ矢印や依存関係の描画指示</span
-            ></span
-          >
-        </div>
-          <footer class="next-link">
-            <span data-ai-field="roadmap_to_gantt_transition"
-              >ステークホルダー・ガントへの接続文</span
+          <div class="slide-content">
+            <h2><span data-ai-field="roadmap_title">主要マイルストーンの見通し</span></h2>
+            <p class="lead">
+              <span data-ai-field="roadmap_lead"
+              >主要フェーズの到達状況と今後の計画を俯瞰するリード文。</span
             >
-          </footer>
+          </p>
+          <div class="roadmap-board" style="--roadmap-columns: 4">
+            <div class="roadmap-header">
+              <div class="roadmap-corner">
+                <span data-ai-field="roadmap_corner_label">フェーズ</span>
+              </div>
+              <div class="roadmap-col-head">
+                <span data-ai-field="roadmap_col_1">FY25 Q1</span>
+              </div>
+              <div class="roadmap-col-head">
+                <span data-ai-field="roadmap_col_2">FY25 Q2</span>
+              </div>
+              <div class="roadmap-col-head">
+                <span data-ai-field="roadmap_col_3">FY25 Q3</span>
+              </div>
+              <div class="roadmap-col-head">
+                <span data-ai-field="roadmap_col_4">FY25 Q4</span>
+              </div>
+            </div>
+            <div class="roadmap-row">
+              <div class="roadmap-lane-title">
+                <span data-ai-field="roadmap_lane_1_title">経営層ブリーフィング</span>
+              </div>
+              <div class="roadmap-cell">
+                <span data-ai-field="roadmap_lane_1_col_1"
+                  >初回報告会／課題共有</span
+                >
+              </div>
+              <div class="roadmap-cell">
+                <span data-ai-field="roadmap_lane_1_col_2"
+                  >KPIレビュー・意思決定</span
+                >
+              </div>
+              <div class="roadmap-cell">
+                <span data-ai-field="roadmap_lane_1_col_3"
+                  >投資判断に向けた素案調整</span
+                >
+              </div>
+              <div class="roadmap-cell">
+                <span data-ai-field="roadmap_lane_1_col_4"
+                  >最終承認・ガバナンス整備</span
+                >
+              </div>
+            </div>
+            <div class="roadmap-row">
+              <div class="roadmap-lane-title">
+                <span data-ai-field="roadmap_lane_2_title">実行チーム</span>
+              </div>
+              <div class="roadmap-cell">
+                <span data-ai-field="roadmap_lane_2_col_1"
+                  >要件定義ワークショップ</span
+                >
+              </div>
+              <div class="roadmap-cell">
+                <span data-ai-field="roadmap_lane_2_col_2"
+                  >プロトタイプ検証と改善</span
+                >
+              </div>
+              <div class="roadmap-cell">
+                <span data-ai-field="roadmap_lane_2_col_3"
+                  >PoC 承認・導入準備</span
+                >
+              </div>
+              <div class="roadmap-cell">
+                <span data-ai-field="roadmap_lane_2_col_4"
+                  >本番リリース／教育実施</span
+                >
+              </div>
+            </div>
+            <div class="roadmap-row">
+              <div class="roadmap-lane-title">
+                <span data-ai-field="roadmap_lane_3_title">ステークホルダー</span>
+              </div>
+              <div class="roadmap-cell">
+                <span data-ai-field="roadmap_lane_3_col_1"
+                  >関係部門ヒアリング</span
+                >
+              </div>
+              <div class="roadmap-cell">
+                <span data-ai-field="roadmap_lane_3_col_2"
+                  >利用部門との連携体制構築</span
+                >
+              </div>
+              <div class="roadmap-cell">
+                <span data-ai-field="roadmap_lane_3_col_3"
+                  >外部パートナー調整</span
+                >
+              </div>
+              <div class="roadmap-cell">
+                <span data-ai-field="roadmap_lane_3_col_4"
+                  >リリース告知・オンボーディング</span
+                >
+              </div>
+            </div>
+            <div class="roadmap-row">
+              <div class="roadmap-lane-title">
+                <span data-ai-field="roadmap_lane_4_title">リスク／依存関係</span>
+              </div>
+              <div class="roadmap-cell">
+                <span data-ai-field="roadmap_lane_4_col_1"
+                  >課題洗い出し・優先度付け</span
+                >
+              </div>
+              <div class="roadmap-cell">
+                <span data-ai-field="roadmap_lane_4_col_2"
+                  >リスク対策と合意形成</span
+                >
+              </div>
+              <div class="roadmap-cell">
+                <span data-ai-field="roadmap_lane_4_col_3"
+                  >マイルストーンの見直し</span
+                >
+              </div>
+              <div class="roadmap-cell">
+                <span data-ai-field="roadmap_lane_4_col_4"
+                  >次年度計画への接続</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="roadmap-legend">
+            <span
+              ><span class="legend-marker"></span
+              ><span data-ai-field="roadmap_marker_note_1"
+                >青＝進行中、赤＝遅延リスク 等の凡例指示</span
+              ></span
+            >
+            <span
+              ><span class="legend-marker"></span
+              ><span data-ai-field="roadmap_marker_note_2"
+                >コネクタ矢印や依存関係の描画指示</span
+              ></span
+            >
+          </div>
+            <footer class="next-link">
+              <span data-ai-field="roadmap_to_gantt_transition"
+                >ステークホルダー・ガントへの接続文</span
+              >
+            </footer>
+          </div>
           <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
         </section>
       </div>
@@ -1491,283 +1515,285 @@
         <section class="slide" data-slide-id="stakeholder-gantt">
           <!-- Slide meta: Slide 09 · ステークホルダー・ガント -->
           <!-- Section label: STAKEHOLDER ALIGNMENT -->
-          <h2>
-            <span data-ai-field="stakeholder_gantt_title"
-              >関係者別のタスク進行表</span
-          >
-        </h2>
-        <p class="lead">
-          <span data-ai-field="stakeholder_gantt_lead"
-            >各ステークホルダーのアクションと依存関係を時系列で俯瞰できるよう記入してください。</span
-          >
-        </p>
-        <div class="stakeholder-gantt" style="--timeline-columns: 6">
-          <div class="gantt-header">
-            <div class="gantt-corner">
-              <span data-ai-field="stakeholder_corner_label">ステークホルダー</span>
+          <div class="slide-content">
+            <h2>
+              <span data-ai-field="stakeholder_gantt_title"
+                >関係者別のタスク進行表</span
+            >
+          </h2>
+          <p class="lead">
+            <span data-ai-field="stakeholder_gantt_lead"
+              >各ステークホルダーのアクションと依存関係を時系列で俯瞰できるよう記入してください。</span
+            >
+          </p>
+          <div class="stakeholder-gantt" style="--timeline-columns: 6">
+            <div class="gantt-header">
+              <div class="gantt-corner">
+                <span data-ai-field="stakeholder_corner_label">ステークホルダー</span>
+              </div>
+              <div class="gantt-head-cell">
+                <span data-ai-field="stakeholder_timeline_col_1">FY25 Q1</span>
+              </div>
+              <div class="gantt-head-cell">
+                <span data-ai-field="stakeholder_timeline_col_2">FY25 Q2</span>
+              </div>
+              <div class="gantt-head-cell">
+                <span data-ai-field="stakeholder_timeline_col_3">FY25 Q3</span>
+              </div>
+              <div class="gantt-head-cell">
+                <span data-ai-field="stakeholder_timeline_col_4">FY25 Q4</span>
+              </div>
+              <div class="gantt-head-cell">
+                <span data-ai-field="stakeholder_timeline_col_5">FY26 Q1</span>
+              </div>
+              <div class="gantt-head-cell">
+                <span data-ai-field="stakeholder_timeline_col_6">FY26 Q2</span>
+              </div>
             </div>
-            <div class="gantt-head-cell">
-              <span data-ai-field="stakeholder_timeline_col_1">FY25 Q1</span>
+            <div class="gantt-body">
+              <div class="gantt-row">
+                <div class="gantt-lane-title">
+                  <span data-ai-field="stakeholder_lane_1_title">経営層</span>
+                </div>
+                <div class="gantt-track">
+                  <div class="gantt-guides">
+                    <span></span><span></span><span></span
+                    ><span></span><span></span><span></span>
+                  </div>
+                  <div
+                    class="gantt-task"
+                    style="--start: 1; --end: 3; --task-color: rgba(29, 78, 216, 0.9);"
+                  >
+                    <span
+                      class="gantt-task-title"
+                      data-ai-field="stakeholder_lane_1_task_1_title"
+                      >承認プロセス設計</span
+                    >
+                    <p
+                      class="gantt-task-body"
+                      data-ai-field="stakeholder_lane_1_task_1_body"
+                    >
+                      意思決定に必要な要素・資料・ゲート基準を整理
+                    </p>
+                    <div class="gantt-task-links">
+                      <span data-ai-field="stakeholder_lane_1_task_1_links"
+                        >連携: PMO / 財務</span
+                      >
+                    </div>
+                  </div>
+                  <div
+                    class="gantt-task"
+                    style="--start: 3; --end: 6; --task-color: rgba(16, 185, 129, 0.86);"
+                  >
+                    <span
+                      class="gantt-task-title"
+                      data-ai-field="stakeholder_lane_1_task_2_title"
+                      >投資判断レビュー</span
+                    >
+                    <p
+                      class="gantt-task-body"
+                      data-ai-field="stakeholder_lane_1_task_2_body"
+                    >
+                      KPI進捗とリスクシナリオを踏まえた意思決定会を実施
+                    </p>
+                    <div class="gantt-task-links">
+                      <span data-ai-field="stakeholder_lane_1_task_2_links"
+                        >連携: 事業部 / 法務</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="gantt-row">
+                <div class="gantt-lane-title">
+                  <span data-ai-field="stakeholder_lane_2_title">PMO / 実行チーム</span>
+                </div>
+                <div class="gantt-track">
+                  <div class="gantt-guides">
+                    <span></span><span></span><span></span
+                    ><span></span><span></span><span></span>
+                  </div>
+                  <div
+                    class="gantt-task"
+                    style="--start: 1; --end: 4; --task-color: rgba(59, 130, 246, 0.88);"
+                  >
+                    <span
+                      class="gantt-task-title"
+                      data-ai-field="stakeholder_lane_2_task_1_title"
+                      >要件定義〜PoC</span
+                    >
+                    <p
+                      class="gantt-task-body"
+                      data-ai-field="stakeholder_lane_2_task_1_body"
+                    >
+                      各部門ヒアリング・ユースケース検証・改善サイクルを構築
+                    </p>
+                    <div class="gantt-task-links">
+                      <span data-ai-field="stakeholder_lane_2_task_1_links"
+                        >連携: 利用部門 / ベンダー</span
+                      >
+                    </div>
+                  </div>
+                  <div
+                    class="gantt-task"
+                    style="--start: 4; --end: 6; --task-color: rgba(249, 115, 22, 0.88);"
+                  >
+                    <span
+                      class="gantt-task-title"
+                      data-ai-field="stakeholder_lane_2_task_2_title"
+                      >本番移行準備</span
+                    >
+                    <p
+                      class="gantt-task-body"
+                      data-ai-field="stakeholder_lane_2_task_2_body"
+                    >
+                      運用設計と教育、リスク対応策を整備しローンチへ備える
+                    </p>
+                    <div class="gantt-task-links">
+                      <span data-ai-field="stakeholder_lane_2_task_2_links"
+                        >連携: セキュリティ / 経理</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="gantt-row">
+                <div class="gantt-lane-title">
+                  <span data-ai-field="stakeholder_lane_3_title">外部パートナー</span>
+                </div>
+                <div class="gantt-track">
+                  <div class="gantt-guides">
+                    <span></span><span></span><span></span
+                    ><span></span><span></span><span></span>
+                  </div>
+                  <div
+                    class="gantt-task"
+                    style="--start: 2; --end: 4; --task-color: rgba(236, 72, 153, 0.88);"
+                  >
+                    <span
+                      class="gantt-task-title"
+                      data-ai-field="stakeholder_lane_3_task_1_title"
+                      >契約・SLA調整</span
+                    >
+                    <p
+                      class="gantt-task-body"
+                      data-ai-field="stakeholder_lane_3_task_1_body"
+                    >
+                      提供範囲・品質基準・サポート体制を合意形成
+                    </p>
+                    <div class="gantt-task-links">
+                      <span data-ai-field="stakeholder_lane_3_task_1_links"
+                        >連携: 法務 / 調達</span
+                      >
+                    </div>
+                  </div>
+                  <div
+                    class="gantt-task"
+                    style="--start: 4; --end: 6; --task-color: rgba(94, 234, 212, 0.85);"
+                  >
+                    <span
+                      class="gantt-task-title"
+                      data-ai-field="stakeholder_lane_3_task_2_title"
+                      >導入サポート</span
+                    >
+                    <p
+                      class="gantt-task-body"
+                      data-ai-field="stakeholder_lane_3_task_2_body"
+                    >
+                      トレーニングや定着支援、改善提案を実施
+                    </p>
+                    <div class="gantt-task-links">
+                      <span data-ai-field="stakeholder_lane_3_task_2_links"
+                        >連携: PMO / 人事</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="gantt-row">
+                <div class="gantt-lane-title">
+                  <span data-ai-field="stakeholder_lane_4_title">規制・ガバナンス</span>
+                </div>
+                <div class="gantt-track">
+                  <div class="gantt-guides">
+                    <span></span><span></span><span></span
+                    ><span></span><span></span><span></span>
+                  </div>
+                  <div
+                    class="gantt-task"
+                    style="--start: 1; --end: 3; --task-color: rgba(168, 85, 247, 0.88);"
+                  >
+                    <span
+                      class="gantt-task-title"
+                      data-ai-field="stakeholder_lane_4_task_1_title"
+                      >規制要件整理</span
+                    >
+                    <p
+                      class="gantt-task-body"
+                      data-ai-field="stakeholder_lane_4_task_1_body"
+                    >
+                      法規制・社内基準を洗い出しプロジェクト制約を把握
+                    </p>
+                    <div class="gantt-task-links">
+                      <span data-ai-field="stakeholder_lane_4_task_1_links"
+                        >連携: 法務 / セキュリティ</span
+                      >
+                    </div>
+                  </div>
+                  <div
+                    class="gantt-task"
+                    style="--start: 3; --end: 6; --task-color: rgba(251, 191, 36, 0.88);"
+                  >
+                    <span
+                      class="gantt-task-title"
+                      data-ai-field="stakeholder_lane_4_task_2_title"
+                      >監査・教育対応</span
+                    >
+                    <p
+                      class="gantt-task-body"
+                      data-ai-field="stakeholder_lane_4_task_2_body"
+                    >
+                      審査手続きと教育プログラムを整備し適合状況を管理
+                    </p>
+                    <div class="gantt-task-links">
+                      <span data-ai-field="stakeholder_lane_4_task_2_links"
+                        >連携: PMO / 人事</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="gantt-head-cell">
-              <span data-ai-field="stakeholder_timeline_col_2">FY25 Q2</span>
+            <!-- ガント図で使う矢印やハイライトの指示は data-ai-field のテキストで記述し、表示ラベルは不要 -->
+            <div class="gantt-notes">
+              <span data-ai-field="stakeholder_gantt_arrow_note"
+                >矢印・コネクタで依存関係を示す際の指示を記述</span
+              >
+              <span data-ai-field="stakeholder_gantt_highlight_note"
+                >色分けや図形の凡例（進行中／遅延など）を記載</span
+              >
             </div>
-            <div class="gantt-head-cell">
-              <span data-ai-field="stakeholder_timeline_col_3">FY25 Q3</span>
-            </div>
-            <div class="gantt-head-cell">
-              <span data-ai-field="stakeholder_timeline_col_4">FY25 Q4</span>
-            </div>
-            <div class="gantt-head-cell">
-              <span data-ai-field="stakeholder_timeline_col_5">FY26 Q1</span>
-            </div>
-            <div class="gantt-head-cell">
-              <span data-ai-field="stakeholder_timeline_col_6">FY26 Q2</span>
+            <div class="gantt-legend">
+              <span
+                ><span class="legend-marker"></span
+                ><span data-ai-field="stakeholder_gantt_marker_note_1"
+                  >青系＝企画/承認、緑系＝実行フェーズ 等の凡例指示</span
+                ></span
+              >
+              <span
+                ><span class="legend-marker"></span
+                ><span data-ai-field="stakeholder_gantt_marker_note_2"
+                  >重要タスクのアイコンやコメント記載ルール</span
+                ></span
+              >
             </div>
           </div>
-          <div class="gantt-body">
-            <div class="gantt-row">
-              <div class="gantt-lane-title">
-                <span data-ai-field="stakeholder_lane_1_title">経営層</span>
-              </div>
-              <div class="gantt-track">
-                <div class="gantt-guides">
-                  <span></span><span></span><span></span
-                  ><span></span><span></span><span></span>
-                </div>
-                <div
-                  class="gantt-task"
-                  style="--start: 1; --end: 3; --task-color: rgba(29, 78, 216, 0.9);"
-                >
-                  <span
-                    class="gantt-task-title"
-                    data-ai-field="stakeholder_lane_1_task_1_title"
-                    >承認プロセス設計</span
-                  >
-                  <p
-                    class="gantt-task-body"
-                    data-ai-field="stakeholder_lane_1_task_1_body"
-                  >
-                    意思決定に必要な要素・資料・ゲート基準を整理
-                  </p>
-                  <div class="gantt-task-links">
-                    <span data-ai-field="stakeholder_lane_1_task_1_links"
-                      >連携: PMO / 財務</span
-                    >
-                  </div>
-                </div>
-                <div
-                  class="gantt-task"
-                  style="--start: 3; --end: 6; --task-color: rgba(16, 185, 129, 0.86);"
-                >
-                  <span
-                    class="gantt-task-title"
-                    data-ai-field="stakeholder_lane_1_task_2_title"
-                    >投資判断レビュー</span
-                  >
-                  <p
-                    class="gantt-task-body"
-                    data-ai-field="stakeholder_lane_1_task_2_body"
-                  >
-                    KPI進捗とリスクシナリオを踏まえた意思決定会を実施
-                  </p>
-                  <div class="gantt-task-links">
-                    <span data-ai-field="stakeholder_lane_1_task_2_links"
-                      >連携: 事業部 / 法務</span
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="gantt-row">
-              <div class="gantt-lane-title">
-                <span data-ai-field="stakeholder_lane_2_title">PMO / 実行チーム</span>
-              </div>
-              <div class="gantt-track">
-                <div class="gantt-guides">
-                  <span></span><span></span><span></span
-                  ><span></span><span></span><span></span>
-                </div>
-                <div
-                  class="gantt-task"
-                  style="--start: 1; --end: 4; --task-color: rgba(59, 130, 246, 0.88);"
-                >
-                  <span
-                    class="gantt-task-title"
-                    data-ai-field="stakeholder_lane_2_task_1_title"
-                    >要件定義〜PoC</span
-                  >
-                  <p
-                    class="gantt-task-body"
-                    data-ai-field="stakeholder_lane_2_task_1_body"
-                  >
-                    各部門ヒアリング・ユースケース検証・改善サイクルを構築
-                  </p>
-                  <div class="gantt-task-links">
-                    <span data-ai-field="stakeholder_lane_2_task_1_links"
-                      >連携: 利用部門 / ベンダー</span
-                    >
-                  </div>
-                </div>
-                <div
-                  class="gantt-task"
-                  style="--start: 4; --end: 6; --task-color: rgba(249, 115, 22, 0.88);"
-                >
-                  <span
-                    class="gantt-task-title"
-                    data-ai-field="stakeholder_lane_2_task_2_title"
-                    >本番移行準備</span
-                  >
-                  <p
-                    class="gantt-task-body"
-                    data-ai-field="stakeholder_lane_2_task_2_body"
-                  >
-                    運用設計と教育、リスク対応策を整備しローンチへ備える
-                  </p>
-                  <div class="gantt-task-links">
-                    <span data-ai-field="stakeholder_lane_2_task_2_links"
-                      >連携: セキュリティ / 経理</span
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="gantt-row">
-              <div class="gantt-lane-title">
-                <span data-ai-field="stakeholder_lane_3_title">外部パートナー</span>
-              </div>
-              <div class="gantt-track">
-                <div class="gantt-guides">
-                  <span></span><span></span><span></span
-                  ><span></span><span></span><span></span>
-                </div>
-                <div
-                  class="gantt-task"
-                  style="--start: 2; --end: 4; --task-color: rgba(236, 72, 153, 0.88);"
-                >
-                  <span
-                    class="gantt-task-title"
-                    data-ai-field="stakeholder_lane_3_task_1_title"
-                    >契約・SLA調整</span
-                  >
-                  <p
-                    class="gantt-task-body"
-                    data-ai-field="stakeholder_lane_3_task_1_body"
-                  >
-                    提供範囲・品質基準・サポート体制を合意形成
-                  </p>
-                  <div class="gantt-task-links">
-                    <span data-ai-field="stakeholder_lane_3_task_1_links"
-                      >連携: 法務 / 調達</span
-                    >
-                  </div>
-                </div>
-                <div
-                  class="gantt-task"
-                  style="--start: 4; --end: 6; --task-color: rgba(94, 234, 212, 0.85);"
-                >
-                  <span
-                    class="gantt-task-title"
-                    data-ai-field="stakeholder_lane_3_task_2_title"
-                    >導入サポート</span
-                  >
-                  <p
-                    class="gantt-task-body"
-                    data-ai-field="stakeholder_lane_3_task_2_body"
-                  >
-                    トレーニングや定着支援、改善提案を実施
-                  </p>
-                  <div class="gantt-task-links">
-                    <span data-ai-field="stakeholder_lane_3_task_2_links"
-                      >連携: PMO / 人事</span
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="gantt-row">
-              <div class="gantt-lane-title">
-                <span data-ai-field="stakeholder_lane_4_title">規制・ガバナンス</span>
-              </div>
-              <div class="gantt-track">
-                <div class="gantt-guides">
-                  <span></span><span></span><span></span
-                  ><span></span><span></span><span></span>
-                </div>
-                <div
-                  class="gantt-task"
-                  style="--start: 1; --end: 3; --task-color: rgba(168, 85, 247, 0.88);"
-                >
-                  <span
-                    class="gantt-task-title"
-                    data-ai-field="stakeholder_lane_4_task_1_title"
-                    >規制要件整理</span
-                  >
-                  <p
-                    class="gantt-task-body"
-                    data-ai-field="stakeholder_lane_4_task_1_body"
-                  >
-                    法規制・社内基準を洗い出しプロジェクト制約を把握
-                  </p>
-                  <div class="gantt-task-links">
-                    <span data-ai-field="stakeholder_lane_4_task_1_links"
-                      >連携: 法務 / セキュリティ</span
-                    >
-                  </div>
-                </div>
-                <div
-                  class="gantt-task"
-                  style="--start: 3; --end: 6; --task-color: rgba(251, 191, 36, 0.88);"
-                >
-                  <span
-                    class="gantt-task-title"
-                    data-ai-field="stakeholder_lane_4_task_2_title"
-                    >監査・教育対応</span
-                  >
-                  <p
-                    class="gantt-task-body"
-                    data-ai-field="stakeholder_lane_4_task_2_body"
-                  >
-                    審査手続きと教育プログラムを整備し適合状況を管理
-                  </p>
-                  <div class="gantt-task-links">
-                    <span data-ai-field="stakeholder_lane_4_task_2_links"
-                      >連携: PMO / 人事</span
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
+            <footer class="next-link">
+              <span data-ai-field="stakeholder_gantt_to_wrap_transition"
+                >全体まとめスライドへの導出文</span
+              >
+            </footer>
           </div>
-          <!-- ガント図で使う矢印やハイライトの指示は data-ai-field のテキストで記述し、表示ラベルは不要 -->
-          <div class="gantt-notes">
-            <span data-ai-field="stakeholder_gantt_arrow_note"
-              >矢印・コネクタで依存関係を示す際の指示を記述</span
-            >
-            <span data-ai-field="stakeholder_gantt_highlight_note"
-              >色分けや図形の凡例（進行中／遅延など）を記載</span
-            >
-          </div>
-          <div class="gantt-legend">
-            <span
-              ><span class="legend-marker"></span
-              ><span data-ai-field="stakeholder_gantt_marker_note_1"
-                >青系＝企画/承認、緑系＝実行フェーズ 等の凡例指示</span
-              ></span
-            >
-            <span
-              ><span class="legend-marker"></span
-              ><span data-ai-field="stakeholder_gantt_marker_note_2"
-                >重要タスクのアイコンやコメント記載ルール</span
-              ></span
-            >
-          </div>
-        </div>
-          <footer class="next-link">
-            <span data-ai-field="stakeholder_gantt_to_wrap_transition"
-              >全体まとめスライドへの導出文</span
-            >
-          </footer>
           <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
         </section>
       </div>
@@ -1784,95 +1810,97 @@
         <section class="slide" data-slide-id="overall-wrap">
           <!-- Slide meta: Slide 10 · 全体まとめ -->
           <!-- Section label: FINAL TAKEAWAY -->
-          <h2><span data-ai-field="wrap_title">クロージングメッセージ</span></h2>
-          <p class="lead">
-            <span data-ai-field="wrap_lead"
-            >受講者に残したい最も重要なメッセージを凝縮。</span
-          >
-        </p>
-        <div class="split">
-          <div>
-            <h3>アクション</h3>
-            <ul class="key-points">
-              <li>
-                <span data-ai-field="wrap_action_1"
-                  >次のアクション（短期）</span
-                >
-              </li>
-              <li>
-                <span data-ai-field="wrap_action_2"
-                  >フォローアップ事項</span
-                >
-              </li>
-              <li>
-                <span data-ai-field="wrap_action_3"
-                  >期待される成果と指標</span
-                >
-              </li>
-            </ul>
-          </div>
-          <!-- data-ai-field="wrap_visual_hint" はクロージング用ビジュアルの設計意図のみを記載する領域 -->
-          <div class="chart-card">
-            <span class="hidden" data-ai-field="wrap_visual_hint"></span>
-            <div class="tailwind-infographic w-full aspect-[16/9]">
-              <div
-                class="infographic-frame flex h-full w-full flex-col overflow-hidden rounded-3xl border border-amber-200 bg-gradient-to-br from-amber-50 via-white to-white p-5 text-left shadow-lg"
-              >
-                <div class="flex flex-wrap items-center justify-between gap-3">
-                  <span class="text-xs font-semibold uppercase tracking-[0.3em] text-amber-600">Action Canvas</span>
-                  <span
-                    class="inline-flex items-center gap-2 rounded-full bg-amber-500/10 px-3 py-1 text-xs font-medium text-amber-700"
+          <div class="slide-content">
+            <h2><span data-ai-field="wrap_title">クロージングメッセージ</span></h2>
+            <p class="lead">
+              <span data-ai-field="wrap_lead"
+              >受講者に残したい最も重要なメッセージを凝縮。</span
+            >
+          </p>
+          <div class="split">
+            <div>
+              <h3>アクション</h3>
+              <ul class="key-points">
+                <li>
+                  <span data-ai-field="wrap_action_1"
+                    >次のアクション（短期）</span
                   >
-                    <span>🏁</span>
-                    <span data-ai-field="wrap_visual_theme">次の90日でやるべきこと</span>
-                  </span>
-                </div>
-                <div class="grid flex-1 gap-3.5 md:grid-cols-[1.6fr_1fr]">
-                  <div class="grid content-start gap-3.5">
-                    <div class="grid gap-3 sm:grid-cols-3">
-                      <div class="flex flex-col gap-1.5 rounded-2xl border border-amber-100 bg-white/90 p-3.5 shadow-sm">
-                        <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-500/15 text-lg">📣</span>
-                        <p class="text-sm font-semibold text-slate-600" data-ai-field="wrap_visual_action_card_1_title">全社共有</p>
-                        <p class="text-xs text-slate-500" data-ai-field="wrap_visual_action_card_1_body">48時間以内にハイライト資料と録画リンクを配信</p>
-                      </div>
-                      <div class="flex flex-col gap-1.5 rounded-2xl border border-amber-100 bg-white/90 p-3.5 shadow-sm">
-                        <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-500/15 text-lg">🧑‍🤝‍🧑</span>
-                        <p class="text-sm font-semibold text-slate-600" data-ai-field="wrap_visual_action_card_2_title">ワークショップ</p>
-                        <p class="text-xs text-slate-500" data-ai-field="wrap_visual_action_card_2_body">主要部門向けに共創セッションを3回開催</p>
-                      </div>
-                      <div class="flex flex-col gap-1.5 rounded-2xl border border-amber-100 bg-white/90 p-3.5 shadow-sm">
-                        <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-500/15 text-lg">🔄</span>
-                        <p class="text-sm font-semibold text-slate-600" data-ai-field="wrap_visual_action_card_3_title">定着支援</p>
-                        <p class="text-xs text-slate-500" data-ai-field="wrap_visual_action_card_3_body">伴走チームで成果レビューと改善サイクルを確立</p>
-                      </div>
-                    </div>
-                    <div class="grid gap-1.5 rounded-2xl border border-amber-100 bg-white/85 p-3.5">
-                      <div class="flex items-center justify-between text-xs text-slate-500">
-                        <span data-ai-field="wrap_visual_milestone_label">主要マイルストーン達成率</span>
-                        <span data-ai-field="wrap_visual_milestone_value">65% → 100%</span>
-                      </div>
-                      <div class="h-2 rounded-full bg-slate-200">
-                        <span class="block h-full rounded-full bg-amber-500" style="width: 65%"></span>
-                      </div>
-                      <p class="text-[0.72rem] text-slate-500" data-ai-field="wrap_visual_milestone_note">アクション完了後のレビュー会で100%到達を証跡化</p>
-                    </div>
+                </li>
+                <li>
+                  <span data-ai-field="wrap_action_2"
+                    >フォローアップ事項</span
+                  >
+                </li>
+                <li>
+                  <span data-ai-field="wrap_action_3"
+                    >期待される成果と指標</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <!-- data-ai-field="wrap_visual_hint" はクロージング用ビジュアルの設計意図のみを記載する領域 -->
+            <div class="chart-card">
+              <span class="hidden" data-ai-field="wrap_visual_hint"></span>
+              <div class="tailwind-infographic w-full aspect-[16/9]">
+                <div
+                  class="infographic-frame flex h-full w-full flex-col overflow-hidden rounded-3xl border border-amber-200 bg-gradient-to-br from-amber-50 via-white to-white p-5 text-left shadow-lg"
+                >
+                  <div class="flex flex-wrap items-center justify-between gap-3">
+                    <span class="text-xs font-semibold uppercase tracking-[0.3em] text-amber-600">Action Canvas</span>
+                    <span
+                      class="inline-flex items-center gap-2 rounded-full bg-amber-500/10 px-3 py-1 text-xs font-medium text-amber-700"
+                    >
+                      <span>🏁</span>
+                      <span data-ai-field="wrap_visual_theme">次の90日でやるべきこと</span>
+                    </span>
                   </div>
-                  <div class="flex flex-col justify-between gap-3.5 rounded-2xl border border-amber-100 bg-white/85 p-3.5">
-                    <div class="grid gap-1.5 text-xs text-slate-600">
-                      <div class="flex items-center gap-2">
-                        <span class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-amber-500/15 text-sm">✅</span>
-                        <span data-ai-field="wrap_visual_followup_1">成果共有会議の日程を即日確定</span>
+                  <div class="grid flex-1 gap-3.5 md:grid-cols-[1.6fr_1fr]">
+                    <div class="grid content-start gap-3.5">
+                      <div class="grid gap-3 sm:grid-cols-3">
+                        <div class="flex flex-col gap-1.5 rounded-2xl border border-amber-100 bg-white/90 p-3.5 shadow-sm">
+                          <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-500/15 text-lg">📣</span>
+                          <p class="text-sm font-semibold text-slate-600" data-ai-field="wrap_visual_action_card_1_title">全社共有</p>
+                          <p class="text-xs text-slate-500" data-ai-field="wrap_visual_action_card_1_body">48時間以内にハイライト資料と録画リンクを配信</p>
+                        </div>
+                        <div class="flex flex-col gap-1.5 rounded-2xl border border-amber-100 bg-white/90 p-3.5 shadow-sm">
+                          <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-500/15 text-lg">🧑‍🤝‍🧑</span>
+                          <p class="text-sm font-semibold text-slate-600" data-ai-field="wrap_visual_action_card_2_title">ワークショップ</p>
+                          <p class="text-xs text-slate-500" data-ai-field="wrap_visual_action_card_2_body">主要部門向けに共創セッションを3回開催</p>
+                        </div>
+                        <div class="flex flex-col gap-1.5 rounded-2xl border border-amber-100 bg-white/90 p-3.5 shadow-sm">
+                          <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-500/15 text-lg">🔄</span>
+                          <p class="text-sm font-semibold text-slate-600" data-ai-field="wrap_visual_action_card_3_title">定着支援</p>
+                          <p class="text-xs text-slate-500" data-ai-field="wrap_visual_action_card_3_body">伴走チームで成果レビューと改善サイクルを確立</p>
+                        </div>
                       </div>
-                      <div class="flex items-center gap-2">
-                        <span class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-amber-500/15 text-sm">📞</span>
-                        <span data-ai-field="wrap_visual_followup_2">問い合わせ窓口とサポートチャネルを周知</span>
+                      <div class="grid gap-1.5 rounded-2xl border border-amber-100 bg-white/85 p-3.5">
+                        <div class="flex items-center justify-between text-xs text-slate-500">
+                          <span data-ai-field="wrap_visual_milestone_label">主要マイルストーン達成率</span>
+                          <span data-ai-field="wrap_visual_milestone_value">65% → 100%</span>
+                        </div>
+                        <div class="h-2 rounded-full bg-slate-200">
+                          <span class="block h-full rounded-full bg-amber-500" style="width: 65%"></span>
+                        </div>
+                        <p class="text-[0.72rem] text-slate-500" data-ai-field="wrap_visual_milestone_note">アクション完了後のレビュー会で100%到達を証跡化</p>
                       </div>
                     </div>
-                    <div class="grid gap-1.5 rounded-2xl border border-amber-100 bg-amber-50/70 p-3.5 text-xs text-amber-700">
-                      <span class="font-semibold uppercase tracking-[0.24em]">Momentum Pulse</span>
-                      <p data-ai-field="wrap_visual_pulse_note">関係者の温度感や意思決定速度を継続的にモニタリング</p>
-                      <div class="h-2 rounded-full bg-amber-100">
-                        <span class="block h-full rounded-full bg-amber-500" style="width: 72%"></span>
+                    <div class="flex flex-col justify-between gap-3.5 rounded-2xl border border-amber-100 bg-white/85 p-3.5">
+                      <div class="grid gap-1.5 text-xs text-slate-600">
+                        <div class="flex items-center gap-2">
+                          <span class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-amber-500/15 text-sm">✅</span>
+                          <span data-ai-field="wrap_visual_followup_1">成果共有会議の日程を即日確定</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <span class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-amber-500/15 text-sm">📞</span>
+                          <span data-ai-field="wrap_visual_followup_2">問い合わせ窓口とサポートチャネルを周知</span>
+                        </div>
+                      </div>
+                      <div class="grid gap-1.5 rounded-2xl border border-amber-100 bg-amber-50/70 p-3.5 text-xs text-amber-700">
+                        <span class="font-semibold uppercase tracking-[0.24em]">Momentum Pulse</span>
+                        <p data-ai-field="wrap_visual_pulse_note">関係者の温度感や意思決定速度を継続的にモニタリング</p>
+                        <div class="h-2 rounded-full bg-amber-100">
+                          <span class="block h-full rounded-full bg-amber-500" style="width: 72%"></span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1880,12 +1908,12 @@
               </div>
             </div>
           </div>
-        </div>
-          <footer class="next-link">
-            <span data-ai-field="wrap_closure"
-              >クロージングの一言や問い合わせ先</span
-            >
-          </footer>
+            <footer class="next-link">
+              <span data-ai-field="wrap_closure"
+                >クロージングの一言や問い合わせ先</span
+              >
+            </footer>
+          </div>
           <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
         </section>
       </div>
@@ -1902,78 +1930,80 @@
         <section class="slide" data-slide-id="appendix" aria-hidden="true">
           <!-- Slide meta: Optional · 追加資料 -->
           <!-- Section label: OPTIONAL -->
-          <h2>補足スライドのテンプレート</h2>
-          <p class="lead">
-            クッションスライドや詳細説明を追加する際はこのセクションを複製してください。
-          </p>
-          <!-- appendix セクションでは、READMEの指示に従い実際の補足図解のみを表示し、指示文はコメントや data-ai-field に保持する -->
-          <div class="punch-card">
-              <div class="tailwind-infographic aspect-[16/9]">
-                <div class="infographic-frame flex h-full w-full flex-col justify-between overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 p-5 text-left shadow-inner">
-                  <div class="flex flex-wrap items-center justify-between gap-2">
-                    <span class="text-xs font-semibold uppercase tracking-widest text-slate-500">ユーザー旅路の全体像</span>
-                    <div class="flex items-center gap-2 text-xs text-slate-500">
-                      <span class="inline-flex items-center gap-1"><span class="h-2.5 w-2.5 rounded-full bg-sky-400"></span> 施策</span>
-                      <span class="inline-flex items-center gap-1"><span class="h-2.5 w-2.5 rounded-full bg-emerald-400"></span> KPI</span>
-                    </div>
-                  </div>
-                  <div class="grid flex-1 gap-3.5 sm:grid-cols-4">
-                    <div class="flex flex-col gap-2.5 rounded-2xl border border-sky-100 bg-white/90 p-3.5 shadow-sm">
-                      <div class="flex items-center gap-2">
-                        <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-sky-500/15 text-lg">🔍</span>
-                        <div>
-                          <p class="text-sm font-semibold text-slate-600">認知</p>
-                          <p class="text-xs text-slate-500">Awareness</p>
-                        </div>
+          <div class="slide-content">
+            <h2>補足スライドのテンプレート</h2>
+            <p class="lead">
+              クッションスライドや詳細説明を追加する際はこのセクションを複製してください。
+            </p>
+            <!-- appendix セクションでは、READMEの指示に従い実際の補足図解のみを表示し、指示文はコメントや data-ai-field に保持する -->
+            <div class="punch-card">
+                <div class="tailwind-infographic aspect-[16/9]">
+                  <div class="infographic-frame flex h-full w-full flex-col justify-between overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 p-5 text-left shadow-inner">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                      <span class="text-xs font-semibold uppercase tracking-widest text-slate-500">ユーザー旅路の全体像</span>
+                      <div class="flex items-center gap-2 text-xs text-slate-500">
+                        <span class="inline-flex items-center gap-1"><span class="h-2.5 w-2.5 rounded-full bg-sky-400"></span> 施策</span>
+                        <span class="inline-flex items-center gap-1"><span class="h-2.5 w-2.5 rounded-full bg-emerald-400"></span> KPI</span>
                       </div>
-                      <ul class="space-y-1 text-xs text-slate-500">
-                        <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-sky-400"></span>業界ウェビナーで課題共有</li>
-                        <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-400"></span>リード獲得数 +35%</li>
-                      </ul>
                     </div>
-                    <div class="flex flex-col gap-2.5 rounded-2xl border border-sky-100 bg-white/90 p-3.5 shadow-sm">
-                      <div class="flex items-center gap-2">
-                        <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-sky-500/15 text-lg">⚖️</span>
-                        <div>
-                          <p class="text-sm font-semibold text-slate-600">比較</p>
-                          <p class="text-xs text-slate-500">Consider</p>
+                    <div class="grid flex-1 gap-3.5 sm:grid-cols-4">
+                      <div class="flex flex-col gap-2.5 rounded-2xl border border-sky-100 bg-white/90 p-3.5 shadow-sm">
+                        <div class="flex items-center gap-2">
+                          <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-sky-500/15 text-lg">🔍</span>
+                          <div>
+                            <p class="text-sm font-semibold text-slate-600">認知</p>
+                            <p class="text-xs text-slate-500">Awareness</p>
+                          </div>
                         </div>
+                        <ul class="space-y-1 text-xs text-slate-500">
+                          <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-sky-400"></span>業界ウェビナーで課題共有</li>
+                          <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-400"></span>リード獲得数 +35%</li>
+                        </ul>
                       </div>
-                      <ul class="space-y-1 text-xs text-slate-500">
-                        <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-sky-400"></span>導入事例を個別提案</li>
-                        <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-400"></span>商談化率 42%</li>
-                      </ul>
-                    </div>
-                    <div class="flex flex-col gap-2.5 rounded-2xl border border-sky-100 bg-white/90 p-3.5 shadow-sm">
-                      <div class="flex items-center gap-2">
-                        <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-sky-500/15 text-lg">🚀</span>
-                        <div>
-                          <p class="text-sm font-semibold text-slate-600">導入</p>
-                          <p class="text-xs text-slate-500">Adopt</p>
+                      <div class="flex flex-col gap-2.5 rounded-2xl border border-sky-100 bg-white/90 p-3.5 shadow-sm">
+                        <div class="flex items-center gap-2">
+                          <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-sky-500/15 text-lg">⚖️</span>
+                          <div>
+                            <p class="text-sm font-semibold text-slate-600">比較</p>
+                            <p class="text-xs text-slate-500">Consider</p>
+                          </div>
                         </div>
+                        <ul class="space-y-1 text-xs text-slate-500">
+                          <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-sky-400"></span>導入事例を個別提案</li>
+                          <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-400"></span>商談化率 42%</li>
+                        </ul>
                       </div>
-                      <ul class="space-y-1 text-xs text-slate-500">
-                        <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-sky-400"></span>オンボーディングワークショップ</li>
-                        <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-400"></span>初期活用率 85%</li>
-                      </ul>
-                    </div>
-                    <div class="flex flex-col gap-2.5 rounded-2xl border border-sky-100 bg-white/90 p-3.5 shadow-sm">
-                      <div class="flex items-center gap-2">
-                        <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-sky-500/15 text-lg">💡</span>
-                        <div>
-                          <p class="text-sm font-semibold text-slate-600">定着</p>
-                          <p class="text-xs text-slate-500">Retain</p>
+                      <div class="flex flex-col gap-2.5 rounded-2xl border border-sky-100 bg-white/90 p-3.5 shadow-sm">
+                        <div class="flex items-center gap-2">
+                          <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-sky-500/15 text-lg">🚀</span>
+                          <div>
+                            <p class="text-sm font-semibold text-slate-600">導入</p>
+                            <p class="text-xs text-slate-500">Adopt</p>
+                          </div>
                         </div>
+                        <ul class="space-y-1 text-xs text-slate-500">
+                          <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-sky-400"></span>オンボーディングワークショップ</li>
+                          <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-400"></span>初期活用率 85%</li>
+                        </ul>
                       </div>
-                      <ul class="space-y-1 text-xs text-slate-500">
-                        <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-sky-400"></span>定例レビューと改善提案</li>
-                        <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-400"></span>NPS +18 / 継続率 92%</li>
-                      </ul>
+                      <div class="flex flex-col gap-2.5 rounded-2xl border border-sky-100 bg-white/90 p-3.5 shadow-sm">
+                        <div class="flex items-center gap-2">
+                          <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-sky-500/15 text-lg">💡</span>
+                          <div>
+                            <p class="text-sm font-semibold text-slate-600">定着</p>
+                            <p class="text-xs text-slate-500">Retain</p>
+                          </div>
+                        </div>
+                        <ul class="space-y-1 text-xs text-slate-500">
+                          <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-sky-400"></span>定例レビューと改善提案</li>
+                          <li class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-400"></span>NPS +18 / 継続率 92%</li>
+                        </ul>
+                      </div>
                     </div>
-                  </div>
-                  <div class="flex flex-wrap items-center gap-3 text-xs text-slate-500">
-                    <div class="inline-flex items-center gap-1 rounded-full bg-sky-500/10 px-3 py-1 font-medium text-sky-600">🤝 次の一手: CS強化と伴走支援</div>
-                    <div class="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-3 py-1 font-medium text-emerald-600">📆 90日内で成果創出</div>
+                    <div class="flex flex-wrap items-center gap-3 text-xs text-slate-500">
+                      <div class="inline-flex items-center gap-1 rounded-full bg-sky-500/10 px-3 py-1 font-medium text-sky-600">🤝 次の一手: CS強化と伴走支援</div>
+                      <div class="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-3 py-1 font-medium text-emerald-600">📆 90日内で成果創出</div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1995,99 +2025,101 @@
         <section class="slide" data-slide-id="appendix-chart" aria-hidden="true">
           <!-- Slide meta: Optional · 追加資料 -->
           <!-- Section label: OPTIONAL -->
-          <h2>データチャートのテンプレート</h2>
-          <p class="lead">
-            数値の推移や指標を共有するグラフ用スライド。必要に応じてレイアウトや色を調整してください。
-          </p>
-          <!-- data-ai-field 群の数値は実データで差し替え、チャートのレイアウトもTailwindで自由に組み替えてよい -->
-          <div class="chart-card">
-            <div class="tailwind-infographic aspect-[16/9]">
-              <div class="infographic-frame flex h-full w-full flex-col justify-between overflow-hidden rounded-3xl border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-white p-5 text-left shadow-inner">
-                <div class="flex flex-wrap items-center justify-between gap-3 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-500">
-                  <span data-ai-field="appendix_chart_badge">Growth Scorecard</span>
-                  <span class="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1 text-[0.72rem] font-medium text-emerald-600">
-                    <span>📊</span>
-                    <span data-ai-field="appendix_chart_period">FY2024 Q1 Snapshot</span>
-                  </span>
-                </div>
-                <div class="grid flex-1 gap-4 lg:grid-cols-[2fr,1fr]">
-                  <div class="grid gap-3.5">
-                    <div class="grid gap-1.5 rounded-2xl border border-emerald-100 bg-white/90 p-3.5 shadow-sm">
-                      <div class="flex items-center justify-between text-xs text-slate-500">
-                        <span data-ai-field="appendix_chart_metric_1_label">MRR</span>
-                        <span data-ai-field="appendix_chart_metric_1_value">¥18.4M</span>
-                      </div>
-                      <div class="h-2.5 rounded-full bg-slate-200">
-                        <span class="block h-full rounded-full bg-emerald-500" style="width: 74%"></span>
-                      </div>
-                      <p class="text-[0.72rem] text-slate-500" data-ai-field="appendix_chart_metric_1_note">前年同期比 <strong class="text-emerald-600">+24%</strong></p>
-                    </div>
-                    <div class="grid gap-1.5 rounded-2xl border border-emerald-100 bg-white/90 p-3.5 shadow-sm">
-                      <div class="flex items-center justify-between text-xs text-slate-500">
-                        <span data-ai-field="appendix_chart_metric_2_label">継続率</span>
-                        <span data-ai-field="appendix_chart_metric_2_value">93%</span>
-                      </div>
-                      <div class="h-2.5 rounded-full bg-slate-200">
-                        <span class="block h-full rounded-full bg-sky-500/80" style="width: 93%"></span>
-                      </div>
-                      <p class="text-[0.72rem] text-slate-500" data-ai-field="appendix_chart_metric_2_note">プログラム更新後 <strong class="text-emerald-600">+6pt</strong></p>
-                    </div>
-                    <div class="grid gap-1.5 rounded-2xl border border-emerald-100 bg-white/90 p-3.5 shadow-sm">
-                      <div class="flex items-center justify-between text-xs text-slate-500">
-                        <span data-ai-field="appendix_chart_metric_3_label">NPS</span>
-                        <span data-ai-field="appendix_chart_metric_3_value">+21</span>
-                      </div>
-                      <div class="h-2.5 rounded-full bg-slate-200">
-                        <span class="block h-full rounded-full bg-amber-500/80" style="width: 68%"></span>
-                      </div>
-                      <p class="text-[0.72rem] text-slate-500" data-ai-field="appendix_chart_metric_3_note">主要要因: オンボーディング改善とサポート強化</p>
-                    </div>
+          <div class="slide-content">
+            <h2>データチャートのテンプレート</h2>
+            <p class="lead">
+              数値の推移や指標を共有するグラフ用スライド。必要に応じてレイアウトや色を調整してください。
+            </p>
+            <!-- data-ai-field 群の数値は実データで差し替え、チャートのレイアウトもTailwindで自由に組み替えてよい -->
+            <div class="chart-card">
+              <div class="tailwind-infographic aspect-[16/9]">
+                <div class="infographic-frame flex h-full w-full flex-col justify-between overflow-hidden rounded-3xl border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-white p-5 text-left shadow-inner">
+                  <div class="flex flex-wrap items-center justify-between gap-3 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-500">
+                    <span data-ai-field="appendix_chart_badge">Growth Scorecard</span>
+                    <span class="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1 text-[0.72rem] font-medium text-emerald-600">
+                      <span>📊</span>
+                      <span data-ai-field="appendix_chart_period">FY2024 Q1 Snapshot</span>
+                    </span>
                   </div>
-                  <div class="grid gap-3.5 rounded-2xl border border-emerald-100 bg-white/90 p-3.5 shadow-sm">
-                    <div class="flex items-center justify-between text-xs font-semibold text-slate-500">
-                      <span data-ai-field="appendix_chart_breakdown_label">チャネル別成長率</span>
-                      <span class="text-emerald-600" data-ai-field="appendix_chart_breakdown_note">QoQ</span>
+                  <div class="grid flex-1 gap-4 lg:grid-cols-[2fr,1fr]">
+                    <div class="grid gap-3.5">
+                      <div class="grid gap-1.5 rounded-2xl border border-emerald-100 bg-white/90 p-3.5 shadow-sm">
+                        <div class="flex items-center justify-between text-xs text-slate-500">
+                          <span data-ai-field="appendix_chart_metric_1_label">MRR</span>
+                          <span data-ai-field="appendix_chart_metric_1_value">¥18.4M</span>
+                        </div>
+                        <div class="h-2.5 rounded-full bg-slate-200">
+                          <span class="block h-full rounded-full bg-emerald-500" style="width: 74%"></span>
+                        </div>
+                        <p class="text-[0.72rem] text-slate-500" data-ai-field="appendix_chart_metric_1_note">前年同期比 <strong class="text-emerald-600">+24%</strong></p>
+                      </div>
+                      <div class="grid gap-1.5 rounded-2xl border border-emerald-100 bg-white/90 p-3.5 shadow-sm">
+                        <div class="flex items-center justify-between text-xs text-slate-500">
+                          <span data-ai-field="appendix_chart_metric_2_label">継続率</span>
+                          <span data-ai-field="appendix_chart_metric_2_value">93%</span>
+                        </div>
+                        <div class="h-2.5 rounded-full bg-slate-200">
+                          <span class="block h-full rounded-full bg-sky-500/80" style="width: 93%"></span>
+                        </div>
+                        <p class="text-[0.72rem] text-slate-500" data-ai-field="appendix_chart_metric_2_note">プログラム更新後 <strong class="text-emerald-600">+6pt</strong></p>
+                      </div>
+                      <div class="grid gap-1.5 rounded-2xl border border-emerald-100 bg-white/90 p-3.5 shadow-sm">
+                        <div class="flex items-center justify-between text-xs text-slate-500">
+                          <span data-ai-field="appendix_chart_metric_3_label">NPS</span>
+                          <span data-ai-field="appendix_chart_metric_3_value">+21</span>
+                        </div>
+                        <div class="h-2.5 rounded-full bg-slate-200">
+                          <span class="block h-full rounded-full bg-amber-500/80" style="width: 68%"></span>
+                        </div>
+                        <p class="text-[0.72rem] text-slate-500" data-ai-field="appendix_chart_metric_3_note">主要要因: オンボーディング改善とサポート強化</p>
+                      </div>
                     </div>
-                    <div class="grid gap-2.5 text-xs text-slate-500">
-                      <div class="grid gap-1">
-                        <div class="flex items-center justify-between">
-                          <span data-ai-field="appendix_chart_segment_1_label">直販</span>
-                          <span data-ai-field="appendix_chart_segment_1_value">+32%</span>
-                        </div>
-                        <div class="h-1.5 rounded-full bg-slate-200">
-                          <span class="block h-full rounded-full bg-emerald-500" style="width: 82%"></span>
-                        </div>
+                    <div class="grid gap-3.5 rounded-2xl border border-emerald-100 bg-white/90 p-3.5 shadow-sm">
+                      <div class="flex items-center justify-between text-xs font-semibold text-slate-500">
+                        <span data-ai-field="appendix_chart_breakdown_label">チャネル別成長率</span>
+                        <span class="text-emerald-600" data-ai-field="appendix_chart_breakdown_note">QoQ</span>
                       </div>
-                      <div class="grid gap-1">
-                        <div class="flex items-center justify-between">
-                          <span data-ai-field="appendix_chart_segment_2_label">代理店</span>
-                          <span data-ai-field="appendix_chart_segment_2_value">+18%</span>
+                      <div class="grid gap-2.5 text-xs text-slate-500">
+                        <div class="grid gap-1">
+                          <div class="flex items-center justify-between">
+                            <span data-ai-field="appendix_chart_segment_1_label">直販</span>
+                            <span data-ai-field="appendix_chart_segment_1_value">+32%</span>
+                          </div>
+                          <div class="h-1.5 rounded-full bg-slate-200">
+                            <span class="block h-full rounded-full bg-emerald-500" style="width: 82%"></span>
+                          </div>
                         </div>
-                        <div class="h-1.5 rounded-full bg-slate-200">
-                          <span class="block h-full rounded-full bg-sky-500/80" style="width: 58%"></span>
+                        <div class="grid gap-1">
+                          <div class="flex items-center justify-between">
+                            <span data-ai-field="appendix_chart_segment_2_label">代理店</span>
+                            <span data-ai-field="appendix_chart_segment_2_value">+18%</span>
+                          </div>
+                          <div class="h-1.5 rounded-full bg-slate-200">
+                            <span class="block h-full rounded-full bg-sky-500/80" style="width: 58%"></span>
+                          </div>
                         </div>
-                      </div>
-                      <div class="grid gap-1">
-                        <div class="flex items-center justify-between">
-                          <span data-ai-field="appendix_chart_segment_3_label">プロダクト主導</span>
-                          <span data-ai-field="appendix_chart_segment_3_value">+12%</span>
-                        </div>
-                        <div class="h-1.5 rounded-full bg-slate-200">
-                          <span class="block h-full rounded-full bg-amber-500/80" style="width: 44%"></span>
+                        <div class="grid gap-1">
+                          <div class="flex items-center justify-between">
+                            <span data-ai-field="appendix_chart_segment_3_label">プロダクト主導</span>
+                            <span data-ai-field="appendix_chart_segment_3_value">+12%</span>
+                          </div>
+                          <div class="h-1.5 rounded-full bg-slate-200">
+                            <span class="block h-full rounded-full bg-amber-500/80" style="width: 44%"></span>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+              <div class="rounded-2xl border border-dashed border-emerald-200 bg-emerald-50/60 p-4 text-[0.72rem] text-emerald-700">
+                <p class="font-semibold" data-ai-field="appendix_chart_callout_heading">次の打ち手</p>
+                <p data-ai-field="appendix_chart_callout_body">
+                  インサイドセールスの育成プログラムを強化し、直販チャネルの伸びを持続させる。
+                </p>
+              </div>
             </div>
-            <div class="rounded-2xl border border-dashed border-emerald-200 bg-emerald-50/60 p-4 text-[0.72rem] text-emerald-700">
-              <p class="font-semibold" data-ai-field="appendix_chart_callout_heading">次の打ち手</p>
-              <p data-ai-field="appendix_chart_callout_body">
-                インサイドセールスの育成プログラムを強化し、直販チャネルの伸びを持続させる。
-              </p>
-            </div>
-          </div>
+                  </div>
                 </div>
               </div>
             </div>
