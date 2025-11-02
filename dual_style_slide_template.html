@@ -75,8 +75,7 @@
         overflow-y: auto;
       }
 
-      section.slide::after {
-        content: "CONFIDENTIAL";
+      .confidential-tag {
         position: absolute;
         right: 1.6rem;
         bottom: 1.1rem;
@@ -84,6 +83,8 @@
         letter-spacing: 0.28em;
         color: #d90429;
         font-weight: 700;
+        text-transform: uppercase;
+        pointer-events: none;
       }
 
       .slide-container {
@@ -759,6 +760,7 @@
               >次スライド（アジェンダ）への導入文</span
             >
           </footer>
+          <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
         </section>
       </div>
 
@@ -811,6 +813,7 @@
               >背景スライドへ滑らかに遷移する一文</span
             >
           </footer>
+          <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
         </section>
       </div>
 
@@ -903,6 +906,7 @@
               >背景スライドへの導入文</span
             >
           </footer>
+          <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
         </section>
       </div>
 
@@ -1030,6 +1034,7 @@
               >本日の目的スライドへ繋ぐ文</span
             >
           </footer>
+          <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
         </section>
       </div>
 
@@ -1156,6 +1161,7 @@
               >サマリースライドへの導入文</span
             >
           </footer>
+          <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
         </section>
       </div>
 
@@ -1256,6 +1262,7 @@
               >次のサマリースライドへ向けた誘導文</span
             >
           </footer>
+          <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
         </section>
       </div>
 
@@ -1308,6 +1315,7 @@
               >ロードマップスライドへの接続文</span
             >
           </footer>
+          <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
         </section>
       </div>
 
@@ -1467,6 +1475,7 @@
               >ステークホルダー・ガントへの接続文</span
             >
           </footer>
+          <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
         </section>
       </div>
 
@@ -1759,6 +1768,7 @@
               >全体まとめスライドへの導出文</span
             >
           </footer>
+          <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
         </section>
       </div>
 
@@ -1876,6 +1886,7 @@
               >クロージングの一言や問い合わせ先</span
             >
           </footer>
+          <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
         </section>
       </div>
 
@@ -1966,7 +1977,9 @@
                   </div>
                 </div>
               </div>
+            </div>
           </div>
+          <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
         </section>
       </div>
 
@@ -2068,17 +2081,18 @@
                 </div>
               </div>
             </div>
-                    <div class="rounded-2xl border border-dashed border-emerald-200 bg-emerald-50/60 p-4 text-[0.72rem] text-emerald-700">
-                      <p class="font-semibold" data-ai-field="appendix_chart_callout_heading">次の打ち手</p>
-                      <p data-ai-field="appendix_chart_callout_body">
-                        インサイドセールスの育成プログラムを強化し、直販チャネルの伸びを持続させる。
-                      </p>
-                    </div>
-                  </div>
+            <div class="rounded-2xl border border-dashed border-emerald-200 bg-emerald-50/60 p-4 text-[0.72rem] text-emerald-700">
+              <p class="font-semibold" data-ai-field="appendix_chart_callout_heading">次の打ち手</p>
+              <p data-ai-field="appendix_chart_callout_body">
+                インサイドセールスの育成プログラムを強化し、直販チャネルの伸びを持続させる。
+              </p>
+            </div>
+          </div>
                 </div>
               </div>
             </div>
           </div>
+          <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
         </section>
       </div>
     </main>
