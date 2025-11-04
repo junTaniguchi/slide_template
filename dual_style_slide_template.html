@@ -676,7 +676,8 @@
       }
 
       .stakeholder-detail-group {
-        display: grid;
+        display: flex;
+        flex-direction: column;
         gap: 0.9rem;
         padding: 1.2rem;
         background: rgba(248, 250, 252, 0.95);
@@ -696,9 +697,14 @@
 
       .stakeholder-detail-grid {
         display: grid;
-        gap: 0.9rem;
-        grid-template-columns: 1fr;
-        align-items: start;
+        gap: 1.2rem;
+        align-items: stretch;
+      }
+
+      .stakeholder-detail-grid.two-by-two {
+        grid-template-columns: repeat(2, minmax(260px, 1fr));
+        grid-auto-flow: column;
+        grid-auto-rows: minmax(0, 1fr);
       }
 
       .stakeholder-detail-card {
@@ -709,6 +715,7 @@
         border: 1px solid rgba(148, 163, 184, 0.2);
         border-radius: 18px;
         box-shadow: inset 0 1px 0 rgba(148, 163, 184, 0.12);
+        flex: 1 1 auto;
       }
 
       .stakeholder-detail-card h4 {
@@ -742,10 +749,6 @@
         border: 1px solid rgba(37, 99, 235, 0.18);
         background: rgba(37, 99, 235, 0.12);
         color: rgba(29, 78, 216, 0.9);
-      }
-
-      .stakeholder-detail-grid.two-column {
-        grid-template-columns: repeat(2, minmax(220px, 1fr));
       }
 
 
@@ -798,6 +801,12 @@
 
         .stakeholder-detail-grid {
           grid-template-columns: 1fr;
+          grid-auto-flow: row;
+        }
+
+        .stakeholder-detail-grid.two-by-two {
+          grid-template-columns: 1fr;
+          grid-auto-flow: row;
         }
       }
 
