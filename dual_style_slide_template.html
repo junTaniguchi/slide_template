@@ -335,33 +335,51 @@
         align-items: stretch;
       }
 
-      .title-hero {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 2.4rem;
-      }
-
-      .title-hero-main {
+      .title-slide {
         flex: 1 1 auto;
         display: flex;
         flex-direction: column;
-        gap: 1.2rem;
+        gap: 1.6rem;
+        height: 100%;
+      }
+
+      .title-slide-body {
+        flex: 1 1 auto;
+        display: flex;
+        width: 100%;
+        align-items: center;
+      }
+
+      .title-hero {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1.4rem;
+      }
+
+      .title-hero-main {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .title-hero-main h1 {
+        margin: 0;
+        font-size: 30px;
+        line-height: 1.2;
       }
 
       .title-meta {
-        flex: 0 0 auto;
         display: flex;
         flex-direction: column;
         gap: 0.8rem;
-        align-items: flex-end;
-        text-align: right;
-        min-width: 220px;
+        align-items: flex-start;
+        text-align: left;
       }
 
       .title-date {
         margin: 0;
-        font-size: 0.85rem;
+        font-size: 0.9rem;
         letter-spacing: 0.08em;
       }
 
@@ -372,7 +390,7 @@
         display: flex;
         flex-direction: column;
         gap: 0.4rem;
-        font-size: 0.95rem;
+        font-size: 1rem;
       }
 
       .title-org .title-presenter {
@@ -1240,41 +1258,43 @@
         </button>
         <section class="slide" data-slide-id="title">
           <!-- Slide meta: Slide 01 · タイトル -->
-          <div class="slide-content">
-            <div class="title-hero">
-              <div class="title-hero-main">
-                <!-- Slide Title Example: 2024年度CX変革キックオフ -->
-                <h1>
-                  <span data-ai-field="presentation_title"
-                    >2024年度CX変革キックオフ</span
-                  >
-                </h1>
+          <div class="slide-content title-slide">
+            <div class="title-slide-body">
+              <div class="title-hero">
+                <div class="title-hero-main">
+                  <!-- Slide Title Example: 2024年度CX変革キックオフ -->
+                  <h1>
+                    <span data-ai-field="presentation_title"
+                      >2024年度CX変革キックオフ</span
+                    >
+                  </h1>
+                  <div class="title-meta" aria-label="発表情報">
+                    <p class="title-date">
+                      <span data-ai-field="presentation_date">2025年9月5日</span>
+                    </p>
+                    <ul class="title-org">
+                      <li>
+                        <span data-ai-field="presentation_affiliation_line_1"
+                          >次世代戦略本部</span
+                        >
+                      </li>
+                      <li>
+                        <span data-ai-field="presentation_affiliation_line_2"
+                          >戦略推進統括部</span
+                        >
+                      </li>
+                      <li>
+                        <span data-ai-field="presentation_affiliation_line_3"
+                          >イノベーションデザイン室</span
+                        >
+                      </li>
+                      <li class="title-presenter">
+                        <span data-ai-field="presenter_name">谷口 純</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
-              <aside class="title-meta" aria-label="発表情報">
-                <p class="title-date">
-                  <span data-ai-field="presentation_date">2025年9月5日</span>
-                </p>
-                <ul class="title-org">
-                  <li>
-                    <span data-ai-field="presentation_affiliation_line_1"
-                      >次世代戦略本部</span
-                    >
-                  </li>
-                  <li>
-                    <span data-ai-field="presentation_affiliation_line_2"
-                      >戦略推進統括部</span
-                    >
-                  </li>
-                  <li>
-                    <span data-ai-field="presentation_affiliation_line_3"
-                      >イノベーションデザイン室</span
-                    >
-                  </li>
-                  <li class="title-presenter">
-                    <span data-ai-field="presenter_name">谷口 純</span>
-                  </li>
-                </ul>
-              </aside>
             </div>
             <footer class="next-link">
               <span data-ai-field="title_to_brief_transition"
