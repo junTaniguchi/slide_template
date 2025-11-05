@@ -278,7 +278,7 @@
       }
 
       p.lead {
-        font-size: 1.1rem;
+        font-size: 11px;
         font-weight: 500;
         margin-bottom: 1.6rem;
         color: inherit;
@@ -333,6 +333,51 @@
         grid-template-columns: minmax(280px, 1.05fr) minmax(520px, 1.6fr);
         gap: 2.2rem;
         align-items: stretch;
+      }
+
+      .title-hero {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 2.4rem;
+      }
+
+      .title-hero-main {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+      }
+
+      .title-meta {
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        align-items: flex-end;
+        text-align: right;
+        min-width: 220px;
+      }
+
+      .title-date {
+        margin: 0;
+        font-size: 0.85rem;
+        letter-spacing: 0.08em;
+      }
+
+      .title-org {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        font-size: 0.95rem;
+      }
+
+      .title-org .title-presenter {
+        margin-top: 0.8rem;
+        font-weight: 600;
       }
 
       .title-summary {
@@ -1196,25 +1241,40 @@
         <section class="slide" data-slide-id="title">
           <!-- Slide meta: Slide 01 · タイトル -->
           <div class="slide-content">
-            <!-- Slide Title Example: 2024年度CX変革キックオフ -->
-            <h1><span data-ai-field="presentation_title">2024年度CX変革キックオフ</span></h1>
-            <p class="lead">
-              <span data-ai-field="presentation_tagline"
-                >資料全体のトーンを示す短いリード文を入力してください。</span
-              >
-            </p>
-            <div class="split title-summary">
-              <div>
-                <h3>登壇者</h3>
-                <ul class="key-points">
+            <div class="title-hero">
+              <div class="title-hero-main">
+                <!-- Slide Title Example: 2024年度CX変革キックオフ -->
+                <h1>
+                  <span data-ai-field="presentation_title"
+                    >2024年度CX変革キックオフ</span
+                  >
+                </h1>
+              </div>
+              <aside class="title-meta" aria-label="発表情報">
+                <p class="title-date">
+                  <span data-ai-field="presentation_date">2025年9月5日</span>
+                </p>
+                <ul class="title-org">
                   <li>
-                    <span data-ai-field="presenter_name">名前（役職など）</span>
+                    <span data-ai-field="presentation_affiliation_line_1"
+                      >次世代戦略本部</span
+                    >
                   </li>
                   <li>
-                    <span data-ai-field="presentation_date">発表日</span>
+                    <span data-ai-field="presentation_affiliation_line_2"
+                      >戦略推進統括部</span
+                    >
+                  </li>
+                  <li>
+                    <span data-ai-field="presentation_affiliation_line_3"
+                      >イノベーションデザイン室</span
+                    >
+                  </li>
+                  <li class="title-presenter">
+                    <span data-ai-field="presenter_name">谷口 純</span>
                   </li>
                 </ul>
-              </div>
+              </aside>
             </div>
             <footer class="next-link">
               <span data-ai-field="title_to_brief_transition"
