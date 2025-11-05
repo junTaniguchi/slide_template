@@ -335,15 +335,25 @@
         grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       }
 
-      .title-overview {
+      .brief-card {
         display: grid;
         gap: 0.8rem;
-        font-size: 1rem;
-        line-height: 1.7;
+        padding: 1.4rem;
+        border-radius: 22px;
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        background: rgba(248, 250, 252, 0.9);
+        box-shadow: 0 18px 32px rgba(15, 23, 42, 0.08);
       }
 
-      .title-overview p {
+      .brief-card p {
         margin: 0;
+        font-size: 0.98rem;
+        line-height: 1.7;
+        color: var(--text-body);
+      }
+
+      .brief-card ul.key-points {
+        gap: 0.5rem;
       }
 
       .chart-card,
@@ -1183,36 +1193,90 @@
             <p class="lead">
               <span data-ai-field="presentation_tagline"
                 >資料全体のトーンを示す短いリード文を入力してください。</span
-            >
-          </p>
-          <div class="split title-summary">
-            <div>
-              <h3>登壇者</h3>
-              <ul class="key-points">
-                <li>
-                  <span data-ai-field="presenter_name">名前（役職など）</span>
-                </li>
-                <li>
-                  <span data-ai-field="presentation_date">発表日</span>
-                </li>
-              </ul>
+              >
+            </p>
+            <div class="split title-summary">
+              <div>
+                <h3>登壇者</h3>
+                <ul class="key-points">
+                  <li>
+                    <span data-ai-field="presenter_name">名前（役職など）</span>
+                  </li>
+                  <li>
+                    <span data-ai-field="presentation_date">発表日</span>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div class="title-overview">
-              <h3>本日のハイライト</h3>
-              <p>
-                <span data-ai-field="title_highlight_summary"
-                  >この資料で伝える価値や背景のキーメッセージを1〜2文で記載してください。</span
-                >
-              </p>
-              <p>
-                <span data-ai-field="title_expected_outcome"
-                  >聴衆に期待するアクションや持ち帰ってほしい観点を簡潔にまとめてください。</span
-                >
-              </p>
-            </div>
-          </div>
             <footer class="next-link">
-              <span data-ai-field="title_to_agenda_transition"
+              <span data-ai-field="title_to_brief_transition"
+                >次スライド（エグゼクティブブリーフ）への導入文</span
+              >
+            </footer>
+          </div>
+          <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
+        </section>
+      </div>
+
+      <div class="slide-container" data-wrapper-id="executive-brief">
+        <button
+          type="button"
+          class="svg-copy"
+          data-target="executive-brief"
+          aria-label="SVG出力（コピー/ダウンロード）"
+        >
+          SVG出力
+        </button>
+        <section class="slide" data-slide-id="executive-brief">
+          <!-- Slide meta: Slide 02 · エグゼクティブブリーフ -->
+          <div class="slide-content">
+            <!-- Slide Title Example: 本会議の位置づけと狙い -->
+            <h2><span data-ai-field="brief_title">本会議の位置づけと狙い</span></h2>
+            <p class="lead">
+              <span data-ai-field="brief_lead"
+                >本会議に臨む背景と、本資料で合意したい価値提案を端的に記述してください。</span
+              >
+            </p>
+            <div class="split">
+              <article class="brief-card">
+                <h3>本会議設定の背景</h3>
+                <p>
+                  <span data-ai-field="brief_background"
+                    >会議開催の経緯や直近のインパクト、前提となる状況を整理してください。</span
+                  >
+                </p>
+              </article>
+              <article class="brief-card">
+                <h3>資料作成の目的</h3>
+                <p>
+                  <span data-ai-field="brief_objective"
+                    >資料で達成したい狙いと想定する意思決定、期待するアウトプットを記載してください。</span
+                  >
+                </p>
+              </article>
+              <article class="brief-card">
+                <h3>当資料のエグゼクティブサマリー</h3>
+                <ul class="key-points">
+                  <li>
+                    <span data-ai-field="brief_summary_point_1"
+                      >キーメッセージや重要な結論を簡潔に記載してください。</span
+                    >
+                  </li>
+                  <li>
+                    <span data-ai-field="brief_summary_point_2"
+                      >合意形成に向けた示唆やアクションを補足してください。</span
+                    >
+                  </li>
+                  <li>
+                    <span data-ai-field="brief_summary_point_3"
+                      >リスクや前提条件など、経営層が把握すべき論点をまとめてください。</span
+                    >
+                  </li>
+                </ul>
+              </article>
+            </div>
+            <footer class="next-link">
+              <span data-ai-field="brief_to_agenda_transition"
                 >次スライド（アジェンダ）への導入文</span
               >
             </footer>
@@ -1231,7 +1295,7 @@
           SVG出力
         </button>
         <section class="slide" data-slide-id="agenda">
-          <!-- Slide meta: Slide 02 · アジェンダ -->
+          <!-- Slide meta: Slide 03 · アジェンダ -->
           <!-- Section label: AGENDA -->
           <div class="slide-content">
             <!-- Slide Title Example: 全体アジェンダの俯瞰 -->
@@ -1287,7 +1351,7 @@
           SVG出力
         </button>
         <section class="slide chapter-boundary" data-slide-id="agenda-transition">
-          <!-- Slide meta: Slide 03 · 章境界 -->
+          <!-- Slide meta: Slide 04 · 章境界 -->
           <div class="slide-content">
             <div class="chapter-boundary-card">
               <p class="chapter-boundary-label">
@@ -1321,7 +1385,7 @@
           SVG出力
         </button>
         <section class="slide" data-slide-id="background">
-          <!-- Slide meta: Slide 04 · 背景 -->
+          <!-- Slide meta: Slide 05 · 背景 -->
           <!-- Section label: BACKGROUND -->
           <div class="slide-content">
             <!-- Slide Title Example: 市場環境と足元の状況整理 -->
@@ -1452,7 +1516,7 @@
           SVG出力
         </button>
         <section class="slide chapter-boundary" data-slide-id="chapter-break-objective">
-          <!-- Slide meta: Slide 05 · 章境界 -->
+          <!-- Slide meta: Slide 06 · 章境界 -->
           <div class="slide-content">
             <div class="chapter-boundary-card">
               <p class="chapter-boundary-label">
@@ -1486,7 +1550,7 @@
           SVG出力
         </button>
         <section class="slide" data-slide-id="objective">
-          <!-- Slide meta: Slide 05 · 本日の目的 -->
+          <!-- Slide meta: Slide 07 · 本日の目的 -->
           <!-- Section label: OBJECTIVE -->
           <div class="slide-content">
             <!-- Slide Title Example: 本日の合意事項 -->
@@ -1616,7 +1680,7 @@
           SVG出力
         </button>
         <section class="slide chapter-boundary" data-slide-id="section-cushion">
-          <!-- Slide meta: Slide 07 · 章境界 -->
+          <!-- Slide meta: Slide 08 · 章境界 -->
           <div class="slide-content">
             <div class="chapter-boundary-card">
               <p class="chapter-boundary-label">
@@ -1650,7 +1714,7 @@
           SVG出力
         </button>
         <section class="slide" data-slide-id="summary">
-          <!-- Slide meta: Slide 07 · サマリー -->
+          <!-- Slide meta: Slide 09 · サマリー -->
           <!-- Section label: INTERIM SUMMARY -->
           <div class="slide-content">
             <!-- Slide Title Example: 中間の主要ポイント -->
@@ -1706,7 +1770,7 @@
           SVG出力
         </button>
         <section class="slide chapter-boundary" data-slide-id="chapter-break-roadmap">
-          <!-- Slide meta: Slide 09 · 章境界 -->
+          <!-- Slide meta: Slide 10 · 章境界 -->
           <div class="slide-content">
             <div class="chapter-boundary-card">
               <p class="chapter-boundary-label">
@@ -1740,7 +1804,7 @@
           SVG出力
         </button>
         <section class="slide" data-slide-id="roadmap">
-          <!-- Slide meta: Slide 08 · ロードマップ -->
+          <!-- Slide meta: Slide 11 · ロードマップ -->
           <!-- Section label: ROADMAP -->
           <div class="slide-content">
             <!-- Slide Title Example: 主要マイルストーンの見通し -->
@@ -1903,7 +1967,7 @@
           SVG出力
         </button>
         <section class="slide chapter-boundary" data-slide-id="chapter-break-stakeholder">
-          <!-- Slide meta: Slide 11 · 章境界 -->
+          <!-- Slide meta: Slide 12 · 章境界 -->
           <div class="slide-content">
             <div class="chapter-boundary-card">
               <p class="chapter-boundary-label">
@@ -1937,7 +2001,7 @@
           SVG出力
         </button>
         <section class="slide" data-slide-id="stakeholder-gantt">
-          <!-- Slide meta: Slide 09 · ステークホルダー・ガント -->
+          <!-- Slide meta: Slide 13 · ステークホルダー・ガント -->
           <!-- Section label: STAKEHOLDER ALIGNMENT -->
           <div class="slide-content">
             <!-- Slide Title Example: 関係者別のタスク進行表 -->
@@ -2145,7 +2209,7 @@
           SVG出力
         </button>
         <section class="slide chapter-boundary" data-slide-id="chapter-break-wrap">
-          <!-- Slide meta: Slide 13 · 章境界 -->
+          <!-- Slide meta: Slide 14 · 章境界 -->
           <div class="slide-content">
             <div class="chapter-boundary-card">
               <p class="chapter-boundary-label">
@@ -2179,7 +2243,7 @@
           SVG出力
         </button>
         <section class="slide" data-slide-id="overall-wrap">
-          <!-- Slide meta: Slide 10 · 全体まとめ -->
+          <!-- Slide meta: Slide 15 · 全体まとめ -->
           <!-- Section label: FINAL TAKEAWAY -->
           <div class="slide-content">
             <!-- Slide Title Example: クロージングメッセージ -->
@@ -2300,7 +2364,7 @@
           SVG出力
         </button>
         <section class="slide chapter-boundary" data-slide-id="chapter-break-appendix">
-          <!-- Slide meta: Slide 15 · 章境界 -->
+          <!-- Slide meta: Slide 16 · 章境界 -->
           <div class="slide-content">
             <div class="chapter-boundary-card">
               <p class="chapter-boundary-label">
