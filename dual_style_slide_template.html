@@ -271,8 +271,14 @@
         font-size: clamp(1.4rem, 2.6vw, 2rem);
       }
 
+      .slide-content > h1,
+      .slide-content > h2,
+      .slide-content > h3 {
+        font-size: 18px;
+      }
+
       p.lead {
-        font-size: 1.1rem;
+        font-size: 11px;
         font-weight: 500;
         margin-bottom: 1.6rem;
         color: inherit;
@@ -319,25 +325,106 @@
         align-items: stretch;
       }
 
+      .split.brief-layout {
+        grid-template-columns: repeat(2, minmax(260px, 1fr));
+      }
+
       .split.background-layout {
         grid-template-columns: minmax(280px, 1.05fr) minmax(520px, 1.6fr);
         gap: 2.2rem;
         align-items: stretch;
       }
 
+      .title-slide {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1.6rem;
+        height: 100%;
+      }
+
+      .title-slide-body {
+        flex: 1 1 auto;
+        display: flex;
+        width: 100%;
+        align-items: center;
+      }
+
+      .title-hero {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1.4rem;
+      }
+
+      .title-hero-main {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .title-hero-main h1 {
+        margin: 0;
+        font-size: 30px;
+        line-height: 1.2;
+      }
+
+      .title-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        align-items: flex-start;
+        text-align: left;
+      }
+
+      .title-date {
+        margin: 0;
+        font-size: 0.9rem;
+        letter-spacing: 0.08em;
+      }
+
+      .title-org {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        font-size: 1rem;
+      }
+
+      .title-org .title-presenter {
+        margin-top: 0.8rem;
+        font-weight: 600;
+      }
+
       .title-summary {
         grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       }
 
-      .title-overview {
+      .brief-card {
         display: grid;
         gap: 0.8rem;
-        font-size: 1rem;
-        line-height: 1.7;
+        padding: 1.4rem;
+        border-radius: 22px;
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        background: rgba(248, 250, 252, 0.9);
+        box-shadow: 0 18px 32px rgba(15, 23, 42, 0.08);
       }
 
-      .title-overview p {
+      .brief-card.summary {
+        grid-column: 1 / -1;
+      }
+
+      .brief-card p {
         margin: 0;
+        font-size: 0.98rem;
+        line-height: 1.7;
+        color: var(--text-body);
+      }
+
+      .brief-card ul.key-points {
+        gap: 0.5rem;
       }
 
       .chart-card,
@@ -395,13 +482,62 @@
         opacity: 0.6;
       }
 
-      .transition-slide {
-        text-align: left;
+      .chapter-boundary .slide-content {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: 2rem;
       }
 
-      .transition-slide p.lead {
+      .chapter-boundary-card {
+        display: grid;
+        gap: 1rem;
+        padding: 3rem;
+        border-radius: 28px;
+        background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(56, 189, 248, 0.08));
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+        max-width: min(640px, 85%);
+      }
+
+      .chapter-boundary-card h2 {
         margin: 0;
-        max-width: none;
+        font-size: 18px;
+      }
+
+      .chapter-boundary-label {
+        font-size: 0.9rem;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: rgba(15, 23, 42, 0.65);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+      }
+
+      .chapter-boundary-label::before,
+      .chapter-boundary-label::after {
+        content: "";
+        width: 38px;
+        height: 1px;
+        background: currentColor;
+        opacity: 0.45;
+      }
+
+      .chapter-boundary-note {
+        font-size: 0.98rem;
+        color: rgba(15, 23, 42, 0.78);
+        margin: 0;
+      }
+
+      .chapter-boundary-meta {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.8rem;
+        font-size: 0.88rem;
+        color: rgba(37, 99, 235, 0.8);
       }
 
       footer.next-link {
@@ -1122,42 +1258,113 @@
         </button>
         <section class="slide" data-slide-id="title">
           <!-- Slide meta: Slide 01 · タイトル -->
-          <div class="slide-content">
-            <!-- Slide Title Example: 2024年度CX変革キックオフ -->
-            <h1><span data-ai-field="presentation_title">2024年度CX変革キックオフ</span></h1>
-            <p class="lead">
-              <span data-ai-field="presentation_tagline"
-                >資料全体のトーンを示す短いリード文を入力してください。</span
-            >
-          </p>
-          <div class="split title-summary">
-            <div>
-              <h3>登壇者</h3>
-              <ul class="key-points">
-                <li>
-                  <span data-ai-field="presenter_name">名前（役職など）</span>
-                </li>
-                <li>
-                  <span data-ai-field="presentation_date">発表日</span>
-                </li>
-              </ul>
+          <div class="slide-content title-slide">
+            <div class="title-slide-body">
+              <div class="title-hero">
+                <div class="title-hero-main">
+                  <!-- Slide Title Example: 2024年度CX変革キックオフ -->
+                  <h1>
+                    <span data-ai-field="presentation_title"
+                      >2024年度CX変革キックオフ</span
+                    >
+                  </h1>
+                  <div class="title-meta" aria-label="発表情報">
+                    <p class="title-date">
+                      <span data-ai-field="presentation_date">2025年9月5日</span>
+                    </p>
+                    <ul class="title-org">
+                      <li>
+                        <span data-ai-field="presentation_affiliation_line_1"
+                          >次世代戦略本部</span
+                        >
+                      </li>
+                      <li>
+                        <span data-ai-field="presentation_affiliation_line_2"
+                          >戦略推進統括部</span
+                        >
+                      </li>
+                      <li>
+                        <span data-ai-field="presentation_affiliation_line_3"
+                          >イノベーションデザイン室</span
+                        >
+                      </li>
+                      <li class="title-presenter">
+                        <span data-ai-field="presenter_name">谷口 純</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="title-overview">
-              <h3>本日のハイライト</h3>
-              <p>
-                <span data-ai-field="title_highlight_summary"
-                  >この資料で伝える価値や背景のキーメッセージを1〜2文で記載してください。</span
-                >
-              </p>
-              <p>
-                <span data-ai-field="title_expected_outcome"
-                  >聴衆に期待するアクションや持ち帰ってほしい観点を簡潔にまとめてください。</span
-                >
-              </p>
-            </div>
-          </div>
             <footer class="next-link">
-              <span data-ai-field="title_to_agenda_transition"
+              <span data-ai-field="title_to_brief_transition"
+                >次スライド（エグゼクティブブリーフ）への導入文</span
+              >
+            </footer>
+          </div>
+          <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
+        </section>
+      </div>
+
+      <div class="slide-container" data-wrapper-id="executive-brief">
+        <button
+          type="button"
+          class="svg-copy"
+          data-target="executive-brief"
+          aria-label="SVG出力（コピー/ダウンロード）"
+        >
+          SVG出力
+        </button>
+        <section class="slide" data-slide-id="executive-brief">
+          <!-- Slide meta: Slide 02 · エグゼクティブブリーフ -->
+          <div class="slide-content">
+            <!-- Slide Title Example: 本会議の位置づけと狙い -->
+            <h2><span data-ai-field="brief_title">本会議の位置づけと狙い</span></h2>
+            <p class="lead">
+              <span data-ai-field="brief_lead"
+                >本会議に臨む背景と、本資料で合意したい価値提案を端的に記述してください。</span
+              >
+            </p>
+            <div class="split brief-layout">
+              <article class="brief-card">
+                <h3>本会議設定の背景</h3>
+                <p>
+                  <span data-ai-field="brief_background"
+                    >会議開催の経緯や直近のインパクト、前提となる状況を整理してください。</span
+                  >
+                </p>
+              </article>
+              <article class="brief-card">
+                <h3>資料作成の目的</h3>
+                <p>
+                  <span data-ai-field="brief_objective"
+                    >資料で達成したい狙いと想定する意思決定、期待するアウトプットを記載してください。</span
+                  >
+                </p>
+              </article>
+              <article class="brief-card summary">
+                <h3>当資料のエグゼクティブサマリー</h3>
+                <ul class="key-points">
+                  <li>
+                    <span data-ai-field="brief_summary_point_1"
+                      >キーメッセージや重要な結論を簡潔に記載してください。</span
+                    >
+                  </li>
+                  <li>
+                    <span data-ai-field="brief_summary_point_2"
+                      >合意形成に向けた示唆やアクションを補足してください。</span
+                    >
+                  </li>
+                  <li>
+                    <span data-ai-field="brief_summary_point_3"
+                      >リスクや前提条件など、経営層が把握すべき論点をまとめてください。</span
+                    >
+                  </li>
+                </ul>
+              </article>
+            </div>
+            <footer class="next-link">
+              <span data-ai-field="brief_to_agenda_transition"
                 >次スライド（アジェンダ）への導入文</span
               >
             </footer>
@@ -1176,7 +1383,7 @@
           SVG出力
         </button>
         <section class="slide" data-slide-id="agenda">
-          <!-- Slide meta: Slide 02 · アジェンダ -->
+          <!-- Slide meta: Slide 03 · アジェンダ -->
           <!-- Section label: AGENDA -->
           <div class="slide-content">
             <!-- Slide Title Example: 全体アジェンダの俯瞰 -->
@@ -1231,93 +1438,31 @@
         >
           SVG出力
         </button>
-        <section class="slide transition-slide" data-slide-id="agenda-transition">
-          <!-- Slide meta: Slide 03 · クッション -->
+        <section class="slide chapter-boundary" data-slide-id="agenda-transition">
+          <!-- Slide meta: Slide 04 · 章境界 -->
           <div class="slide-content">
-            <!-- Slide Title Example: ここから課題背景について解説します -->
-            <h2>
-              <span data-ai-field="transition_heading"
-                >ここから課題背景について解説します</span
-              >
-            </h2>
-          <p class="lead">
-            <span data-ai-field="transition_lead"
-              >前後スライドの内容が飛躍しないよう、論旨を接続する短いストーリーを書いてください。</span
-            >
-          </p>
-          <!-- READMEのプロンプトと同様に、data-ai-field="transition_visual_hint" には描画意図だけを書かせ、表示領域は実際のポンチ絵をTailwindで構成できるようにする -->
-          <!-- チャートやポンチ絵のサイズは例示に縛られず、必要に応じてTailwindユーティリティで拡縮してよい -->
-          <div class="chart-card">
-            <span class="hidden" data-ai-field="transition_visual_hint"></span>
-            <div class="tailwind-infographic w-full aspect-[16/9]">
-              <div
-                class="infographic-frame flex h-full w-full flex-col overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-br from-indigo-50 via-white to-white p-4 text-left shadow-lg sm:p-5"
-              >
-                <div class="flex flex-wrap items-center justify-between gap-2">
-                  <span class="text-xs font-semibold uppercase tracking-[0.28em] text-indigo-500">Story Bridge</span>
-                  <span class="inline-flex items-center gap-2 rounded-full bg-indigo-500/10 px-3 py-1 text-xs font-medium text-indigo-600">
-                    <span>🧭</span>
-                    <span data-ai-field="transition_visual_theme">前章 → 課題背景 → 次章</span>
-                  </span>
-                </div>
-                <div class="relative mt-3 flex flex-1 flex-col justify-center">
-                  <div class="flex flex-col items-stretch gap-3 sm:flex-row sm:items-stretch sm:gap-3">
-                    <div class="flex flex-col gap-2.5 rounded-2xl border border-indigo-100 bg-white/90 p-3.5 shadow-sm">
-                      <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-500/15 text-lg">🔎</span>
-                      <h4 class="text-sm font-semibold text-slate-600" data-ai-field="transition_visual_step_1_title">現状の疑問</h4>
-                      <p class="text-xs text-slate-500" data-ai-field="transition_visual_step_1_body">
-                        直前スライドで触れた成果・課題の問い直し
-                      </p>
-                    </div>
-                    <div class="flex items-center justify-center sm:w-10 sm:flex-none" aria-hidden="true">
-                      <span class="text-xl text-indigo-500 sm:hidden">⬇️</span>
-                      <span class="hidden text-2xl text-indigo-400 sm:inline">➡️</span>
-                    </div>
-                    <div class="flex flex-col gap-2.5 rounded-2xl border border-indigo-100 bg-white/90 p-3.5 shadow-sm">
-                      <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-500/15 text-lg">🧩</span>
-                      <h4 class="text-sm font-semibold text-slate-600" data-ai-field="transition_visual_step_2_title">背景の整理</h4>
-                      <p class="text-xs text-slate-500" data-ai-field="transition_visual_step_2_body">
-                        課題の構造化・関係者の視点をここで提示
-                      </p>
-                    </div>
-                    <div class="flex items-center justify-center sm:w-10 sm:flex-none" aria-hidden="true">
-                      <span class="text-xl text-indigo-500 sm:hidden">⬇️</span>
-                      <span class="hidden text-2xl text-indigo-400 sm:inline">➡️</span>
-                    </div>
-                    <div class="flex flex-col gap-2.5 rounded-2xl border border-indigo-100 bg-white/90 p-3.5 shadow-sm">
-                      <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-500/15 text-lg">🚀</span>
-                      <h4 class="text-sm font-semibold text-slate-600" data-ai-field="transition_visual_step_3_title">次章の伏線</h4>
-                      <p class="text-xs text-slate-500" data-ai-field="transition_visual_step_3_body">
-                        この後の解決策・提案につながる期待を示す
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="mt-4 grid gap-2 text-xs text-slate-500">
-                  <div class="flex flex-wrap items-center justify-between gap-2">
-                    <span data-ai-field="transition_visual_signal_1">共通キーワード</span>
-                    <span class="rounded-full bg-indigo-500/10 px-2 py-1 text-[0.7rem] font-medium text-indigo-600">Focus</span>
-                  </div>
-                  <div class="h-1.5 rounded-full bg-slate-200">
-                    <span class="block h-full rounded-full bg-indigo-500" style="width: 70%"></span>
-                  </div>
-                  <p class="text-[0.72rem] text-slate-500" data-ai-field="transition_visual_signal_2">
-                    背景スライドで詳述する視点を先に提示し、聞き手の思考を整える
-                  </p>
-                </div>
+            <div class="chapter-boundary-card">
+              <p class="chapter-boundary-label">
+                <span data-ai-field="chapter_1_label">Chapter 01</span>
+              </p>
+              <h2>
+                <span data-ai-field="chapter_1_title">背景セクションへ</span>
+              </h2>
+              <p class="chapter-boundary-note">
+                <span data-ai-field="chapter_1_summary"
+                  >ここからは現状整理と市場環境を俯瞰し、課題の土台を共有します。</span
+                >
+              </p>
+              <div class="chapter-boundary-meta">
+                <span data-ai-field="chapter_1_meta_point_a">現状の整理</span>
+                <span data-ai-field="chapter_1_meta_point_b">定量ファクト</span>
+                <span data-ai-field="chapter_1_meta_point_c">ステークホルダー視点</span>
               </div>
             </div>
-          </div>
-            <footer class="next-link">
-              <span data-ai-field="transition_to_background"
-                >背景スライドへの導入文</span
-              >
-            </footer>
           </div>
           <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
         </section>
       </div>
-
       <div class="slide-container" data-wrapper-id="background">
         <button
           type="button"
@@ -1328,7 +1473,7 @@
           SVG出力
         </button>
         <section class="slide" data-slide-id="background">
-          <!-- Slide meta: Slide 04 · 背景 -->
+          <!-- Slide meta: Slide 05 · 背景 -->
           <!-- Section label: BACKGROUND -->
           <div class="slide-content">
             <!-- Slide Title Example: 市場環境と足元の状況整理 -->
@@ -1449,6 +1594,40 @@
         </section>
       </div>
 
+      <div class="slide-container" data-wrapper-id="chapter-break-objective">
+        <button
+          type="button"
+          class="svg-copy"
+          data-target="chapter-break-objective"
+          aria-label="SVG出力（コピー/ダウンロード）"
+        >
+          SVG出力
+        </button>
+        <section class="slide chapter-boundary" data-slide-id="chapter-break-objective">
+          <!-- Slide meta: Slide 06 · 章境界 -->
+          <div class="slide-content">
+            <div class="chapter-boundary-card">
+              <p class="chapter-boundary-label">
+                <span data-ai-field="chapter_2_label">Chapter 02</span>
+              </p>
+              <h2>
+                <span data-ai-field="chapter_2_title">意思決定とゴールの明確化へ</span>
+              </h2>
+              <p class="chapter-boundary-note">
+                <span data-ai-field="chapter_2_summary"
+                  >背景を踏まえ、ここからは本日の目的と合意すべき論点を定義します。</span
+                >
+              </p>
+              <div class="chapter-boundary-meta">
+                <span data-ai-field="chapter_2_meta_point_a">合意事項の整理</span>
+                <span data-ai-field="chapter_2_meta_point_b">成功指標</span>
+                <span data-ai-field="chapter_2_meta_point_c">次アクション</span>
+              </div>
+            </div>
+          </div>
+          <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
+        </section>
+      </div>
       <div class="slide-container" data-wrapper-id="objective">
         <button
           type="button"
@@ -1459,7 +1638,7 @@
           SVG出力
         </button>
         <section class="slide" data-slide-id="objective">
-          <!-- Slide meta: Slide 05 · 本日の目的 -->
+          <!-- Slide meta: Slide 07 · 本日の目的 -->
           <!-- Section label: OBJECTIVE -->
           <div class="slide-content">
             <!-- Slide Title Example: 本日の合意事項 -->
@@ -1588,101 +1767,31 @@
         >
           SVG出力
         </button>
-        <section class="slide transition-slide" data-slide-id="section-cushion">
-          <!-- Slide meta: Slide 06 · クッション -->
+        <section class="slide chapter-boundary" data-slide-id="section-cushion">
+          <!-- Slide meta: Slide 08 · 章境界 -->
           <div class="slide-content">
-            <!-- Slide Title Example: ここからサマリーのポイントに入ります -->
-            <h2>
-              <span data-ai-field="section_transition_heading"
-                >ここからサマリーのポイントに入ります</span
-              >
-          </h2>
-          <p class="lead">
-            <span data-ai-field="section_transition_lead"
-              >アジェンダの区切りや話題転換の橋渡しとなるメッセージ。</span
-            >
-          </p>
-          <!-- data-ai-field="section_transition_visual" は、章間の橋渡しビジュアルを描く際のメモだけを格納する -->
-          <div class="chart-card">
-            <span class="hidden" data-ai-field="section_transition_visual"></span>
-            <div class="tailwind-infographic w-full aspect-[16/9]">
-              <div
-                class="infographic-frame flex h-full w-full flex-col overflow-hidden rounded-3xl border border-purple-200 bg-gradient-to-br from-purple-50 via-white to-white p-4 text-left shadow-lg sm:p-5"
-              >
-                <div class="flex flex-wrap items-center justify-between gap-2">
-                  <span class="text-xs font-semibold uppercase tracking-[0.28em] text-purple-500">Chapter Relay</span>
-                  <span class="inline-flex items-center gap-2 rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-600">
-                    <span>🔁</span>
-                    <span data-ai-field="section_transition_theme">論点を滑らかに接続</span>
-                  </span>
-                </div>
-                <div class="mt-4 flex flex-1 flex-col gap-4">
-                  <div class="flex flex-col gap-3 sm:flex-row sm:items-stretch sm:gap-4">
-                    <div class="flex-1 rounded-2xl border border-purple-100 bg-white/90 p-3.5 shadow-sm">
-                      <div class="flex items-center justify-between text-xs text-purple-400">
-                        <span class="font-semibold uppercase tracking-[0.32em]">Step 1</span>
-                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-purple-500/15 text-sm font-semibold text-purple-600">1</span>
-                      </div>
-                      <p class="mt-3 text-sm font-semibold text-slate-600" data-ai-field="section_transition_step_1_title">現状整理</p>
-                      <p class="text-xs text-slate-500" data-ai-field="section_transition_step_1_body">直前章のサマリーを再掲し、聞き手の記憶を同期</p>
-                    </div>
-                    <div class="flex items-center justify-center px-1 text-2xl text-purple-400 sm:px-2 sm:text-[1.85rem]">
-                      <span class="sm:hidden">⬇️</span>
-                      <span class="hidden sm:inline">➡️</span>
-                    </div>
-                    <div class="flex-1 rounded-2xl border border-purple-100 bg-white/90 p-3.5 shadow-sm">
-                      <div class="flex items-center justify-between text-xs text-purple-400">
-                        <span class="font-semibold uppercase tracking-[0.32em]">Step 2</span>
-                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-purple-500/15 text-sm font-semibold text-purple-600">2</span>
-                      </div>
-                      <p class="mt-3 text-sm font-semibold text-slate-600" data-ai-field="section_transition_step_2_title">課題共有</p>
-                      <p class="text-xs text-slate-500" data-ai-field="section_transition_step_2_body">背景データと課題感を対比し、次章の必要性を明示</p>
-                    </div>
-                    <div class="flex items-center justify-center px-1 text-2xl text-purple-400 sm:px-2 sm:text-[1.85rem]">
-                      <span class="sm:hidden">⬇️</span>
-                      <span class="hidden sm:inline">➡️</span>
-                    </div>
-                    <div class="flex-1 rounded-2xl border border-purple-100 bg-white/90 p-3.5 shadow-sm">
-                      <div class="flex items-center justify-between text-xs text-purple-400">
-                        <span class="font-semibold uppercase tracking-[0.32em]">Step 3</span>
-                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-purple-500/15 text-sm font-semibold text-purple-600">3</span>
-                      </div>
-                      <p class="mt-3 text-sm font-semibold text-slate-600" data-ai-field="section_transition_step_3_title">解決策への導入</p>
-                      <p class="text-xs text-slate-500" data-ai-field="section_transition_step_3_body">次章で語るソリューションのベネフィットを伏線化</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="grid gap-2.5 rounded-2xl border border-purple-100 bg-white/90 p-3.5">
-                  <div class="flex items-center justify-between text-xs text-slate-500">
-                    <span data-ai-field="section_transition_signal_label">聞き手の理解度</span>
-                    <span data-ai-field="section_transition_signal_value">70% → 95%</span>
-                  </div>
-                  <div class="h-2 rounded-full bg-slate-200">
-                    <span class="block h-full rounded-full bg-purple-500" style="width: 85%"></span>
-                  </div>
-                  <p class="text-[0.72rem] text-slate-500" data-ai-field="section_transition_signal_note">バトンの受け渡しを示す矢印やフェード演出で場の集中度を維持</p>
-                </div>
-                <div class="grid gap-2 text-[0.72rem] text-slate-500 sm:grid-cols-[1.2fr_1fr]">
-                  <div class="rounded-2xl border border-purple-100 bg-purple-50/80 p-2.5 text-purple-600">
-                    <p data-ai-field="section_transition_bridge_note">章間のギャップや論点の抜けを事前に補完して聞き手の疑問を解消</p>
-                  </div>
-                  <div class="rounded-2xl border border-purple-100 bg-white/70 p-2.5">
-                    <p data-ai-field="section_transition_next_hint">次章のキーメッセージやデータハイライトへの期待値を先に提示</p>
-                  </div>
-                </div>
+            <div class="chapter-boundary-card">
+              <p class="chapter-boundary-label">
+                <span data-ai-field="chapter_3_label">Chapter 03</span>
+              </p>
+              <h2>
+                <span data-ai-field="chapter_3_title">サマリーセクションへ</span>
+              </h2>
+              <p class="chapter-boundary-note">
+                <span data-ai-field="chapter_3_summary"
+                  >これまでの議論を整理し、聞き手と認識を合わせる総括に入ります。</span
+                >
+              </p>
+              <div class="chapter-boundary-meta">
+                <span data-ai-field="chapter_3_meta_point_a">主要示唆</span>
+                <span data-ai-field="chapter_3_meta_point_b">学びの共有</span>
+                <span data-ai-field="chapter_3_meta_point_c">論点の収束</span>
               </div>
             </div>
-          </div>
-            <footer class="next-link">
-              <span data-ai-field="section_transition_to_summary"
-                >次のサマリースライドへ向けた誘導文</span
-              >
-            </footer>
           </div>
           <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
         </section>
       </div>
-
       <div class="slide-container" data-wrapper-id="summary">
         <button
           type="button"
@@ -1693,7 +1802,7 @@
           SVG出力
         </button>
         <section class="slide" data-slide-id="summary">
-          <!-- Slide meta: Slide 07 · サマリー -->
+          <!-- Slide meta: Slide 09 · サマリー -->
           <!-- Section label: INTERIM SUMMARY -->
           <div class="slide-content">
             <!-- Slide Title Example: 中間の主要ポイント -->
@@ -1739,6 +1848,40 @@
         </section>
       </div>
 
+      <div class="slide-container" data-wrapper-id="chapter-break-roadmap">
+        <button
+          type="button"
+          class="svg-copy"
+          data-target="chapter-break-roadmap"
+          aria-label="SVG出力（コピー/ダウンロード）"
+        >
+          SVG出力
+        </button>
+        <section class="slide chapter-boundary" data-slide-id="chapter-break-roadmap">
+          <!-- Slide meta: Slide 10 · 章境界 -->
+          <div class="slide-content">
+            <div class="chapter-boundary-card">
+              <p class="chapter-boundary-label">
+                <span data-ai-field="chapter_4_label">Chapter 04</span>
+              </p>
+              <h2>
+                <span data-ai-field="chapter_4_title">実行ロードマップへ</span>
+              </h2>
+              <p class="chapter-boundary-note">
+                <span data-ai-field="chapter_4_summary"
+                  >方針を踏まえ、ここからはスケジュールとマイルストーンを共有します。</span
+                >
+              </p>
+              <div class="chapter-boundary-meta">
+                <span data-ai-field="chapter_4_meta_point_a">短期アクション</span>
+                <span data-ai-field="chapter_4_meta_point_b">中期マイルストーン</span>
+                <span data-ai-field="chapter_4_meta_point_c">依存関係</span>
+              </div>
+            </div>
+          </div>
+          <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
+        </section>
+      </div>
       <div class="slide-container" data-wrapper-id="roadmap">
         <button
           type="button"
@@ -1749,7 +1892,7 @@
           SVG出力
         </button>
         <section class="slide" data-slide-id="roadmap">
-          <!-- Slide meta: Slide 08 · ロードマップ -->
+          <!-- Slide meta: Slide 11 · ロードマップ -->
           <!-- Section label: ROADMAP -->
           <div class="slide-content">
             <!-- Slide Title Example: 主要マイルストーンの見通し -->
@@ -1902,6 +2045,40 @@
         </section>
       </div>
 
+      <div class="slide-container" data-wrapper-id="chapter-break-stakeholder">
+        <button
+          type="button"
+          class="svg-copy"
+          data-target="chapter-break-stakeholder"
+          aria-label="SVG出力（コピー/ダウンロード）"
+        >
+          SVG出力
+        </button>
+        <section class="slide chapter-boundary" data-slide-id="chapter-break-stakeholder">
+          <!-- Slide meta: Slide 12 · 章境界 -->
+          <div class="slide-content">
+            <div class="chapter-boundary-card">
+              <p class="chapter-boundary-label">
+                <span data-ai-field="chapter_5_label">Chapter 05</span>
+              </p>
+              <h2>
+                <span data-ai-field="chapter_5_title">ステークホルダー連携へ</span>
+              </h2>
+              <p class="chapter-boundary-note">
+                <span data-ai-field="chapter_5_summary"
+                  >ロードマップを支える体制や役割分担を、関係者ごとに確認します。</span
+                >
+              </p>
+              <div class="chapter-boundary-meta">
+                <span data-ai-field="chapter_5_meta_point_a">役割定義</span>
+                <span data-ai-field="chapter_5_meta_point_b">依頼事項</span>
+                <span data-ai-field="chapter_5_meta_point_c">支援体制</span>
+              </div>
+            </div>
+          </div>
+          <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
+        </section>
+      </div>
       <div class="slide-container" data-wrapper-id="stakeholder-gantt">
         <button
           type="button"
@@ -1912,7 +2089,7 @@
           SVG出力
         </button>
         <section class="slide" data-slide-id="stakeholder-gantt">
-          <!-- Slide meta: Slide 09 · ステークホルダー・ガント -->
+          <!-- Slide meta: Slide 13 · ステークホルダー・ガント -->
           <!-- Section label: STAKEHOLDER ALIGNMENT -->
           <div class="slide-content">
             <!-- Slide Title Example: 関係者別のタスク進行表 -->
@@ -2110,6 +2287,40 @@
         </section>
       </div>
 
+      <div class="slide-container" data-wrapper-id="chapter-break-wrap">
+        <button
+          type="button"
+          class="svg-copy"
+          data-target="chapter-break-wrap"
+          aria-label="SVG出力（コピー/ダウンロード）"
+        >
+          SVG出力
+        </button>
+        <section class="slide chapter-boundary" data-slide-id="chapter-break-wrap">
+          <!-- Slide meta: Slide 14 · 章境界 -->
+          <div class="slide-content">
+            <div class="chapter-boundary-card">
+              <p class="chapter-boundary-label">
+                <span data-ai-field="chapter_6_label">Chapter 06</span>
+              </p>
+              <h2>
+                <span data-ai-field="chapter_6_title">クロージングへ</span>
+              </h2>
+              <p class="chapter-boundary-note">
+                <span data-ai-field="chapter_6_summary"
+                  >アクションプランとメッセージをまとめ、合意形成を締めくくります。</span
+                >
+              </p>
+              <div class="chapter-boundary-meta">
+                <span data-ai-field="chapter_6_meta_point_a">最終メッセージ</span>
+                <span data-ai-field="chapter_6_meta_point_b">フォロー計画</span>
+                <span data-ai-field="chapter_6_meta_point_c">参加者アクション</span>
+              </div>
+            </div>
+          </div>
+          <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
+        </section>
+      </div>
       <div class="slide-container" data-wrapper-id="overall-wrap">
         <button
           type="button"
@@ -2120,7 +2331,7 @@
           SVG出力
         </button>
         <section class="slide" data-slide-id="overall-wrap">
-          <!-- Slide meta: Slide 10 · 全体まとめ -->
+          <!-- Slide meta: Slide 15 · 全体まとめ -->
           <!-- Section label: FINAL TAKEAWAY -->
           <div class="slide-content">
             <!-- Slide Title Example: クロージングメッセージ -->
@@ -2231,6 +2442,40 @@
         </section>
       </div>
 
+      <div class="slide-container" data-wrapper-id="chapter-break-appendix">
+        <button
+          type="button"
+          class="svg-copy"
+          data-target="chapter-break-appendix"
+          aria-label="SVG出力（コピー/ダウンロード）"
+        >
+          SVG出力
+        </button>
+        <section class="slide chapter-boundary" data-slide-id="chapter-break-appendix">
+          <!-- Slide meta: Slide 16 · 章境界 -->
+          <div class="slide-content">
+            <div class="chapter-boundary-card">
+              <p class="chapter-boundary-label">
+                <span data-ai-field="chapter_7_label">Chapter 07</span>
+              </p>
+              <h2>
+                <span data-ai-field="chapter_7_title">補足資料セクションへ</span>
+              </h2>
+              <p class="chapter-boundary-note">
+                <span data-ai-field="chapter_7_summary"
+                  >メイン議論の補強として、詳細なデータや参考情報を添付します。</span
+                >
+              </p>
+              <div class="chapter-boundary-meta">
+                <span data-ai-field="chapter_7_meta_point_a">追加データ</span>
+                <span data-ai-field="chapter_7_meta_point_b">参考資料</span>
+                <span data-ai-field="chapter_7_meta_point_c">想定QA</span>
+              </div>
+            </div>
+          </div>
+          <div class="confidential-tag" aria-hidden="true">CONFIDENTIAL</div>
+        </section>
+      </div>
       <div class="slide-container" data-wrapper-id="appendix">
         <button
           type="button"
