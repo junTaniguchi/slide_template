@@ -1,0 +1,10 @@
+/* Optional project-specific overrides.
+   Example: tweak accent colors or spacing without touching the template HTML. */
+
+:root {
+  /* Customize accent colors here when必要 */
+  /* --accent-1: #1d4ed8; */
+}
+
+/* Example utility */
+/* .slide-content.custom-theme { background: #f9fafb; } */
