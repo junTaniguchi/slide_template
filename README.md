@@ -40,6 +40,98 @@
 5. プロンプトBで新しい data-ai-field を追加した場合は、プロンプトAの出力にも同じキーを含めるよう利用者へ注意喚起する。
 6. 生成後は public/slide_template/slides.json への保存、window.SLIDE_DATA の埋め込み、SVG出力ボタンの活用など適用手順を提案する。
 
+JSONフィールド定義（data-ai-field ごとの役割）:
+  共通ルール:
+    - すべてのキーは slides.json のトップレベルに格納し、必要に応じて html/text 形式を使い分ける。
+    - "..." や "${field}" は README 内のダミーであり、実際の JSON では削除する。
+    - *_transition キーは次スライドへつなぐブリッジ文、*_hint キーはビジュアル生成時の意図メモとして扱う。
+  表紙スライド:
+    - presentation_title: プレゼン資料の正式タイトル。
+    - presentation_date: 開催日や提出日。
+    - presentation_affiliation_line_{1-3}: 所属・部署・プロジェクト名などの行。
+    - presenter_name: 登壇者名または代表者。
+    - title_to_brief_transition: 表紙からサマリーへの誘導文。
+  エグゼクティブサマリー:
+    - brief_title: セクション見出し。
+    - brief_lead: 冒頭リード文。
+    - brief_background / brief_objective: 現状と目的の要約。
+    - brief_summary_point_{1-3}: 主要メッセージの箇条書き。
+    - brief_to_agenda_transition: アジェンダスライドへのつなぎ。
+  アジェンダ:
+    - agenda_title / agenda_lead: アジェンダ見出しとリード文。
+    - agenda_item_{1-4}_title: 各議題のラベル。
+    - agenda_item_{1-4}_desc: 各議題の概要説明。
+    - agenda_to_background_transition: 背景セクションへの誘導。
+  チャプターカード（共通）:
+    - chapter_{1-7}_label: Chapter番号などのラベル。
+    - chapter_{1-7}_title: 次セクションのタイトル。
+    - chapter_{1-7}_summary: セクションの狙い要約。
+    - chapter_{1-7}_meta_point_{a-c}: 重点トピックや確認ポイント。
+  背景スライド:
+    - background_title / background_lead: 背景セクションの見出しとリード文。
+    - background_point_{1-3}: 背景ファクトの箇条書き。
+    - background_visual: 背景図やインフォグラフィック全体（必要なら html を使用）。
+    - background_visual_signal_{a-b}: 図解で示すポジティブなシグナルや動き。
+    - background_visual_tension: 課題・緊張感の説明。
+    - background_visual_value: 提供価値や解決イメージ。
+    - background_visual_metric_label / background_visual_metric_value: 主要指標と数値。
+    - background_to_objective_transition: 目的セクションへの橋渡し。
+  目的・意思決定スライド:
+    - objective_title / objective_lead: 合意事項の見出しとリード。
+    - objective_decision_intro: 決定事項の導入文。
+    - objective_decision_point_{1-3}: 合意内容や意思決定項目。
+    - objective_visual_hint: 図の描画ルールや留意事項（画面には非表示）。
+    - objective_visual_theme: ビジュアル全体のテーマ見出し。
+    - objective_visual_target_metric / objective_visual_target_note: 目標指標と補足。
+    - objective_visual_status_metric / objective_visual_status_note: 現状指標と補足。
+    - objective_visual_risk_note: リスクや注意点の説明。
+    - objective_visual_indicator_{1-2}_label / objective_visual_indicator_{1-2}_value: 比較指標のラベルと値。
+    - objective_visual_action_{1-2}: アクション項目の箇条書き。
+    - objective_to_summary_transition: サマリーセクションへのつなぎ。
+  サマリースライド:
+    - summary_title / summary_lead: セクション見出しとリード。
+    - summary_point_{1-3}_title: 各要約トピックのタイトル。
+    - summary_point_{1-3}_body: 各要約トピックの本文。
+    - summary_to_roadmap_transition: ロードマップへの橋渡し。
+  ロードマップセクション:
+    - roadmap_title / roadmap_lead: ロードマップの見出しとリード。
+    - roadmap_corner_label: 行見出し（フェーズなど）。
+    - roadmap_col_{1-4}: 列ヘッダー（期間やマイルストーン）。
+    - roadmap_lane_{1-4}_title: 各レーン（部門・トラック）の名称。
+    - roadmap_lane_{1-4}_col_{1-4}: レーン×列セルのアクション内容。
+    - roadmap_marker_note_{1-2}: 図示ルールや凡例メモ。
+    - roadmap_to_gantt_transition: ガントスライドへのつなぎ。
+  ステークホルダー・ガント:
+    - stakeholder_gantt_title / stakeholder_gantt_lead: ステークホルダー計画の見出しとリード。
+    - stakeholder_corner_label: 行見出しカラム名。
+    - stakeholder_timeline_col_{1-6}: タイムラインの列ラベル（月／フェーズなど）。
+    - stakeholder_lane_{1-4}_title: 各ステークホルダーまたはチーム名。
+    - stakeholder_lane_{1-4}_task_{1-2}_title: レーン内タスクタイトル。
+    - stakeholder_lane_{1-4}_task_{1-2}_body: タスク説明文。
+    - stakeholder_lane_{1-4}_task_{1-2}_links: 関連部署や連携相手の記載。
+    - stakeholder_gantt_arrow_note: 矢印・依存関係の描画指示。
+    - stakeholder_gantt_highlight_note: 色分け・強調ルール。
+    - stakeholder_gantt_marker_note_{1-2}: 凡例ラベルや記号の説明。
+    - stakeholder_gantt_to_wrap_transition: クロージングへの橋渡し文。
+  クロージングスライド:
+    - wrap_title / wrap_lead: クロージング見出しとリード。
+    - wrap_action_{1-3}: 参加者へ求めるアクション項目。
+    - wrap_visual_hint: 図の描画意図メモ。
+    - wrap_visual_theme: ビジュアル全体のテーマラベル。
+    - wrap_visual_action_card_{1-3}_title / wrap_visual_action_card_{1-3}_body: 行動カードのタイトルと本文。
+    - wrap_visual_milestone_label / wrap_visual_milestone_value / wrap_visual_milestone_note: マイルストーン指標と補足。
+    - wrap_visual_followup_{1-2}: フォローアップ施策の箇条書き。
+    - wrap_visual_pulse_note: 温度感・モニタリングに関する注記。
+    - wrap_closure: 最終締めの挨拶や連絡先案内。
+  追加資料（Appendix）:
+    - appendix_chart_badge: チャートバッジやカテゴリ名。
+    - appendix_chart_period: 対象期間やデータ範囲。
+    - appendix_chart_metric_{1-3}_label / appendix_chart_metric_{1-3}_value: 主要指標の名称と数値。
+    - appendix_chart_metric_{1-3}_note: 指標に関する補足説明。
+    - appendix_chart_breakdown_label / appendix_chart_breakdown_note: ブレイクダウンのラベルと注記。
+    - appendix_chart_segment_{1-3}_label / appendix_chart_segment_{1-3}_value: 各セグメント名と数値。
+    - appendix_chart_callout_heading / appendix_chart_callout_body: 追加の示唆や次アクション欄。
+
 ---
 プロンプトA（スロット差し替え用 JSON を生成する）:
 あなたはエグゼクティブ向け資料を作成するアシスタントです。添付テンプレートの data-ai-field 一覧に従って、各フィールドへ差し込む内容を JSON 形式で出力してください。HTML の構造・クラスは変更しません。
