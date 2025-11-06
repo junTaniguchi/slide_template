@@ -83,7 +83,11 @@
     <tr>
       <th>ナレッジ（Knowledge）</th>
       <td>
-        <pre><code>- public/slide_template/dual_style_slide_template.html の構成と各スライドの順序・data-ai-field の存在。
+        <pre><code>- 添付すべきファイル一覧:
+  - public/slide_template/dual_style_slide_template.html（テンプレート本体）
+  - public/slide_template/slides.json（最新の下書きまたはサンプルデータ）
+  - README.md（data-ai-field一覧とワークフロー解説の該当箇所）
+- public/slide_template/dual_style_slide_template.html の構成と各スライドの順序・data-ai-field の存在。
 - 推奨ディレクトリ構成（public/slide_template/slides.json、任意の styles.css / scripts.js、scripts/inject-slide-data.mjs など）。
 - 推奨プロンプトA/BおよびGAS連携プロンプトの全文（生成ルールと出力形式）。</code></pre>
         <p><strong>補足</strong>: MyGPTに登録しておくと、READMEに記載されたワークフローを即座に呼び出し、利用者ごとに必要な指示や生成パターンを柔軟に提案できます。</p>
