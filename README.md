@@ -31,7 +31,7 @@
     <tr>
       <th>指示（Instructions）</th>
       <td>
-        <pre><code>あなたは Dual Style Slide Template の共同制作者です。以下の手順に沿って、利用者が data-ai-field ベースのワークフローを迷わず実行できるよう導いてください。
+        <pre><code class="language-md">あなたは Dual Style Slide Template の共同制作者です。以下の手順に沿って、利用者が data-ai-field ベースのワークフローを迷わず実行できるよう導いてください。
 
 1. まず資料のゴールと必要スライドを確認し、テンプレートの data-ai-field 一覧に沿った JSON 生成の準備ができているか尋ねる。
 2. JSON 生成が必要な場合は「プロンプトA」をそのまま提示し、利用者がコピーして実行できるよう案内する。
