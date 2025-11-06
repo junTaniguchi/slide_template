@@ -1177,6 +1177,61 @@
           svgControls.push({ button, menu });
         });
 
+        const applyDataPayload = (payload) => {
+          if (!payload || typeof payload !== "object") {
+            return;
+          }
+          Object.entries(payload).forEach(([field, value]) => {
+            const nodes = document.querySelectorAll(
+              `[data-ai-field="${field}"]`
+            );
+            if (!nodes.length) {
+              return;
+            }
+            nodes.forEach((node) => {
+              if (value && typeof value === "object") {
+                if (typeof value.html === "string") {
+                  node.innerHTML = value.html;
+                } else if (typeof value.text === "string") {
+                  node.textContent = value.text;
+                }
+                if (value.attributes && typeof value.attributes === "object") {
+                  Object.entries(value.attributes).forEach(
+                    ([attr, attrValue]) => {
+                      node.setAttribute(attr, attrValue);
+                    }
+                  );
+                }
+              } else if (typeof value === "string") {
+                node.innerHTML = value;
+              }
+            });
+          });
+        };
+
+        const resolveExternalData = async (source) => {
+          if (!source) return;
+          try {
+            const response = await fetch(source);
+            if (!response.ok) {
+              throw new Error(`Failed to load data: ${response.status}`);
+            }
+            const json = await response.json();
+            applyDataPayload(json);
+          } catch (error) {
+            console.warn("Slide data load failed", error);
+          }
+        };
+
+        const declaredDataSource =
+          document.body.getAttribute("data-slide-data");
+        if (declaredDataSource) {
+          resolveExternalData(declaredDataSource);
+        }
+        if (window.SLIDE_DATA) {
+          applyDataPayload(window.SLIDE_DATA);
+        }
+
         const updateSlideScale = (slide) => {
           const viewport = slide.querySelector(":scope > .slide-viewport");
           if (!viewport) {
@@ -1242,6 +1297,7 @@
     </script>
   </head>
   <body>
+    <!-- Optional: set data-slide-data="path/to/slide-data.json" or define window.SLIDE_DATA = {...} before DOMContentLoaded to inject content into data-ai-field slots. -->
     <!--
       生成AIが差し替える想定のフィールドには <span data-ai-field="..."> や data-slot 属性を付与。
       指示文では data-ai-field のラベルを参照して具体的な内容を入力させる。
