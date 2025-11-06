@@ -16,6 +16,25 @@
 6. 各スライド右上（スライド外）に表示される `SVG出力` ボタンから、その場でSVGをクリップボードへコピーできます。Clipboard API非対応環境では自動的にSVGファイルをダウンロードします。
 
 ### ワークフローの全体像
+
+### 参考フォルダ構成（例）
+```
+project-root/
+├─ public/
+│  ├─ data/
+│  │  └─ slides.json        # プロンプトAで生成したJSON
+│  └─ slide_template/
+│     ├─ dual_style_slide_template.html
+│     ├─ styles.css         # （任意）外部化したCSS
+│     └─ scripts.js         # （任意）外部化したJS
+├─ scripts/
+│  └─ inject-slide-data.mjs  # JSONをHTMLへ適用するビルドスクリプト（任意）
+├─ README.md
+└─ package.json（任意）
+```
+- `public/data/slides.json` を配信サーバや静的ホスティングに置く場合は、`<body data-slide-data="/data/slides.json">` のように相対パスで参照してください。
+- ローカルで `window.SLIDE_DATA` を使う場合は、ビルド工程で JSON を読み込んで `scripts.js` 内に差し込む方法もあります。
+
 ```mermaid
 flowchart TD
   A[開始: 資料テーマを整理] --> B{既存レイアウトで足りる?}
