@@ -5,7 +5,7 @@
  * <script>window.SLIDE_DATA = ...</script> before </body>.
  *
  * Usage:
- *   node scripts/inject-slide-data.mjs public/slide_template/dual_style_slide_template.html public/data/slides.json dist/index.html
+ *   node scripts/inject-slide-data.mjs public/slide_template/dual_style_slide_template.html public/slide_template/slides.json dist/index.html
  */
 import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';

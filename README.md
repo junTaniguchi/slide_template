@@ -38,7 +38,7 @@
 3. 既存レイアウトで不足がある場合や div.slide-content を差し替えたい場合は「プロンプトB」を提示し、カスタム HTML 生成の流れを説明する。
 4. JSON の各値は文字列または { "html": "...", "text": "...", "attributes": {...} } 形式を選べること、数値や日付には単位や注記を付けることを必ず再確認する。
 5. プロンプトBで新しい data-ai-field を追加した場合は、プロンプトAの出力にも同じキーを含めるよう利用者へ注意喚起する。
-6. 生成後は public/data/slides.json への保存、window.SLIDE_DATA の埋め込み、SVG出力ボタンの活用など適用手順を提案する。
+6. 生成後は public/slide_template/slides.json への保存、window.SLIDE_DATA の埋め込み、SVG出力ボタンの活用など適用手順を提案する。
 
 ---
 プロンプトA（スロット差し替え用 JSON を生成する）:
@@ -76,7 +76,7 @@
       <td>
         <pre><code>- アジェンダや背景スライドに入れたい要素を教えてください。data-ai-field と紐づけてJSONを用意します。
 - ロードマップやステークホルダー・ガントの列数をどう調整したいですか？必要ならHTML断片の生成方針も相談しましょう。
-- 仕上げたデータは public/data/slides.json として適用しますか、それとも window.SLIDE_DATA に埋め込みますか？</code></pre>
+- 仕上げたデータは public/slide_template/slides.json として適用しますか、それとも window.SLIDE_DATA に埋め込みますか？</code></pre>
         <p><strong>補足</strong>: 典型的なヒアリングや次のアクションを引き出しやすい問いかけ例です。</p>
       </td>
     </tr>
@@ -84,7 +84,7 @@
       <th>ナレッジ（Knowledge）</th>
       <td>
         <pre><code>- public/slide_template/dual_style_slide_template.html の構成と各スライドの順序・data-ai-field の存在。
-- 推奨ディレクトリ構成（public/data/slides.json、任意の styles.css / scripts.js、scripts/inject-slide-data.mjs など）。
+- 推奨ディレクトリ構成（public/slide_template/slides.json、任意の styles.css / scripts.js、scripts/inject-slide-data.mjs など）。
 - 推奨プロンプトA/BおよびGAS連携プロンプトの全文（生成ルールと出力形式）。</code></pre>
         <p><strong>補足</strong>: MyGPTに登録しておくと、READMEに記載されたワークフローを即座に呼び出し、利用者ごとに必要な指示や生成パターンを柔軟に提案できます。</p>
       </td>
@@ -106,8 +106,8 @@
 ## 使い方
 1. テンプレートをブラウザで開きます。白基調のデザインで統一されており、全スライドを縦スクロールで一括確認できます。
 2. 実際の資料構成に合わせて、不要なスライドは削除・順番変更・複製を行ってください。テンプレートのスライド順はあくまで推奨例であり、10枚・20枚といった任意の枚数へ柔軟に拡張できます。
-3. 生成AIにはテンプレートをそのまま渡すのではなく、`data-ai-field` 名とセットで出力すべきコンテンツを JSON 形式で生成させます（後述のプロンプトAを参照）。生成結果は `public/data/slides.json` のように保存するか、`window.SLIDE_DATA = {...};` を読み込むスクリプトに記載します。
-4. HTML 側では `<body data-slide-data="public/data/slides.json">` を指定するか、上記のように `window.SLIDE_DATA` を定義することでテンプレートへ自動反映できます。レイアウト変更が必要な場合のみ、プロンプトBで追加のHTML断片を生成し、該当スライドに差し替えます。
+3. 生成AIにはテンプレートをそのまま渡すのではなく、`data-ai-field` 名とセットで出力すべきコンテンツを JSON 形式で生成させます（後述のプロンプトAを参照）。生成結果は `public/slide_template/slides.json` のように保存するか、`window.SLIDE_DATA = {...};` を読み込むスクリプトに記載します。
+4. HTML 側では `<body data-slide-data="slides.json">` をデフォルト設定済みです。別フォルダに `slides.json` を配置したい場合は属性値を変更するか、上記のように `window.SLIDE_DATA` を定義してテンプレートへ自動反映させてください。レイアウト変更が必要な場合のみ、プロンプトBで追加のHTML断片を生成し、該当スライドに差し替えます。
 5. ブラウザでプレビューし、必要に応じてロードマップ／ステークホルダー・ガントなどの列数やタスク配置を調整したり補足スライド（appendix セクション）を複製して追記します。
 6. 各スライド右上（スライド外）に表示される `SVG出力` ボタンから、その場でSVGをクリップボードへコピーできます。Clipboard API非対応環境では自動的にSVGファイルをダウンロードします。
 
@@ -116,7 +116,7 @@
 flowchart TD
   A[開始: 資料テーマを整理] --> B{既存レイアウトで足りる?}
   B -- はい --> C[プロンプトAで data-ai-field 用 JSON を生成]
-  C --> D[JSON を public/data/slides.json に保存<br/>または window.SLIDE_DATA で読み込み]
+  C --> D[JSON を public/slide_template/slides.json に保存<br/>または window.SLIDE_DATA で読み込み]
   B -- いいえ --> E[プロンプトBで新しい レイアウト断片を生成]
   E --> F[該当スライドの div.slide-content を置き換え]
   F --> C
@@ -132,10 +132,9 @@ flowchart TD
 ```
 project-root/
 ├─ public/
-│  ├─ data/
-│  │  └─ slides.json        # プロンプトAで生成したJSON
 │  └─ slide_template/
 │     ├─ dual_style_slide_template.html
+│     ├─ slides.json        # プロンプトAで生成したJSON（テンプレートと同じフォルダ）
 │     ├─ styles.css         # （任意）外部化したCSS
 │     └─ scripts.js         # （任意）外部化したJS
 ├─ scripts/
@@ -143,7 +142,7 @@ project-root/
 ├─ README.md
 └─ package.json（任意）
 ```
-- `public/data/slides.json` を配信サーバや静的ホスティングに置く場合は、`<body data-slide-data="/data/slides.json">` のように相対パスで参照してください。
+- `public/slide_template/slides.json` を配信サーバや静的ホスティングに置く場合は、サイトルートに応じて `<body data-slide-data="/slide_template/slides.json">` など適切な相対パスへ更新してください。
 - ローカルで `window.SLIDE_DATA` を使う場合は、ビルド工程で JSON を読み込んで `scripts.js` 内に差し込む方法もあります。
 
 ### テンプレートで押さえているポイント

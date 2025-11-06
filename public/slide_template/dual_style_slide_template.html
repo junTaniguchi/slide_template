@@ -1296,8 +1296,8 @@
       });
     </script>
   </head>
-  <body>
-    <!-- Optional: set data-slide-data="path/to/slide-data.json" or define window.SLIDE_DATA = {...} before DOMContentLoaded to inject content into data-ai-field slots. -->
+  <body data-slide-data="slides.json">
+    <!-- slides.json と同じディレクトリに配置されたデフォルトのデータセットを読み込みます。必要に応じて別のパスに変更するか、window.SLIDE_DATA = {...} を事前に定義してください。 -->
     <!--
       生成AIが差し替える想定のフィールドには <span data-ai-field="..."> や data-slot 属性を付与。
       指示文では data-ai-field のラベルを参照して具体的な内容を入力させる。

@@ -1,8 +1,8 @@
 /**
  * Optional helper to preload slide data without using the data-slide-data attribute.
  *
- * Call `window.loadSlideData('/data/slides.json')` before DOMContentLoaded,
- * or leave <body data-slide-data="..."> in place and this script will fetch automatically.
+ * Call `window.loadSlideData('slides.json')` before DOMContentLoaded,
+ * or leave <body data-slide-data="slides.json"> in place and this script will fetch automatically.
  */
 (function () {
   function applyDataSource(url) {
