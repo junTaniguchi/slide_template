@@ -17,6 +17,13 @@
       };
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Finder/Explorer で開く際のフォールバックデータ。更新する場合は slides.json と同じ内容を貼り付けるか、scripts/inject-slide-data.mjs を使用してください。 -->
+    <script id="inline-slide-data" type="application/json">
+      {
+        "presentation_title": "例: 2024年度CX変革キックオフ"
+      }
+    </script>
+
     <style>
       :root {
         --font-sans: "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif;
@@ -199,6 +206,55 @@
         opacity: 1;
         pointer-events: auto;
         transform: translateY(0);
+      }
+
+      .local-data-loader {
+        position: fixed;
+        top: 1.5rem;
+        right: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        background: rgba(15, 23, 42, 0.85);
+        color: #ffffff;
+        padding: 0.6rem 1.1rem;
+        border-radius: 999px;
+        font-size: 0.9rem;
+        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.25);
+        z-index: 999;
+      }
+
+      .local-data-loader strong {
+        letter-spacing: 0.08em;
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        opacity: 0.75;
+      }
+
+      .local-data-loader span {
+        font-size: 0.82rem;
+        opacity: 0.85;
+      }
+
+      .local-data-loader button {
+        border: none;
+        background: #38bdf8;
+        color: #0f172a;
+        font-weight: 600;
+        padding: 0.4rem 0.9rem;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: opacity 160ms ease, transform 160ms ease;
+      }
+
+      .local-data-loader button:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+      }
+
+      .local-data-loader button:active {
+        transform: translateY(0);
+        opacity: 1;
       }
 
       .svg-menu button {
@@ -986,6 +1042,28 @@
         const svgButtons = Array.from(document.querySelectorAll(".svg-copy"));
         const svgControls = [];
 
+        const inlineDataElement = document.getElementById("inline-slide-data");
+        let inlineSlideData = null;
+        if (inlineDataElement) {
+          const inlineText = inlineDataElement.textContent.trim();
+          if (inlineText) {
+            try {
+              inlineSlideData = JSON.parse(inlineText);
+            } catch (error) {
+              console.warn("Inline slide data parse error", error);
+            }
+          }
+        }
+
+        const isFileProtocol = window.location.protocol === "file:";
+        const localDataLoader = document.querySelector("[data-local-loader]");
+        const localDataLoaderButton = localDataLoader?.querySelector(
+          "[data-local-loader-trigger]"
+        );
+        const localDataLoaderInput = localDataLoader?.querySelector(
+          "[data-local-loader-input]"
+        );
+
         slides.forEach((slide) => {
           let viewport = slide.querySelector(":scope > .slide-viewport");
           if (!viewport) {
@@ -1209,17 +1287,96 @@
           });
         };
 
+        const applyInlineData = () => {
+          if (!inlineSlideData || window.SLIDE_DATA) {
+            return false;
+          }
+          window.SLIDE_DATA = inlineSlideData;
+          applyDataPayload(window.SLIDE_DATA);
+          console.info("Inline slide data applied (file:// fallback).");
+          return true;
+        };
+
+        const showLocalLoader = () => {
+          if (!localDataLoader) {
+            return;
+          }
+          localDataLoader.hidden = false;
+        };
+
+        const readLocalJsonFile = async (file) => {
+          if (!file) {
+            return;
+          }
+          try {
+            const text = await file.text();
+            const parsed = JSON.parse(text);
+            window.SLIDE_DATA = parsed;
+            applyDataPayload(parsed);
+            console.info("Local slide data loaded from", file.name);
+          } catch (error) {
+            console.warn("Local slide data parse error", error);
+            window.alert("slides.json の読み込みに失敗しました。JSONの形式をご確認ください。");
+          }
+        };
+
+        if (localDataLoaderButton && localDataLoaderInput) {
+          localDataLoaderButton.addEventListener("click", async () => {
+            if (window.showOpenFilePicker) {
+              try {
+                const [handle] = await window.showOpenFilePicker({
+                  multiple: false,
+                  types: [
+                    {
+                      description: "slides.json",
+                      accept: { "application/json": [".json"] },
+                    },
+                  ],
+                });
+                const file = await handle.getFile();
+                await readLocalJsonFile(file);
+                return;
+              } catch (error) {
+                if (error?.name !== "AbortError") {
+                  console.warn("Local file picker error", error);
+                }
+              }
+            }
+            localDataLoaderInput.value = "";
+            localDataLoaderInput.click();
+          });
+
+          localDataLoaderInput.addEventListener("change", (event) => {
+            const file = event.target.files && event.target.files[0];
+            if (!file) {
+              return;
+            }
+            readLocalJsonFile(file);
+          });
+        }
+
+        if (isFileProtocol) {
+          showLocalLoader();
+        }
+
         const resolveExternalData = async (source) => {
-          if (!source) return;
+          if (!source) {
+            return false;
+          }
           try {
             const response = await fetch(source);
             if (!response.ok) {
               throw new Error(`Failed to load data: ${response.status}`);
             }
             const json = await response.json();
+            window.SLIDE_DATA = json;
             applyDataPayload(json);
+            return true;
           } catch (error) {
             console.warn("Slide data load failed", error);
+            showLocalLoader();
+            applyInlineData();
+            return false;
           }
         };
 
@@ -1227,9 +1384,13 @@
           document.body.getAttribute("data-slide-data");
         if (declaredDataSource) {
           resolveExternalData(declaredDataSource);
+        } else {
+          applyInlineData();
         }
         if (window.SLIDE_DATA) {
           applyDataPayload(window.SLIDE_DATA);
+        } else {
+          applyInlineData();
         }
 
         const updateSlideScale = (slide) => {
@@ -1304,6 +1465,17 @@
       全スライドは白基調で統一され、右下に赤字「CONFIDENTIAL」が常時表示される。
       アクセントカラーを切り替えたい場合は、必要に応じて body に任意の class を追加し CSS を拡張してください。
     -->
+    <div class="local-data-loader" data-local-loader hidden>
+      <strong>LOCAL JSON</strong>
+      <span>Finder/Explorer で開いた場合はここから slides.json を選択</span>
+      <button type="button" data-local-loader-trigger>slides.json を読み込む</button>
+      <input
+        type="file"
+        accept="application/json,.json"
+        data-local-loader-input
+        hidden
+      />
+    </div>
     <main>
       <div class="slide-container" data-wrapper-id="title">
         <button
