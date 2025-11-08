@@ -404,11 +404,11 @@ GAS変換プロンプトを独立した MyGPT として常駐させる場合の�
       </td>
     </tr>
     <tr>
-      <th>推奨参考ファイル</th>
+      <th>ナレッジ（Knowledge）</th>
       <td>
         <ul>
           <li>`public/slide_template/dual_style_slide_template.html`（テンプレート本体）</li>
-          <li>`public/slide_template/slides.json`（差し込み用データ）</li>
+          <li>`public/slide_template/slides.json`（サンプルデータ。Knowledgeには代表例を入れ、案件ごとの最新JSONはチャット開始時にアップロードして差し替える）</li>
           <li>本 README（data-ai-field 定義／GAS手順）</li>
         </ul>
       </td>
