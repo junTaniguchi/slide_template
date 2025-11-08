@@ -395,6 +395,11 @@
         height: 100%;
       }
 
+      .split.closing-layout,
+      .split.visual-dominant {
+        grid-template-columns: minmax(0, 0.3fr) minmax(0, 0.7fr);
+      }
+
       .split.brief-layout {
         grid-template-columns: repeat(2, minmax(260px, 1fr));
       }
@@ -1022,6 +1027,11 @@
         .title-date {
           align-items: flex-start;
           text-align: left;
+        }
+
+        .split.closing-layout,
+        .split.visual-dominant {
+          grid-template-columns: 1fr;
         }
       }
 
@@ -1750,7 +1760,7 @@
               >背景の全体像と重要なキーメッセージをまとめたリード文。</span
             >
           </p>
-          <div class="split background-layout">
+          <div class="split background-layout visual-dominant">
             <div>
               <h3>要点</h3>
               <ul class="key-points">
@@ -1914,7 +1924,7 @@
                 >本日の目的と合意形成ゴールを一文でまとめ、決めるべき範囲を明確にする。</span
               >
             </p>
-            <div class="split">
+            <div class="split visual-dominant">
               <div class="callout">
                 <h3>合意事項サマリ</h3>
                 <p class="text-sm text-slate-600">
@@ -2606,7 +2616,7 @@
               >受講者に残したい最も重要なメッセージを凝縮。</span
             >
           </p>
-          <div class="split">
+          <div class="split closing-layout">
             <div>
               <h3>アクション</h3>
               <ul class="key-points">
