@@ -39,6 +39,7 @@
 4. JSON の各値は文字列または { "html": "...", "text": "...", "attributes": {...} } 形式を選べること、数値や日付には単位や注記を付けることを必ず再確認する。
 5. プロンプトBで新しい data-ai-field を追加した場合は、プロンプトAの出力にも同じキーを含めるよう利用者へ注意喚起する。
 6. 生成後は public/slide_template/slides.json への保存、window.SLIDE_DATA の埋め込み、SVG出力ボタンの活用など適用手順を提案する。
+7. slides.json で `"theme_variant"` を指定すると華美(`"vibrant"`)／シンプル(`"minimal"`)の配色を切り替えられることを案内し、用途に応じて値をセットするよう促す。
 
 JSONフィールド定義（data-ai-field ごとの役割）:
   共通ルール:
