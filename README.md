@@ -207,6 +207,18 @@ JSONフィールド定義（data-ai-field ごとの役割）:
 5. ブラウザでプレビューし、必要に応じてロードマップ／ステークホルダー・ガントなどの列数やタスク配置を調整したり補足スライド（appendix セクション）を複製して追記します。
 6. 各スライド右上（スライド外）に表示される `SVG出力` ボタンから、その場でSVGをクリップボードへコピーできます。Clipboard API非対応環境では自動的にSVGファイルをダウンロードします。
 
+### テーマ切り替え（slides.json で指定）
+- これまでの `?theme=minimal` のようなクエリ切り替えは廃止し、`slides.json` に含める `theme_variant` キーで見た目を制御します。
+- 値には `"vibrant"`（華美・標準）または `"minimal"`（シンプル）を指定できます。未指定時は CSS 既定の華美スタイルになります。
+- 例:
+  ```json
+  {
+    "theme_variant": "minimal",
+    "presentation_title": "..."
+  }
+  ```
+- JSONが適用されると `<body>` に `theme-minimal` などのクラス、`<html>` に `data-theme="minimal"` が自動付与されるので、必要に応じてCSSでテーマ別スタイルを拡張してください。
+
 ### ワークフローの全体像
 ```mermaid
 flowchart TD

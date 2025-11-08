@@ -1074,13 +1074,6 @@
     </style>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        // Optional query to annotate theme selection (for future styling variations)
-        const params = new URLSearchParams(window.location.search);
-        const theme = params.get("theme");
-        if (theme) {
-          document.documentElement.dataset.theme = theme;
-        }
-
         const styleBlocks = Array.from(document.querySelectorAll("style"));
         const combinedStyles = styleBlocks
           .map((block) => block.textContent || "")
@@ -1089,6 +1082,22 @@
         const slides = Array.from(document.querySelectorAll("section.slide"));
         const svgButtons = Array.from(document.querySelectorAll(".svg-copy"));
         const svgControls = [];
+
+        const applyThemeVariant = (variant) => {
+          const root = document.documentElement;
+          const body = document.body;
+          const normalized =
+            typeof variant === "string" && variant.trim().length
+              ? variant.trim()
+              : "";
+          body.classList.remove("theme-vibrant", "theme-minimal");
+          if (normalized) {
+            root.dataset.theme = normalized;
+            body.classList.add(`theme-${normalized}`);
+          } else {
+            delete root.dataset.theme;
+          }
+        };
 
         const inlineDataElement = document.getElementById("inline-slide-data");
         let inlineSlideData = null;
@@ -1307,7 +1316,13 @@
           if (!payload || typeof payload !== "object") {
             return;
           }
+          if (Object.prototype.hasOwnProperty.call(payload, "theme_variant")) {
+            applyThemeVariant(payload.theme_variant);
+          }
           Object.entries(payload).forEach(([field, value]) => {
+            if (field === "theme_variant") {
+              return;
+            }
             const nodes = document.querySelectorAll(
               `[data-ai-field="${field}"]`
             );
