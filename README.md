@@ -415,3 +415,22 @@ Gemini/ChatGPTに以下のプロンプトを渡すことで、テンプレート
 # 命令
 あなたは HTML でデザインされたスライドを Google スライドへ変換することを専門とする熟練の Google Apps Script 開発者です。これから渡す HTML テンプレートは `div.slide-container > section.slide[data-slide-id="..."]` という構造で 1 枚のスライドを表現しており、各スライドの外側には SVG コピー用ボタンなどの補助UIが含まれます。**実際にレイアウトへ反映すべき要素は section.slide 内のみ**であり、補助UIは無視してください。
 ```
+
+#### slides.json はどう使う？
+1. **LLMへ共有する入力**: `dual_style_slide_template.html` とセットで `slides.json` を MyGPT/Gemini へ添付し、Apps Script が参照すべき最新データを明示します。`slides.json` がない場合はテンプレートからフィールド名を推測する必要があり、変換後に空のスライドになるリスクが高まります。
+2. **GASコード内でのデータソース**: 生成されるスクリプトに `const slideData = JSON.parse(...);` などの処理が含まれるため、Drive に置いた `slides.json` を読み込むか、Script Editor の定数として貼り付けます。`data-ai-field` 名とGoogleスライド内プレースホルダーの対応表をコード内コメントで残し、JSONキーを使ってテキストボックスへ流し込みます。
+3. **Googleスライドへの反映**: 実行時は `slideData` をループして `section.slide` ごとのテキスト／HTMLに相当する図形を作り、`slides.json` の値を `shape.getText().setText(slideData.presentation_title)` のように適用します。JSONを更新すれば同じスクリプトで再生成し、スライド全体を差し替えできます。
+
+#### GAS連携プロンプトの利用フロー
+```mermaid
+flowchart TD
+  A[Start: 最新の dual_style_slide_template.html と slides.json を準備] --> B[MyGPT/Gemini に GAS連携プロンプトを投入<br/>＋ファイルを添付]
+  B --> C[LLMが Apps Script の設計/コードを出力]
+  C --> D[Google Apps Script エディタへコードを貼り付け]
+  D --> E[Script 内の Google Slides ID や Drive パスを設定]
+  E --> F[テスト実行して slides.json を読み込み<br/>プレゼンを生成]
+  F --> G{レイアウト/文面は想定通り?}
+  G -- No --> H[slides.json や HTML を修正し、LLMへ再度依頼]
+  H --> B
+  G -- Yes --> I[Apps Script の権限付与/トリガー設定→本番運用]
+```
