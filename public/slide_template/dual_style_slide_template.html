@@ -395,8 +395,7 @@
         height: 100%;
       }
 
-      .split.closing-layout,
-      .split.visual-dominant {
+      .split.closing-layout {
         grid-template-columns: minmax(0, 0.3fr) minmax(0, 0.7fr);
       }
 
@@ -408,6 +407,10 @@
         grid-template-columns: minmax(280px, 1.05fr) minmax(520px, 1.6fr);
         gap: 2.2rem;
         align-items: stretch;
+      }
+
+      .split.visual-dominant {
+        grid-template-columns: minmax(0, 0.3fr) minmax(0, 0.7fr);
       }
 
       .title-slide {
