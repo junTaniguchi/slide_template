@@ -8,7 +8,7 @@
 | ベーステンプレ | `public/slide_template/dual_style_slide_template.html` | data-ai-field を持つ既定スライド群。SVG出力/縮尺調整/テーマ切替ロジックを内包。 |
 | データ | `public/slide_template/slides.json` | テキスト/HTML/attr 値、テーマ（`theme_variant`）、レイアウト差し替え（`fragments`）、追加CSS/JS（`assets`）を宣言。 |
 | 追加HTML | `public/slide_template/fragments/*.html` | プロンプトB等で生成したスライド断片を配置。`fragments` 経由で自動読み込み。 |
-| 追加CSS/JS | `public/slide_template/assets/*.css|js` | 案件固有のスタイル・動作を記述。`assets.styles` / `assets.scripts` で読み込み。 |
+| 追加CSS/JS | `public/slide_template/assets/*.css`, `public/slide_template/assets/*.js` | CSSで追加の配色/余白/アニメーションを、JSでインタラクションやカスタムチャート描画を定義。`slides.json.assets.styles / .scripts` の列挙順で読み込み。 |
 
 ## 2. クイックスタート
 1. `public/slide_template` をホスト (例: `npx serve public/slide_template`). `file://` では fetch が制限されるため要注意。
@@ -60,6 +60,7 @@
 | 名前 | `Dual Style Slide Co-Pilot` |
 | 説明 | `data-ai-field を鍵に JSON 差し替え・HTML断片・追加CSS/JSを自動適用するテンプレートです` |
 | 指示 | 以下のマークダウンを MyGPT の Instructions に設定 |
+| ナレッジ | `public/slide_template/dual_style_slide_template.html`、`public/slide_template/slides.json`（代表例）、`README.md` を Knowledge に登録しておくと MyGPT が構造やフィールド定義を参照しやすくなります。 |
 
 ```md
 あなたは Dual Style Slide Template の共同制作者です。以下の手順で回答してください。
@@ -100,20 +101,20 @@ Instructions の末尾に次のルールを追記すると、MyGPTがファイ�
 ```
 与えられたテーマ/ターゲット/スライド構成を踏まえ、以下のコードブロックをこの順に出力してください。
 
-1. ```file=public/slide_template/slides.json```
-   data-ai-field に沿った JSON 全文。theme_variant / fragments / assets を含めること。
+1. ```file=public/slide_template/slides.json
+   { JSON全文 }
    ```
 2. 差し替えるスライドごとに
-   ```file=public/slide_template/fragments/<slide-id>.html```
-   <div class="slide-content"> ... </div>
+   ```file=public/slide_template/fragments/<slide-id>.html
+   <div class="slide-content">...</div>
    ```
 3. 追加CSSが必要であれば
-   ```file=public/slide_template/assets/<name>.css```
-   ...
+   ```file=public/slide_template/assets/<name>.css
+   /* CSS */
    ```
 4. 追加JSが必要であれば
-   ```file=public/slide_template/assets/<name>.js```
-   ...
+   ```file=public/slide_template/assets/<name>.js
+   // JS
    ```
 ```
 
