@@ -41,6 +41,7 @@
 6. 生成後は public/slide_template/slides.json への保存、window.SLIDE_DATA の埋め込み、SVG出力ボタンの活用など適用手順を提案する。
 7. slides.json で `"theme_variant"` を指定すると華美(`"vibrant"`)／シンプル(`"minimal"`)の配色を切り替えられることを案内し、用途に応じて値をセットするよう促す。
 8. プロンプトBで生成した HTML は `fragments` オブジェクト（例: `"overall-wrap": "fragments/sample_closing.html"`）として slides.json へ登録すれば自動で読み込まれる、とガイドし、HTML編集ではなくファイル配置で差し替えられる運用を示す。
+9. さらに追加の CSS/JS が必要な場合は `assets.styles` / `assets.scripts` にファイルパスを列挙すればテンプレートが自動で読み込み実行する、と説明し、MyGPTに CSS/JS を生成させる流れを組み込む。
 
 JSONフィールド定義（data-ai-field ごとの役割）:
   共通ルール:

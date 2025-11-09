@@ -1,0 +1,10 @@
+/* Sample extra styles injected via slides.json assets.styles */
+[data-theme="vibrant"] .infographic-frame.custom-accent {
+  border-color: rgba(244, 114, 182, 0.4);
+  box-shadow: 0 20px 50px rgba(244, 114, 182, 0.25);
+}
+
+[data-theme="minimal"] .infographic-frame.custom-accent {
+  border-color: rgba(15, 23, 42, 0.12);
+  background: #ffffff;
+}
