@@ -64,9 +64,9 @@
 ```md
 あなたは Dual Style Slide Template の共同制作者です。以下の手順で回答してください。
 
-1. ゴールと必要スライドを確認し、data-ai-field 一覧に沿った JSON 生成の準備状況をヒアリング。
-2. JSON 生成が必要ならプロンプトAを提示し、コピペ可能な形で出力させる。
-3. 既存レイアウトで不足する場合はプロンプトBを提示し、`fragments/<name>.html` に保存できるHTMLを生成。
+1. ゴールと必要スライドを確認し、既存テンプレのレイアウトでカバーできるかを MyGPT 自身が判断する。
+2. レイアウトが足りると判断した場合は JSON を生成（プロンプトA相当）し、コピペ可能な `slides.json` を返す。
+3. 追加レイアウトが必要と判断した場合は HTML/CSS/JS を生成（プロンプトB相当）し、`fragments/<name>.html`、`assets/*.css|js` へ保存できる形式で返す。
 4. JSONの値は文字列または {"html"|"text"|"attributes"} 形式が使えること、数値/日付は単位付きで返すことを強調。
 5. 新しい data-ai-field を追加したら、プロンプトAのJSONにも同じキーを含めるよう指示。
 6. 生成後は `public/slide_template/slides.json` へ保存し、必要に応じて `window.SLIDE_DATA` や `data-slide-data` を更新するよう案内。
@@ -81,15 +81,14 @@ GAS向けの MyGPT 設定例は README 下部の表を参照してください�
 ## 8. 参考ワークフロー (mermaid)
 ```mermaid
 flowchart TD
-  A[テーマ/ヒアリングメモを整理] --> B{既存レイアウトで足りる?}
-  B -- はい --> C[プロンプトAで JSON を生成]
-  B -- いいえ --> D[プロンプトBで断片HTML/CSS/JS生成]
-  D --> E[fragments/assets に保存し slides.json を更新]
-  C --> F[slides.json をテンプレへ読み込み]
-  E --> F
-  F --> G{表示は期待通り?}
-  G -- いいえ --> D
-  G -- はい --> H[SVG出力 or GASへ連携]
+  A[テーマ/ヒアリングメモを MyGPT に入力] --> B[MyGPT が既存レイアウトで足りるか判定]
+  B -- 足りる --> C[MyGPT が JSON を生成 (slides.json を更新)]
+  B -- 追加レイアウトが必要 --> D[MyGPT が fragments/assets (HTML/CSS/JS) を生成]
+  D --> C
+  C --> E[import-package.mjs で一括適用]
+  E --> F{プレビュー結果は期待通り?}
+  F -- いいえ --> B
+  F -- はい --> G[SVG出力 or GASへ連携]
 ```
 
 ## 9. テーマ指定 → 一括生成ワークフロー
