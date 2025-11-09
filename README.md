@@ -82,8 +82,8 @@ GAS向けの MyGPT 設定例は README 下部の表を参照してください�
 ```mermaid
 flowchart TD
   A[テーマ/ヒアリングメモを MyGPT に入力] --> B[MyGPT が既存レイアウトで足りるか判定]
-  B -- 足りる --> C[MyGPT が JSON を生成 (slides.json を更新)]
-  B -- 追加レイアウトが必要 --> D[MyGPT が fragments/assets (HTML/CSS/JS) を生成]
+  B -- 足りる --> C[MyGPT が JSON を生成<br/>slides.json を更新]
+  B -- 追加レイアウトが必要 --> D[MyGPT が fragments/assets を生成<br/>HTML・CSS・JS を出力]
   D --> C
   C --> E[import-package.mjs で一括適用]
   E --> F{プレビュー結果は期待通り?}
