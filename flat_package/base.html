@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Flat Slide Shell</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style id="base-style">
+      :root {
+        font-family: "Hiragino Sans", "Noto Sans JP", sans-serif;
+        color: #0f172a;
+        background: #e2e8f0;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(180deg, #f8fafc, #e2e8f0);
+      }
+
+      main {
+        display: grid;
+        gap: 2rem;
+        padding: 3rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      section.slide {
+        background: #fff;
+        border-radius: 32px;
+        padding: 2rem;
+        box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
+        position: relative;
+      }
+
+      .slide-header {
+        margin-bottom: 1.5rem;
+      }
+
+      .slide-header h2 {
+        margin: 0 0 0.4rem;
+        font-size: clamp(1.6rem, 3vw, 2.4rem);
+      }
+
+      .slide-header p {
+        margin: 0;
+        color: #475569;
+        font-size: 1rem;
+      }
+
+      .slide-content {
+        min-height: 200px;
+      }
+
+      .svg-button {
+        position: absolute;
+        right: 1.5rem;
+        top: 1.5rem;
+        border: none;
+        border-radius: 999px;
+        background: #0ea5e9;
+        color: #fff;
+        font-weight: 600;
+        padding: 0.5rem 1.2rem;
+        cursor: pointer;
+        box-shadow: 0 10px 20px rgba(14, 165, 233, 0.35);
+      }
+    </style>
+  </head>
+  <body data-slide-data="slides.json">
+    <main id="slides"></main>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const slidesRoot = document.getElementById("slides");
+        const inlineStyles = [
+          document.getElementById("base-style").textContent,
+        ];
+
+        const toArray = (input) => {
+          if (!input) return [];
+          if (Array.isArray(input)) {
+            return input.filter((item) => typeof item === "string" && item);
+          }
+          if (typeof input === "string") {
+            return [input];
+          }
+          return [];
+        };
+
+        const createSlide = ({ id, title, lead }) => {
+          const section = document.createElement("section");
+          section.className = "slide";
+          section.dataset.slideId = id;
+
+          const header = document.createElement("div");
+          header.className = "slide-header";
+          header.innerHTML = `<h2>${title || "Untitled"}</h2><p>${
+            lead || ""
+          }</p>`;
+          section.appendChild(header);
+
+          const content = document.createElement("div");
+          content.className = "slide-content";
+          section.appendChild(content);
+
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "svg-button";
+          button.textContent = "SVG";
+          button.addEventListener("click", () => downloadSvg(section));
+          section.appendChild(button);
+
+          slidesRoot.appendChild(section);
+          return section;
+        };
+
+        const applyFragment = async (slide, fragmentPath) => {
+          if (!fragmentPath) return;
+          try {
+            const response = await fetch(fragmentPath);
+            if (!response.ok) throw new Error(response.status);
+            const html = await response.text();
+            const container = slide.querySelector(".slide-content");
+            container.innerHTML = html;
+          } catch (error) {
+            console.warn("Fragment load failed", fragmentPath, error);
+          }
+        };
+
+        const appendStyleAsset = async (href) => {
+          if (!href) return;
+          const response = await fetch(href);
+          if (!response.ok) throw new Error(response.status);
+          const css = await response.text();
+          const style = document.createElement("style");
+          style.textContent = css;
+          document.head.appendChild(style);
+          inlineStyles.push(css);
+        };
+
+        const appendScriptAsset = async (src) => {
+          if (!src) return;
+          const script = document.createElement("script");
+          script.src = src;
+          script.defer = true;
+          document.body.appendChild(script);
+          return new Promise((resolve, reject) => {
+            script.onload = resolve;
+            script.onerror = reject;
+          });
+        };
+
+        const downloadSvg = (slide) => {
+          const rect = slide.getBoundingClientRect();
+          const clone = slide.cloneNode(true);
+          clone.querySelectorAll(".svg-button").forEach((node) => node.remove());
+          const svg = `<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg" width="${rect.width}" height="${rect.height}" viewBox="0 0 ${rect.width} ${rect.height}">\n  <foreignObject width="100%" height="100%">\n    <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:inherit;">\n      <style>${inlineStyles.join("\n")}</style>\n      ${clone.outerHTML}\n    </div>\n  </foreignObject>\n</svg>`;
+          const blob = new Blob([svg], { type: "image/svg+xml" });
+          const link = document.createElement("a");
+          link.href = URL.createObjectURL(blob);
+          link.download = `${slide.dataset.slideId || "slide"}.svg`;
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+        };
+
+        const loadPayload = async () => {
+          try {
+            const dataSrc = document.body.dataset.slideData || "slides.json";
+            const response = await fetch(dataSrc);
+            if (!response.ok) throw new Error(response.status);
+            const payload = await response.json();
+
+            const styles = toArray(payload.assets?.styles);
+            for (const href of styles) {
+              await appendStyleAsset(href);
+            }
+
+            const scripts = toArray(payload.assets?.scripts);
+            for (const src of scripts) {
+              await appendScriptAsset(src);
+            }
+
+            const slides = Array.isArray(payload.slides) ? payload.slides : [];
+            for (const slideMeta of slides) {
+              const slide = createSlide(slideMeta);
+              if (slideMeta.fragment) {
+                await applyFragment(slide, slideMeta.fragment);
+              }
+            }
+          } catch (error) {
+            slidesRoot.innerHTML = `<p>スライドデータの読み込みに失敗しました: ${error}</p>`;
+          }
+        };
+
+        loadPayload();
+      });
+    </script>
+  </body>
+</html>

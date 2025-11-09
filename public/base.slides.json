@@ -1,0 +1,14 @@
+{
+  "assets": {
+    "styles": ["base_assets/sample.css"],
+    "scripts": []
+  },
+  "slides": [
+    {
+      "id": "intro",
+      "title": "サンプルタイトル",
+      "lead": "テーマに合わせてここを置き換えてください。",
+      "fragment": "base_fragments/intro.html"
+    }
+  ]
+}

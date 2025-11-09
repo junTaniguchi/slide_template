@@ -1,0 +1,17 @@
+.infobox {
+  padding: 1.5rem;
+  border-radius: 28px;
+  border: 1px solid rgba(14, 165, 233, 0.35);
+  background: rgba(14, 165, 233, 0.08);
+  font-size: 1rem;
+}
+
+.infobox h3 {
+  margin-top: 0;
+  letter-spacing: 0.1em;
+  color: #0ea5e9;
+}
+
+.custom-accent {
+  box-shadow: inset 0 0 0 2px rgba(14, 165, 233, 0.2);
+}

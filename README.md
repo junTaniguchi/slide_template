@@ -1,6 +1,23 @@
 # Dual Style Slide Template
 
-テンプレートHTML 1枚で華美/シンプル両対応のスライドを生成し、`slides.json` によるデータ流し込み・追加HTML/CSS/JSの読み込みでレイアウトや演出を自由に拡張できます。本ドキュメントは最新の拡張方式（`fragments` と `assets`）に沿って再構成しました。
+テンプレートHTML 1枚で華美/シンプル両対応のスライドを生成し、`slides.json` によるデータ流し込み・追加HTML/CSS/JSの読み込みでレイアウトや演出を自由に拡張できます。本ドキュメントは最新の拡張方式（`fragments` と `assets`）に沿って再構成しました。さらに、完全に白紙状態から構築したい場合に備え、最小構成の `base.html` も用意しています。
+
+## 0. base.html（極小シェル）
+| ファイル | 説明 |
+| --- | --- |
+| `flat_package/base.html` | スライド容器・タイトル/リード表示・SVGダウンロードボタンのみを備えたシェル。`data-slide-data="slides.json"` をデフォルト参照。 |
+| `flat_package/slides.json` | `assets.styles/scripts` と `slides` 配列（`id`/`title`/`lead`/`fragment`）のみを定義。テーマごとに MyGPT から丸ごと生成する想定。 |
+| `flat_package/fragment_*.html`, `flat_package/style_*.css`, `flat_package/script_*.js` | ChatGPT などが生成したコンテンツ/スタイル/動作を格納。すべて同一フォルダに置くことで初心者でも管理しやすくしています。 |
+| `flat_package/fragment_intro.html` | サンプルの差し替え用HTML。`slides.json` で `"fragment": "fragment_intro.html"` のように参照。 |
+| `flat_package/style_extra.css` | サンプルの追加CSS。配色や余白調整を記述。`slides.json.assets.styles` に列挙。 |
+| `flat_package/script_extra.js` | サンプルの追加JS。簡易的なインタラクションを記述。`slides.json.assets.scripts` に列挙。 |
+
+**使い方の流れ**
+1. テーマや要件を MyGPT に渡し、`flat_package/slides.json` の中身・`flat_package/fragment*.html`・`flat_package/style*.css|script*.js` をまとめて生成させる（9章の統合プロンプト参照）。
+2. 出力は `node scripts/import-package.mjs` で配置。`flat_package/slides.json` を上書きし、必要な fragment/asset ファイルが作成される。
+3. `flat_package/base.html` をブラウザで開くと、最小シェルに読み込まれた HTML/CSS/JS がそのまま描画される。テンプレ互換は気にせず品質優先で制作したい場合はこちらを利用してください。
+
+以降の章では、従来の `public/slide_template/dual_style_slide_template.html` を「参考レイアウト／過去資産」として扱うフローをまとめています。最終成果物は base.html で自由に構成し、必要に応じて dual_style のスニペットを持ち込む想定です。
 
 ## 1. アーキテクチャ概要
 | レイヤ | ファイル/仕組み | 役割 |
@@ -60,7 +77,7 @@
 | 名前 | `Dual Style Slide Co-Pilot` |
 | 説明 | `data-ai-field を鍵に JSON 差し替え・HTML断片・追加CSS/JSを自動適用するテンプレートです` |
 | 指示 | 以下のマークダウンを MyGPT の Instructions に設定 |
-| ナレッジ | `public/slide_template/dual_style_slide_template.html`、`public/slide_template/slides.json`（代表例）、`README.md` を Knowledge に登録しておくと MyGPT が構造やフィールド定義を参照しやすくなります。 |
+| ナレッジ | `flat_package/base.html`、`flat_package/slides.json`、`flat_package/fragment_*.html` のサンプル、`public/slide_template/dual_style_slide_template.html`（参考レイアウト）、`public/slide_template/slides.json`（代表例）、`README.md` を Knowledge に登録すると、MyGPT が呼び出し元の構造や期待するフィールドを把握しやすくなります。 |
 
 ```md
 あなたは Dual Style Slide Template の共同制作者です。以下の手順で回答してください。
@@ -77,19 +94,38 @@
 ```
 
 ## 7. GAS連携 MyGPT（HTML → Googleスライド変換）
-GAS向けの MyGPT 設定例は README 下部の表を参照してください。`slides.json` をそのままGASに読み込ませ、Google Slides へ描画するワークフローを想定しています。
+`slides.json` をそのまま Apps Script に読み込ませ、Google Slides へ描画するワークフローを想定しています。MyGPT 側での推奨設定は次の通りです。
+
+| 項目 | 設定例 |
+| --- | --- |
+| 名前 | `Dual Slide → Google Slides Builder` |
+| 説明 | `dual_style/base から生成された HTML/JSON を解析し、Apps Script で Google スライドへ変換するエンジニアとして振る舞います。` |
+| 指示 | ```md
+
+あなたは Google Apps Script を用いて HTML スライドを Google スライドに変換するエンジニアです。以下の手順で回答してください。
+
+1. 利用者が `flat_package/base.html`、`flat_package/slides.json`（または `public/slide_template/dual_style_slide_template.html` ＋ `slides.json`）を添付しているか確認し、不足があれば依頼する。
+2. 添付HTML/JSONを解析し、必要なレイアウト（テキストボックス、図形、画像）を箇条書きで計画する。
+3. Apps Script を提示する際は、設定部（Slide IDやDriveパス）、データロード部（JSON取得）、描画部（スライド生成）を関数で分割する。
+4. `SlidesApp` もしくは Advanced Slides API のどちらを使うか明記し、data-ai-field 名とGoogleスライド上の要素をコメントで紐付ける。
+5. 実行手順（GoogleスライドIDの設定、権限承認、再実行方法）とデバッグポイントを最後にまとめる。
+```
+
+| ナレッジ | `flat_package/base.html`, `flat_package/slides.json`, `public/slide_template/dual_style_slide_template.html`, `public/slide_template/slides.json`, `README.md` を登録すると変換元の構造が参照しやすくなります。 |
 
 ## 8. 参考ワークフロー (mermaid)
 ```mermaid
 flowchart TD
-  A[テーマ/ヒアリングメモを MyGPT に入力] --> B[MyGPT が既存レイアウトで足りるか判定]
-  B -- 足りる --> C[MyGPT が JSON を生成<br/>slides.json を更新]
-  B -- 追加レイアウトが必要 --> D[MyGPT が fragments/assets を生成<br/>HTML・CSS・JS を出力]
-  D --> C
-  C --> E[import-package.mjs で一括適用]
-  E --> F{プレビュー結果は期待通り?}
-  F -- いいえ --> B
-  F -- はい --> G[SVG出力 or GASへ連携]
+  A[テーマ/ヒアリングメモを MyGPT に入力] --> B[MyGPT が制作モードを判定]
+  B -- baseシェルが基本 --> C[base.slides.json + base_fragments + base_assets を生成]
+  B -- 参考テンプレ活用が望ましい場合 --> D[JSON と fragments/assets を生成<br/>dual_style の意匠を必要箇所のみ参照]
+  C --> E[import-package.mjs で適用<br/>base.html]
+  D --> F[import-package.mjs で適用<br/>dual_style_slide_template.html\n必要な部分のみ参考適用]
+  E --> G[ブラウザでプレビュー]
+  F --> G
+  G --> H{修正が必要?}
+  H -- はい --> B
+  H -- いいえ --> I[SVG出力 / GAS連携 / 本番反映]
 ```
 
 ## 9. テーマ指定 → 一括生成ワークフロー
@@ -98,25 +134,32 @@ flowchart TD
 ### 9.1 MyGPTへの統合プロンプト指示例
 Instructions の末尾に次のルールを追記すると、MyGPTがファイル単位で出力してくれます。
 
-```
 与えられたテーマ/ターゲット/スライド構成を踏まえ、以下のコードブロックをこの順に出力してください。
 
-1. ```file=public/slide_template/slides.json
+1. slides.json 全文:
+   ````text
+   ```file=public/slide_template/slides.json
    { JSON全文 }
    ```
-2. 差し替えるスライドごとに
+   ````
+2. 差し替える各スライドの HTML:
+   ````text
    ```file=public/slide_template/fragments/<slide-id>.html
    <div class="slide-content">...</div>
    ```
-3. 追加CSSが必要であれば
+   ````
+3. 追加CSSがあれば:
+   ````text
    ```file=public/slide_template/assets/<name>.css
    /* CSS */
    ```
-4. 追加JSが必要であれば
+   ````
+4. 追加JSがあれば:
+   ````text
    ```file=public/slide_template/assets/<name>.js
    // JS
    ```
-```
+   ````
 
 ### 9.2 取り込みコマンド
 MyGPTの応答を `packages/latest.txt` に保存し、プロジェクトルートで実行します。
