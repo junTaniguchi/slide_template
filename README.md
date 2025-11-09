@@ -40,6 +40,7 @@
 5. プロンプトBで新しい data-ai-field を追加した場合は、プロンプトAの出力にも同じキーを含めるよう利用者へ注意喚起する。
 6. 生成後は public/slide_template/slides.json への保存、window.SLIDE_DATA の埋め込み、SVG出力ボタンの活用など適用手順を提案する。
 7. slides.json で `"theme_variant"` を指定すると華美(`"vibrant"`)／シンプル(`"minimal"`)の配色を切り替えられることを案内し、用途に応じて値をセットするよう促す。
+8. プロンプトBで生成した HTML は `fragments` オブジェクト（例: `"overall-wrap": "fragments/sample_closing.html"`）として slides.json へ登録すれば自動で読み込まれる、とガイドし、HTML編集ではなくファイル配置で差し替えられる運用を示す。
 
 JSONフィールド定義（data-ai-field ごとの役割）:
   共通ルール:
@@ -219,6 +220,20 @@ JSONフィールド定義（data-ai-field ごとの役割）:
   }
   ```
 - JSONが適用されると `<body>` に `theme-minimal` などのクラス、`<html>` に `data-theme="minimal"` が自動付与されるので、必要に応じてCSSでテーマ別スタイルを拡張してください。
+
+### レイアウト差し替えを HTML ファイルで行う（プロンプトB連携）
+- `slides.json` へ `fragments` オブジェクトを追加すると、任意のスライドIDに対して外部HTMLを自動で読み込み、`div.slide-content` を置き換えられます。
+- 値は `"<slide-id>": "relative/path/to/file.html"` の形式。例:
+  ```json
+  {
+    "fragments": {
+      "overall-wrap": "fragments/sample_closing.html"
+    }
+  }
+  ```
+- HTMLは `<div class="slide-content">…</div>` を丸ごと含んでいても、内部要素のみでもOK。`data-ai-field` を付与しておけば JSON 差し替えがそのまま効きます。
+- 読み込みは fetch で行うため、`dual_style_slide_template.html` と同一オリジンに配置してください。Finder/Explorer などの `file://` 表示時はローカルブラウザの制約で fetch できない場合があるため、簡易サーバー（`npx serve public/slide_template` など）を使うと確実です。
+- サンプルとして `public/slide_template/fragments/sample_closing.html` を同梱しました。プロンプトBから受け取った HTML をここに差し替える、またはファイルを増やして `fragments` に追加する運用を想定しています。
 
 ### ワークフローの全体像
 ```mermaid

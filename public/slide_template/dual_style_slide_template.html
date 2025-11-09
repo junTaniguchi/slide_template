@@ -1082,6 +1082,7 @@
         const slides = Array.from(document.querySelectorAll("section.slide"));
         const svgButtons = Array.from(document.querySelectorAll(".svg-copy"));
         const svgControls = [];
+        const fragmentCache = new Map();
 
         const applyThemeVariant = (variant) => {
           const root = document.documentElement;
@@ -1096,6 +1097,90 @@
             body.classList.add(`theme-${normalized}`);
           } else {
             delete root.dataset.theme;
+          }
+        };
+
+        const getSlideContentContainer = (slide) => {
+          const viewport = slide.querySelector(":scope > .slide-viewport");
+          if (viewport) {
+            return viewport.querySelector(":scope > .slide-content");
+          }
+          return slide.querySelector(":scope > .slide-content");
+        };
+
+        const replaceSlideContent = (slide, html) => {
+          if (!slide) {
+            return;
+          }
+          const template = document.createElement("template");
+          template.innerHTML = html.trim();
+          const templateSlideContent = template.content.querySelector(
+            ".slide-content"
+          );
+          const targetContainer = getSlideContentContainer(slide);
+          if (templateSlideContent) {
+            if (targetContainer) {
+              targetContainer.replaceWith(templateSlideContent);
+            } else {
+              const viewport = slide.querySelector(":scope > .slide-viewport");
+              if (viewport) {
+                viewport.appendChild(templateSlideContent);
+              } else {
+                slide.appendChild(templateSlideContent);
+              }
+            }
+          } else if (targetContainer) {
+            targetContainer.innerHTML = html;
+          } else {
+            const wrapper = document.createElement("div");
+            wrapper.className = "slide-content";
+            wrapper.innerHTML = html;
+            const viewport = slide.querySelector(":scope > .slide-viewport");
+            if (viewport) {
+              viewport.appendChild(wrapper);
+            } else {
+              slide.appendChild(wrapper);
+            }
+          }
+        };
+
+        const loadFragmentForSlide = async (slideId, url) => {
+          if (!slideId || !url) {
+            return;
+          }
+          const slide = document.querySelector(
+            `section.slide[data-slide-id="${slideId}"]`
+          );
+          if (!slide) {
+            return;
+          }
+          const cacheKey = `${slideId}::${url}`;
+          if (fragmentCache.has(cacheKey)) {
+            replaceSlideContent(slide, fragmentCache.get(cacheKey));
+            return;
+          }
+          try {
+            const response = await fetch(url);
+            if (!response.ok) {
+              throw new Error(`Failed to fetch fragment ${url}: ${response.status}`);
+            }
+            const html = await response.text();
+            fragmentCache.set(cacheKey, html);
+            replaceSlideContent(slide, html);
+          } catch (error) {
+            console.warn("Fragment load failed", slideId, url, error);
+          }
+        };
+
+        const loadFragmentsFromSpec = async (spec) => {
+          if (!spec || typeof spec !== "object") {
+            return;
+          }
+          const tasks = Object.entries(spec)
+            .filter(([, value]) => typeof value === "string" && value.trim())
+            .map(([slideId, url]) => loadFragmentForSlide(slideId, url.trim()));
+          if (tasks.length) {
+            await Promise.all(tasks);
           }
         };
 
@@ -1312,15 +1397,12 @@
           svgControls.push({ button, menu });
         });
 
-        const applyDataPayload = (payload) => {
-          if (!payload || typeof payload !== "object") {
-            return;
-          }
+        const applyFieldValues = (payload) => {
           if (Object.prototype.hasOwnProperty.call(payload, "theme_variant")) {
             applyThemeVariant(payload.theme_variant);
           }
           Object.entries(payload).forEach(([field, value]) => {
-            if (field === "theme_variant") {
+            if (field === "theme_variant" || field === "fragments") {
               return;
             }
             const nodes = document.querySelectorAll(
@@ -1348,6 +1430,25 @@
               }
             });
           });
+        };
+
+        const applyDataPayload = (payload) => {
+          if (!payload || typeof payload !== "object") {
+            return;
+          }
+          const fragmentSpec = payload.fragments;
+          if (fragmentSpec && typeof fragmentSpec === "object") {
+            loadFragmentsFromSpec(fragmentSpec)
+              .then(() => {
+                applyFieldValues(payload);
+              })
+              .catch((error) => {
+                console.warn("Fragment application failed", error);
+                applyFieldValues(payload);
+              });
+          } else {
+            applyFieldValues(payload);
+          }
         };
 
         const applyInlineData = () => {
