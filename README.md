@@ -6,7 +6,7 @@
 | ファイル | 説明 |
 | --- | --- |
 | `flat_package/base.html` | スライド容器・タイトル/リード表示・SVGダウンロードボタンのみを備えたシェル。`data-slide-data="slides.json"` をデフォルト参照。 |
-| `flat_package/slides.json` | `assets.styles/scripts` と `slides` 配列（`id`/`title`/`lead`/`fragment`）のみを定義。テーマごとに MyGPT から丸ごと生成する想定。 |
+| `flat_package/slides.json.sample` | `assets.styles/scripts` と `slides` 配列（`id`/`title`/`lead`/`fragment`）のみを定義。テーマごとに MyGPT から丸ごと生成する想定。 |
 | `flat_package/fragment_*.html`, `flat_package/style_*.css`, `flat_package/script_*.js` | ChatGPT などが生成したコンテンツ/スタイル/動作を格納。すべて同一フォルダに置くことで初心者でも管理しやすくしています。 |
 | `flat_package/fragment_intro.html` | サンプルの差し替え用HTML。`slides.json` で `"fragment": "fragment_intro.html"` のように参照。 |
 | `flat_package/style_extra.css` | サンプルの追加CSS。配色や余白調整を記述。`slides.json.assets.styles` に列挙。 |
@@ -14,8 +14,8 @@
 | `flat_package/script_extra.js` | サンプルの追加JS。簡易的なインタラクションを記述。`slides.json.assets.scripts` に列挙。 |
 
 **使い方の流れ**
-1. テーマや要件を MyGPT に渡し、`flat_package/slides.json` の中身・`flat_package/fragment*.html`・`flat_package/style*.css|script*.js` をまとめて生成させる（9章の統合プロンプト参照）。
-2. 出力は Windows の場合 `powershell -ExecutionPolicy Bypass -File scripts/import-package.ps1 packages\latest.txt` で配置。`flat_package/slides.json` を上書きし、必要な fragment/asset ファイルが作成される。
+1. テーマや要件を MyGPT に渡し、`flat_package/slides.json.sample` の中身・`flat_package/fragment*.html`・`flat_package/style*.css|script*.js` をまとめて生成させる（9章の統合プロンプト参照）。
+2. 出力は Windows の場合 `powershell -ExecutionPolicy Bypass -File scripts/import-package.ps1 packages\latest.txt` で配置。`flat_package/slides.json.sample` を上書きし、必要な fragment/asset ファイルが作成される。
 3. `flat_package/base.html` をブラウザで開くと、最小シェルに読み込まれた HTML/CSS/JS がそのまま描画される。テンプレ互換は気にせず品質優先で制作したい場合はこちらを利用してください。
 
 以降の章では、従来の `public/slide_template/dual_style_slide_template.html` を「参考レイアウト／過去資産」として扱うフローをまとめています。最終成果物は base.html で自由に構成し、必要に応じて dual_style のスニペットを持ち込む想定です。
@@ -78,7 +78,7 @@
 | 名前 | `Dual Style Slide Co-Pilot` |
 | 説明 | `data-ai-field を鍵に JSON 差し替え・HTML断片・追加CSS/JSを自動適用するテンプレートです` |
 | 指示 | 以下のマークダウンを MyGPT の Instructions に設定 |
-| ナレッジ | `flat_package/base.html`、`flat_package/slides.json`、`flat_package/fragment_*.html` のサンプル、`flat_package/style_extra.css`、`flat_package/script_extra.js`、`public/slide_template/dual_style_slide_template.html`（参考レイアウト）、`public/slide_template/slides.json`（代表例）、`README.md` を Knowledge に登録すると、MyGPT が呼び出し元の構造や期待するフィールドを把握しやすくなります。 |
+| ナレッジ | `flat_package/base.html`、`flat_package/slides.json.sample`、`flat_package/fragment_intro.html`（サンプル）、`flat_package/style_extra.css`、`flat_package/script_extra.js`、`public/slide_template/dual_style_slide_template.html`（参考レイアウト）、`public/slide_template/slides.json.sample`（代表例）、`README.md` を Knowledge に登録すると、MyGPT が呼び出し元の構造や期待するフィールドを把握しやすくなります。 |
 
 ```md
 あなたは Dual Style Slide Template の共同制作者です。以下の手順で回答してください。
@@ -101,14 +101,14 @@
 | --- | --- |
 | 名前 | `Dual Slide → Google Slides Builder` |
 | 説明 | `flat_package や dual_style で生成された HTML/JSON を解析し、Apps Script で Google スライドへ変換するエンジニアとして振る舞います。` |
-| ナレッジ | `flat_package/base.html`, `flat_package/slides.json`, `public/slide_template/dual_style_slide_template.html`, `public/slide_template/slides.json`, `README.md` を登録すると変換元の構造が参照しやすくなります。 |
+| ナレッジ | `flat_package/base.html`, `flat_package/slides.json.sample`, `public/slide_template/dual_style_slide_template.html`, `public/slide_template/slides.json`, `README.md` を登録すると変換元の構造が参照しやすくなります。 |
 
 **Instructions（MyGPTへ貼り付け）**
 
 ```md
 あなたは Google Apps Script を用いて HTML スライドを Google スライドに変換するエンジニアです。以下の手順で回答してください。
 
-1. 利用者が `flat_package/base.html`、`flat_package/slides.json`（または `public/slide_template/dual_style_slide_template.html` ＋ `slides.json`）を添付しているか確認し、不足があれば依頼する。
+1. 利用者が `flat_package/base.html`、`flat_package/slides.json.sample`（または `public/slide_template/dual_style_slide_template.html` ＋ `slides.json`）を添付しているか確認し、不足があれば依頼する。
 2. 添付HTML/JSONを解析し、必要なレイアウト（テキストボックス、図形、画像）を箇条書きで計画する。
 3. Apps Script を提示する際は、設定部（Slide IDやDriveパス）、データロード部（JSON取得）、描画部（スライド生成）を関数で分割する。
 4. `SlidesApp` もしくは Advanced Slides API のどちらを使うか明記し、data-ai-field 名とGoogleスライド上の要素をコメントで紐付ける。

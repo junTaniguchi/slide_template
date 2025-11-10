@@ -1,0 +1,14 @@
+{
+  "assets": {
+    "styles": ["style_extra.css"],
+    "scripts": ["script_extra.js"]
+  },
+  "slides": [
+    {
+      "id": "intro",
+      "title": "テーマとゴール",
+      "lead": "ここにリード文が入ります。",
+      "fragment": "fragment_intro.html"
+    }
+  ]
+}
