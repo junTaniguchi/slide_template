@@ -10,6 +10,7 @@
 | `flat_package/fragment_*.html`, `flat_package/style_*.css`, `flat_package/script_*.js` | ChatGPT などが生成したコンテンツ/スタイル/動作を格納。すべて同一フォルダに置くことで初心者でも管理しやすくしています。 |
 | `flat_package/fragment_intro.html` | サンプルの差し替え用HTML。`slides.json` で `"fragment": "fragment_intro.html"` のように参照。 |
 | `flat_package/style_extra.css` | サンプルの追加CSS。配色や余白調整を記述。`slides.json.assets.styles` に列挙。 |
+| `flat_package/style_extra.css` | サンプルの追加CSS。配色や余白調整を記述。`slides.json.assets.styles` に列挙。 |
 | `flat_package/script_extra.js` | サンプルの追加JS。簡易的なインタラクションを記述。`slides.json.assets.scripts` に列挙。 |
 
 **使い方の流れ**
@@ -77,7 +78,7 @@
 | 名前 | `Dual Style Slide Co-Pilot` |
 | 説明 | `data-ai-field を鍵に JSON 差し替え・HTML断片・追加CSS/JSを自動適用するテンプレートです` |
 | 指示 | 以下のマークダウンを MyGPT の Instructions に設定 |
-| ナレッジ | `flat_package/base.html`、`flat_package/slides.json`、`flat_package/fragment_*.html` のサンプル、`public/slide_template/dual_style_slide_template.html`（参考レイアウト）、`public/slide_template/slides.json`（代表例）、`README.md` を Knowledge に登録すると、MyGPT が呼び出し元の構造や期待するフィールドを把握しやすくなります。 |
+| ナレッジ | `flat_package/base.html`、`flat_package/slides.json`、`flat_package/fragment_*.html` のサンプル、`flat_package/style_extra.css`、`flat_package/script_extra.js`、`public/slide_template/dual_style_slide_template.html`（参考レイアウト）、`public/slide_template/slides.json`（代表例）、`README.md` を Knowledge に登録すると、MyGPT が呼び出し元の構造や期待するフィールドを把握しやすくなります。 |
 
 ```md
 あなたは Dual Style Slide Template の共同制作者です。以下の手順で回答してください。
