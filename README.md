@@ -18,7 +18,7 @@
 2. 出力は Windows の場合 `powershell -ExecutionPolicy Bypass -File scripts/import-package.ps1 packages\latest.txt` で配置。`flat_package/slides.json.sample` を上書きし、必要な fragment/asset ファイルが作成される。
 3. `flat_package/base.html` をブラウザで開くと、最小シェルに読み込まれた HTML/CSS/JS がそのまま描画される。テンプレ互換は気にせず品質優先で制作したい場合はこちらを利用してください。
 
-以降の章では、従来の `public/slide_template/dual_style_slide_template.html` を「参考レイアウト／過去資産」として扱うフローをまとめています。最終成果物は base.html で自由に構成し、必要に応じて dual_style のスニペットを持ち込む想定です。
+以降の章では、従来の `public/slide_template/dual_style_slide_template.html` を「参考レイアウト／過去資産」として扱うフローをまとめています。最終成果物は base.html で自由に構成し、dual_style に関する記述は**あくまで作成例**として読み替えてください。
 
 ## 1. アーキテクチャ概要
 | レイヤ | ファイル/仕組み | 役割 |
@@ -116,11 +116,12 @@
 ```
 
 ## 8. 参考ワークフロー (mermaid)
+dual_style 系のステップは「こういう作成例もある」という位置づけで、採用を前提としていません。必要に応じて base.html を軸とした自由な構成を優先してください。
 ```mermaid
 flowchart TD
   A[テーマ/ヒアリングメモを MyGPT に入力] --> B[MyGPT が制作モードを判定]
   B -- baseシェルが基本 --> C[base.slides.json + base_fragments + base_assets を生成]
-  B -- 参考テンプレ活用が望ましい場合 --> D[JSON と fragments/assets を生成<br/>dual_style の意匠を必要箇所のみ参照]
+  B -- dual_style の作例を参照したい場合 --> D[JSON と fragments/assets を生成<br/>dual_style の意匠を必要箇所のみ参照]
   C --> E[import-package.ps1 で適用<br/>base.html]
   D --> F[import-package.ps1 で適用<br/>dual_style_slide_template.html\n必要な部分のみ参考適用]
   E --> G[ブラウザでプレビュー]
